@@ -1,37 +1,49 @@
 part of 'zo_animated_border.dart';
 
+// ignore: must_be_immutable
 class ZoAnimatedGradientBorder extends StatefulWidget {
-  ZoAnimatedGradientBorder({
-    super.key,
-    this.radius = 10,
-    this.blurRadius = 10,
-    this.spreadRadius = 1,
-    this.topColor = Colors.red,
-    this.bottomColor = Colors.blue,
-    this.glowOpacity = 0.3,
-    this.duration = const Duration(milliseconds: 600),
-    this.thickness = 3,
-    this.child,
-  });
+  ZoAnimatedGradientBorder(
+      {super.key,
+      required this.width,
+      required this.height,
+      this.borderRadius = 30,
+      this.blurRadius = 30,
+      this.spreadRadius = 1,
+      this.glowOpacity = 0.3,
+      this.duration = const Duration(milliseconds: 600),
+      this.borderThickness = 1,
+      this.child,
+      required this.gradientColor,
+      this.shouldAnimate = true});
 
   /// Radius of the glow border
-  final double radius;
+  final double borderRadius;
 
+  /// How much the shadow should be blurred
   final double blurRadius;
 
+  /// How much the shadow should spread
   final double spreadRadius;
 
-  final Color topColor;
-
-  final Color bottomColor;
-
+  /// How much the shadow should glow
   final double glowOpacity;
 
+  /// set the animation duration defaults to  600 milliseconds
   final Duration duration;
 
-  final double thickness;
+  /// border Thickness
+  final double borderThickness;
+
+  final double width;
+
+  final double height;
 
   final Widget? child;
+
+  /// should animate the border
+  final bool shouldAnimate;
+
+  List<Color> gradientColor;
 
   @override
   State<ZoAnimatedGradientBorder> createState() =>
@@ -43,19 +55,32 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
   AnimationController? _controller;
   Animation<Alignment>? _topAlignmentAnimation;
   Animation<Alignment>? _bottomAlignmentAnimation;
+  Color topColor = Colors.blue;
+
+  Color bottomColor = Colors.red;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    if (widget.gradientColor.isEmpty) {
+      widget.gradientColor = [Colors.red, Colors.blue];
+    }
+
     _controller = AnimationController(vsync: this, duration: widget.duration);
+
     _initTopAnimation();
     _initBottomAnimation();
+    if (widget.shouldAnimate) {
+      _controller?.repeat();
+    }
 
-    _controller?.repeat();
+    topColor = widget.gradientColor.first;
+    bottomColor = widget.gradientColor.last;
   }
 
+  /// Sets the alignment animation for bottom color (Last color in the list)
   void _initBottomAnimation() {
     _bottomAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem(
@@ -77,6 +102,7 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     ]).animate(_controller!);
   }
 
+  /// Sets the alignment animation for top color (first color in the list)
   void _initTopAnimation() {
     _topAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem(
@@ -99,77 +125,95 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Stack(
-        children: [
-          widget.child != null
-              ? ClipRRect(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(widget.radius)),
-                  child: widget.child,
-                )
-              : SizedBox.shrink(),
-          ClipPath(
-            clipper: _BorderCutClipper(
-                radius: widget.radius, thickness: widget.thickness),
-            child: AnimatedBuilder(
-                animation: _controller!,
-                builder: (context, _) {
-                  return Stack(
-                    children: [
-                      Container(
-                        width: constraints.maxWidth,
-                        height: constraints.maxHeight,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: widget.topColor
-                                      .withOpacity(widget.glowOpacity),
-                                  offset: Offset.zero,
-                                  blurRadius: widget.blurRadius,
-                                  spreadRadius: widget.spreadRadius)
-                            ]),
-                      ),
-                      Align(
-                        alignment: _bottomAlignmentAnimation!.value,
-                        child: Container(
-                          width: constraints.maxWidth * 0.95,
-                          height: constraints.maxHeight * 0.95,
+    return SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Stack(
+          children: [
+            widget.child != null
+                ? ClipRRect(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(widget.borderRadius)),
+                    child: widget.child,
+                  )
+                : const SizedBox.shrink(),
+            ClipPath(
+              clipper: _BorderCutClipper(
+                  radius: widget.borderRadius,
+                  thickness: widget.borderThickness),
+              child: AnimatedBuilder(
+                  animation: _controller!,
+                  builder: (context, _) {
+                    return Stack(
+                      children: [
+                        /// Creates the shadow with the first color in list
+                        Container(
+                          width: constraints.maxWidth,
+                          height: constraints.maxHeight,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(widget.radius)),
+                              borderRadius:
+                                  BorderRadius.circular(widget.borderRadius),
                               boxShadow: [
                                 BoxShadow(
-                                    color: widget.bottomColor
+                                    color: topColor
                                         .withOpacity(widget.glowOpacity),
                                     offset: Offset.zero,
                                     blurRadius: widget.blurRadius,
                                     spreadRadius: widget.spreadRadius)
                               ]),
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(widget.radius)),
-                            gradient: LinearGradient(
-                                begin: _topAlignmentAnimation!.value,
-                                end: _bottomAlignmentAnimation!.value,
-                                colors: [widget.topColor, widget.bottomColor])),
-                      ),
-                    ],
-                  );
-                }),
-          ),
-        ],
-      );
-    });
+
+                        /// Creates the shadow with the last color in list
+                        Align(
+                          alignment: _bottomAlignmentAnimation!.value,
+                          child: Container(
+                            width: constraints.maxWidth * 0.95,
+                            height: constraints.maxHeight * 0.95,
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(widget.borderRadius)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: bottomColor
+                                          .withOpacity(widget.glowOpacity),
+                                      offset: Offset.zero,
+                                      blurRadius: widget.blurRadius,
+                                      spreadRadius: widget.spreadRadius)
+                                ]),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(widget.borderRadius)),
+                              gradient: LinearGradient(
+                                  begin: _topAlignmentAnimation!.value,
+                                  end: _bottomAlignmentAnimation!.value,
+                                  colors: widget.gradientColor)),
+                        ),
+                      ],
+                    );
+                  }),
+            ),
+          ],
+        );
+      }),
+    );
   }
 }
 
+/// Responsible for clipping the widget and creating the border style
 class _BorderCutClipper extends CustomClipper<Path> {
   double thickness;
   double radius;
@@ -197,7 +241,6 @@ class _BorderCutClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(_BorderCutClipper oldClipper) {
-    // TODO: implement shouldReclip
     return oldClipper.radius != radius || oldClipper.thickness != thickness;
   }
 }

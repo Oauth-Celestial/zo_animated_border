@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: "Animated Border"),
     );
   }
 }
@@ -108,29 +108,104 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: 100,
-              height: 50,
-              child: ZoAnimatedGradientBorder(
-                radius: 30,
-                child: Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.white,
-                    child: Text(
-                      "Color",
-                      style: TextStyle(color: Colors.black),
-                    )),
+              height: 10,
+              width: double.infinity,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ZoAnimatedGradientBorder(
+                  width: 100,
+                  height: 100,
+                  borderRadius: 100,
+                  borderThickness: 4,
+                  gradientColor: [Colors.yellow, Colors.orange],
+                  duration: Duration(seconds: 4),
+                  child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.black,
+                      child: Text(
+                        "Color",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+                ZoAnimatedGradientBorder(
+                  width: 100,
+                  height: 100,
+                  borderRadius: 100,
+                  borderThickness: 4,
+                  gradientColor: [Colors.red, Colors.blue],
+                  duration: Duration(seconds: 4),
+                  child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.black,
+                      child: Text(
+                        "Color",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+                ZoAnimatedGradientBorder(
+                  width: 100,
+                  height: 100,
+                  borderRadius: 100,
+                  borderThickness: 4,
+                  gradientColor: [Colors.orange, Colors.white, Colors.green],
+                  duration: Duration(seconds: 4),
+                  child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.black,
+                      child: Text(
+                        "Color",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ZoAnimatedGradientBorder(
+                    width: 150,
+                    height: 45,
+                    borderThickness: 2,
+                    shouldAnimate: false,
+                    gradientColor: [Colors.red, Colors.blue],
+                    duration: Duration(seconds: 4),
+                    child: Container(
+                        alignment: Alignment.center,
+                        color: Colors.black,
+                        child: Text(
+                          "Click Me",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
+                  ZoAnimatedGradientBorder(
+                    width: 150,
+                    height: 45,
+                    borderThickness: 3,
+                    shouldAnimate: false,
+                    gradientColor: [Colors.orange, Colors.white, Colors.green],
+                    duration: Duration(seconds: 4),
+                    child: Container(
+                        alignment: Alignment.center,
+                        color: Colors.white,
+                        child: Text(
+                          "Click Me",
+                          style: TextStyle(color: Colors.black),
+                        )),
+                  ),
+                ],
               ),
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

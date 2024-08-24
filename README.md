@@ -1,39 +1,49 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+[![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
+[![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+# zo_animated_border
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+![SimulatorScreenRecording-iPhone15-2024-08-24at22 13 17-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b662b146-addf-46f0-b003-4a51249e7193)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+A package that gives us a modern way to show gradient border and animate it
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+First, add zo_animated_border as a dependency in your pubspec.yaml file
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  zo_animated_border : ^[version]
 ```
 
-## Additional information
+## Import the package
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:zo_animated_border/zo_animated_border.dart';
+```
+
+# Usage
+
+```dart
+ZoAnimatedGradientBorder(
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderThickness: 4,
+    gradientColor: [Colors.yellow,Colors.orange],
+    duration: Duration(seconds: 4),
+    child: Container(
+            alignment: Alignment.center,
+            color: Colors.black,
+            child: Text(
+                    "Color",
+                    style:TextStyle(color:Colors.black),
+                  ),
+               ),
+            )
+```
+
+Feel free to post a feature requests or report a bug [here](https://github.com/Oauth-Celestial/zo_animated_border/issues).
