@@ -1,8 +1,8 @@
+# zo_animated_border
+
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
-
-# zo_animated_border
 
 ![SimulatorScreenRecording-iPhone15-2024-08-24at22 13 17-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b662b146-addf-46f0-b003-4a51249e7193)
 
@@ -44,6 +44,28 @@ ZoAnimatedGradientBorder(
                   ),
                ),
             )
+```
+
+For MonoChrome border
+
+```dart
+ZoMonoCromeBorder(
+  trackBorderColor: Colors.white,
+  cornerRadius: 50.0,
+  borderStyle: ZoMonoCromeBorderStyle.mirror,
+  borderWidth: 5.5,
+  child: Container(
+          width: 100,
+          height: 100,
+          alignment: Alignment.center,
+          child: Text("Mirror", 
+          style:  TextStyle(color: Colors.white)),
+          decoration: BoxDecoration(
+          color: Colors.red,
+          shape: BoxShape.circle,
+           ),
+        ),
+      ),
 ```
 
 Feel free to post a feature requests or report a bug [here](https://github.com/Oauth-Celestial/zo_animated_border/issues).

@@ -1,6 +1,6 @@
 name: zo_animated_border
 description: "A package that gives us a modern way to show gradient border and animate it"
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/Oauth-Celestial/zo_animated_border
 
 environment:
