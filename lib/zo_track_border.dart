@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+import 'dart:math' as math;
+
+import 'package:zo_animated_border/clipper/track_painter.dart';
+
+enum ZoMonoCromeBorderStyle { stroke, repeated, mirror }
+
+extension GetBorderStyle on ZoMonoCromeBorderStyle {
+  TileMode get value {
+    switch (this) {
+      case ZoMonoCromeBorderStyle.stroke:
+        // TODO: Handle this case.
+        return TileMode.clamp;
+      case ZoMonoCromeBorderStyle.repeated:
+        // TODO: Handle this case.
+        return TileMode.repeated;
+      case ZoMonoCromeBorderStyle.mirror:
+        // TODO: Handle this case.
+        return TileMode.mirror;
+    }
+  }
+}
+
+class ZoMonoCromeBorder extends StatefulWidget {
+  final Widget child;
+
+  final ValueChanged<AnimationController>? controller;
+
+  final Duration duration;
+
+  final double cornerRadius;
+
+  final double borderWidth;
+
+  final Color trackBorderColor;
+
+  final EdgeInsets padding;
+
+  final ZoMonoCromeBorderStyle borderStyle;
+
+  const ZoMonoCromeBorder({
+    required this.child,
+    this.controller,
+    this.duration = const Duration(seconds: 4),
+    this.cornerRadius = 0.0,
+    this.borderWidth = 1,
+    this.trackBorderColor = Colors.red,
+    this.padding = EdgeInsets.zero,
+    this.borderStyle = ZoMonoCromeBorderStyle.stroke,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _ZoMonoCromeBorderState createState() => _ZoMonoCromeBorderState();
+}
+
+class _ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+
+  @override
+  void didUpdateWidget(ZoMonoCromeBorder oldWidget) {
+    if (oldWidget != oldWidget) {
+      _controller?.forward(from: 0.0);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.duration,
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.reverse) {}
+      });
+
+    _controller?.repeat();
+
+    if (_controller != null) {
+      widget.controller?.call(_controller!);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: TrackPainter(
+          animation: _controller!,
+          cornerRadius: widget.cornerRadius,
+          trackWidth: widget.borderWidth,
+          trackBorderColor: widget.trackBorderColor,
+          borderStyle: widget.borderStyle),
+      child: Padding(
+        padding: widget.padding,
+        child: widget.child,
+      ),
+    );
+  }
+
+  int getRandomNumber() {
+    var random = math.Random();
+    return (random.nextInt(20) + 6);
+  }
+}

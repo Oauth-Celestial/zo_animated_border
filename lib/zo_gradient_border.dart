@@ -136,62 +136,34 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     return SizedBox(
       width: widget.width,
       height: widget.height,
-      child: LayoutBuilder(builder: (context, constraints) {
-        return Stack(
-          children: [
-            widget.child != null
-                ? ClipRRect(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(widget.borderRadius)),
-                    child: widget.child,
-                  )
-                : const SizedBox.shrink(),
-            ClipPath(
-              clipper: _BorderCutClipper(
-                  radius: widget.borderRadius,
-                  thickness: widget.borderThickness),
-              child: AnimatedBuilder(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              widget.child != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius)),
+                      child: widget.child,
+                    )
+                  : const SizedBox.shrink(),
+              ClipPath(
+                clipper: BorderCutClipper(
+                    radius: widget.borderRadius,
+                    thickness: widget.borderThickness),
+                child: AnimatedBuilder(
                   animation: _controller!,
                   builder: (context, _) {
                     return Stack(
                       children: [
                         /// Creates the shadow with the first color in list
-                        Container(
-                          width: constraints.maxWidth,
-                          height: constraints.maxHeight,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.circular(widget.borderRadius),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: topColor
-                                        .withOpacity(widget.glowOpacity),
-                                    offset: Offset.zero,
-                                    blurRadius: widget.blurRadius,
-                                    spreadRadius: widget.spreadRadius)
-                              ]),
-                        ),
+                        FirstColorWidget(widget: widget, topColor: topColor),
 
                         /// Creates the shadow with the last color in list
                         Align(
                           alignment: _bottomAlignmentAnimation!.value,
-                          child: Container(
-                            width: constraints.maxWidth * 0.95,
-                            height: constraints.maxHeight * 0.95,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(widget.borderRadius)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: bottomColor
-                                          .withOpacity(widget.glowOpacity),
-                                      offset: Offset.zero,
-                                      blurRadius: widget.blurRadius,
-                                      spreadRadius: widget.spreadRadius)
-                                ]),
-                          ),
+                          child: LastColorWidget(
+                              widget: widget, bottomColor: bottomColor),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -204,43 +176,76 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
                         ),
                       ],
                     );
-                  }),
-            ),
-          ],
-        );
-      }),
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
 
-/// Responsible for clipping the widget and creating the border style
-class _BorderCutClipper extends CustomClipper<Path> {
-  double thickness;
-  double radius;
-  _BorderCutClipper({
-    required this.thickness,
-    required this.radius,
+class LastColorWidget extends StatelessWidget {
+  const LastColorWidget({
+    super.key,
+    required this.widget,
+    required this.bottomColor,
   });
 
+  final ZoAnimatedGradientBorder widget;
+  final Color bottomColor;
+
   @override
-  Path getClip(Size size) {
-    final rect = Rect.fromLTRB(
-        -size.width, -size.width, size.width * 2, size.height * 2);
-    final double width = size.width - thickness * 2;
-    final double height = size.height - thickness * 2;
-
-    final borderPath = Path();
-    borderPath.fillType = PathFillType.evenOdd;
-    borderPath.addRRect(RRect.fromRectAndRadius(
-        Rect.fromLTWH(thickness, thickness, width, height),
-        Radius.circular(radius - thickness)));
-    borderPath.addRect(rect);
-
-    return borderPath;
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        width: constraints.maxWidth * 0.95,
+        height: constraints.maxHeight * 0.95,
+        decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius:
+                BorderRadius.all(Radius.circular(widget.borderRadius)),
+            boxShadow: [
+              BoxShadow(
+                  color: bottomColor.withValues(alpha: widget.glowOpacity),
+                  offset: Offset.zero,
+                  blurRadius: widget.blurRadius,
+                  spreadRadius: widget.spreadRadius)
+            ]),
+      );
+    });
   }
+}
+
+class FirstColorWidget extends StatelessWidget {
+  const FirstColorWidget({
+    super.key,
+    required this.widget,
+    required this.topColor,
+  });
+
+  final ZoAnimatedGradientBorder widget;
+  final Color topColor;
 
   @override
-  bool shouldReclip(_BorderCutClipper oldClipper) {
-    return oldClipper.radius != radius || oldClipper.thickness != thickness;
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        width: constraints.maxWidth,
+        height: constraints.maxHeight,
+        decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            boxShadow: [
+              BoxShadow(
+                  color: topColor.withValues(alpha: widget.glowOpacity),
+                  offset: Offset.zero,
+                  blurRadius: widget.blurRadius,
+                  spreadRadius: widget.spreadRadius)
+            ]),
+      );
+    });
   }
 }

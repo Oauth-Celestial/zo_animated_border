@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:zo_animated_border/zo_animated_border.dart';
 
 void main() {
@@ -107,10 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 10,
-              width: double.infinity,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -161,45 +158,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 60,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ZoAnimatedGradientBorder(
-                    width: 150,
-                    height: 45,
-                    borderThickness: 2,
-                    shouldAnimate: false,
-                    gradientColor: [Colors.red, Colors.blue],
-                    duration: Duration(seconds: 4),
-                    child: Container(
-                        alignment: Alignment.center,
-                        color: Colors.black,
-                        child: Text(
-                          "Click Me",
-                          style: TextStyle(color: Colors.white),
-                        )),
-                  ),
-                  ZoAnimatedGradientBorder(
-                    width: 150,
-                    height: 45,
-                    borderThickness: 3,
-                    shouldAnimate: false,
-                    gradientColor: [Colors.orange, Colors.white, Colors.green],
-                    duration: Duration(seconds: 4),
-                    child: Container(
-                        alignment: Alignment.center,
-                        color: Colors.white,
-                        child: Text(
-                          "Click Me",
-                          style: TextStyle(color: Colors.black),
-                        )),
-                  ),
-                ],
+            ZoMonoCromeBorder(
+              trackBorderColor: Colors.white,
+              cornerRadius: 50.0,
+              borderStyle: ZoMonoCromeBorderStyle.mirror,
+              borderWidth: 5.5,
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
               ),
             )
           ],
