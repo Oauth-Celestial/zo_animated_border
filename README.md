@@ -4,9 +4,7 @@
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-
-
-A package that gives us a modern way to show gradient border and animate it
+A package that provides a modern way to create gradient borders with animation in Flutter
 
 ## Getting started
 
@@ -26,6 +24,9 @@ import 'package:zo_animated_border/zo_animated_border.dart';
 ```
 
 # Usage
+
+For Gradient  border
+
 ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 
 ```dart
@@ -47,34 +48,33 @@ ZoAnimatedGradientBorder(
             )
 ```
 
+For Pulsating border
+
+![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
+
+```dart
+ZoPulsatingBorder(
+      type: ZoPulsatingBorderType.pulse,
+      borderRadius: BorderRadius.circular(100),
+      pulseColor: Colors.blue,
+      child: Container(
+        alignment: Alignment.center,
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(50)),
+            child: Text(
+                 "Radar Pulse",
+               style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+```
+
 For MonoChrome border
 
 ![mono_chrome (online-video-cutter com)](https://github.com/user-attachments/assets/d798997d-a68c-447e-90e1-5e8fc8dd56bf)
-
-```dart
-ZoMonoCromeBorder(
-  trackBorderColor: Colors.white,
-  cornerRadius: 50.0,
-  borderStyle: ZoMonoCromeBorderStyle.mirror,
-  borderWidth: 5.5,
-  child: Container(
-          width: 100,
-          height: 100,
-          alignment: Alignment.center,
-          child: Text("Mirror", 
-          style:  TextStyle(color: Colors.white)),
-          decoration: BoxDecoration(
-          color: Colors.red,
-          shape: BoxShape.circle,
-           ),
-        ),
-      ),
-```
-
-
-For MonoChrome border
-
-![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
 
 ```dart
 ZoMonoCromeBorder(
