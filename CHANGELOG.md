@@ -1,7 +1,12 @@
+## 0.0.3
+
+* Added Pulsating border.
+* Resolved bug for auto sizing for circular shape.
+
 ## 0.0.2
 
-* Added animated  monochrome border support
-* Integrated latest flutter changes
+* Added animated  monochrome border support.
+* Integrated latest flutter changes.
 
 ## 0.0.1
 

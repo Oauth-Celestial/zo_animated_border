@@ -5,7 +5,8 @@ enum ZoPulsatingBorderType { pulse, radarPulse }
 
 class ZoPulsatingBorder extends StatefulWidget {
   ZoPulsatingBorder(
-      {required this.child,
+      {super.key,
+      required this.child,
       this.layerCount = 2,
       this.borderRadius,
       this.pulseColor = Colors.black,
@@ -19,7 +20,7 @@ class ZoPulsatingBorder extends StatefulWidget {
   final Color pulseColor;
   final Duration animationDuration;
   final Curve animationCurve;
-  ZoPulsatingBorderType? type;
+  final ZoPulsatingBorderType? type;
   @override
   ZoPulsatingBorderState createState() => ZoPulsatingBorderState();
 }

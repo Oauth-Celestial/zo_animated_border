@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class SizeProviderWidget extends StatefulWidget {
   final Widget Function(BuildContext context, Size size) builder;
 
-  const SizeProviderWidget({Key? key, required this.builder}) : super(key: key);
+  const SizeProviderWidget({super.key, required this.builder});
 
   @override
-  _SizeProviderWidgetState createState() => _SizeProviderWidgetState();
+  SizeProviderWidgetState createState() => SizeProviderWidgetState();
 }
 
-class _SizeProviderWidgetState extends State<SizeProviderWidget> {
+class SizeProviderWidgetState extends State<SizeProviderWidget> {
   final GlobalKey _key = GlobalKey();
   Size _size = Size.zero;
 
@@ -22,11 +22,10 @@ class _SizeProviderWidgetState extends State<SizeProviderWidget> {
   void _updateSize() {
     final RenderBox renderBox =
         _key.currentContext?.findRenderObject() as RenderBox;
-    if (renderBox != null) {
-      setState(() {
-        _size = renderBox.size;
-      });
-    }
+
+    setState(() {
+      _size = renderBox.size;
+    });
   }
 
   @override
