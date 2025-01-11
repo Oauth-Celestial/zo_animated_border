@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:zo_animated_border/zo_animated_border.dart';
+import 'package:zo_animated_border/zo_pulsating_border.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -108,169 +112,239 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ZoAnimatedGradientBorder(
-                  width: 100,
-                  height: 100,
-                  borderRadius: 100,
-                  borderThickness: 4,
-                  gradientColor: [Colors.yellow, Colors.orange],
-                  duration: Duration(seconds: 4),
-                  child: Container(
-                      alignment: Alignment.center,
-                      color: Colors.black,
-                      child: Text(
-                        "Color",
-                        style: TextStyle(color: Colors.black),
-                      )),
-                ),
-                ZoAnimatedGradientBorder(
-                  width: 100,
-                  height: 100,
-                  borderRadius: 100,
-                  borderThickness: 4,
-                  gradientColor: [Colors.red, Colors.blue],
-                  duration: Duration(seconds: 4),
-                  child: Container(
-                      alignment: Alignment.center,
-                      color: Colors.black,
-                      child: Text(
-                        "Color",
-                        style: TextStyle(color: Colors.black),
-                      )),
-                ),
-                ZoAnimatedGradientBorder(
-                  width: 100,
-                  height: 100,
-                  borderRadius: 100,
-                  borderThickness: 4,
-                  gradientColor: [Colors.orange, Colors.white, Colors.green],
-                  duration: Duration(seconds: 4),
-                  child: Container(
-                      alignment: Alignment.center,
-                      color: Colors.black,
-                      child: Text(
-                        "Color",
-                        style: TextStyle(color: Colors.black),
-                      )),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 50,
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 20),
+            //   child: Container(
+            //       alignment: Alignment.centerLeft,
+            //       child: Text("Gradient Borders",
+            //           style: TextStyle(
+            //               color: Colors.white, fontWeight: FontWeight.bold))),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     ZoAnimatedGradientBorder(
+            //       width: 100,
+            //       height: 100,
+            //       borderRadius: 100,
+            //       borderThickness: 4,
+            //       gradientColor: [Colors.yellow, Colors.orange],
+            //       duration: Duration(seconds: 4),
+            //       child: Container(
+            //           alignment: Alignment.center,
+            //           color: Colors.black,
+            //           child: Text(
+            //             "Color",
+            //             style: TextStyle(color: Colors.black),
+            //           )),
+            //     ),
+            //     ZoAnimatedGradientBorder(
+            //       width: 100,
+            //       height: 100,
+            //       borderRadius: 100,
+            //       borderThickness: 4,
+            //       gradientColor: [Colors.red, Colors.blue],
+            //       duration: Duration(seconds: 4),
+            //       child: Container(
+            //           alignment: Alignment.center,
+            //           color: Colors.black,
+            //           child: Text(
+            //             "Color",
+            //             style: TextStyle(color: Colors.black),
+            //           )),
+            //     ),
+            //     ZoAnimatedGradientBorder(
+            //       width: 100,
+            //       height: 100,
+            //       borderRadius: 100,
+            //       borderThickness: 4,
+            //       gradientColor: [Colors.orange, Colors.white, Colors.green],
+            //       duration: Duration(seconds: 4),
+            //       child: Container(
+            //           alignment: Alignment.center,
+            //           color: Colors.black,
+            //           child: Text(
+            //             "Color",
+            //             style: TextStyle(color: Colors.black),
+            //           )),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 50,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       ZoAnimatedGradientBorder(
+            //         width: 150,
+            //         height: 45,
+            //         borderThickness: 2,
+            //         shouldAnimate: false,
+            //         gradientColor: [Colors.red, Colors.blue],
+            //         duration: Duration(seconds: 4),
+            //         child: Container(
+            //             alignment: Alignment.center,
+            //             color: Colors.black,
+            //             child: Text(
+            //               "Click Me",
+            //               style: TextStyle(color: Colors.white),
+            //             )),
+            //       ),
+            //       ZoAnimatedGradientBorder(
+            //         width: 150,
+            //         height: 45,
+            //         borderThickness: 3,
+            //         shouldAnimate: true,
+            //         gradientColor: [Colors.orange, Colors.white, Colors.green],
+            //         duration: Duration(seconds: 4),
+            //         child: Container(
+            //             alignment: Alignment.center,
+            //             color: Colors.white,
+            //             child: Text(
+            //               "Click Me",
+            //               style: TextStyle(color: Colors.black),
+            //             )),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 25,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //       alignment: Alignment.centerLeft,
+            //       child: Text("Styled Monocrome Borders",
+            //           style: TextStyle(color: Colors.white))),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       ZoMonoCromeBorder(
+            //         trackBorderColor: Colors.white,
+            //         cornerRadius: 50.0,
+            //         borderStyle: ZoMonoCromeBorderStyle.mirror,
+            //         borderWidth: 5.5,
+            //         child: Container(
+            //           width: 100,
+            //           height: 100,
+            //           alignment: Alignment.center,
+            //           child:
+            //               Text("Mirror", style: TextStyle(color: Colors.white)),
+            //           decoration: BoxDecoration(
+            //             color: Colors.red,
+            //             shape: BoxShape.circle,
+            //           ),
+            //         ),
+            //       ),
+            //       ZoMonoCromeBorder(
+            //         trackBorderColor: Colors.white,
+            //         cornerRadius: 50.0,
+            //         borderStyle: ZoMonoCromeBorderStyle.repeated,
+            //         borderWidth: 5.5,
+            //         child: Container(
+            //           width: 100,
+            //           height: 100,
+            //           alignment: Alignment.center,
+            //           child: Text("Repeated",
+            //               style: TextStyle(color: Colors.white)),
+            //           decoration: BoxDecoration(
+            //             color: Colors.red,
+            //             shape: BoxShape.circle,
+            //           ),
+            //         ),
+            //       ),
+            //       ZoMonoCromeBorder(
+            //         trackBorderColor: Colors.white,
+            //         cornerRadius: 50.0,
+            //         borderStyle: ZoMonoCromeBorderStyle.stroke,
+            //         borderWidth: 5.5,
+            //         child: Container(
+            //           width: 100,
+            //           height: 100,
+            //           alignment: Alignment.center,
+            //           child:
+            //               Text("Stroke", style: TextStyle(color: Colors.white)),
+            //           decoration: BoxDecoration(
+            //             color: Colors.red,
+            //             shape: BoxShape.circle,
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ZoAnimatedGradientBorder(
-                    width: 150,
-                    height: 45,
-                    borderThickness: 2,
-                    shouldAnimate: false,
-                    gradientColor: [Colors.red, Colors.blue],
-                    duration: Duration(seconds: 4),
-                    child: Container(
-                        alignment: Alignment.center,
-                        color: Colors.black,
-                        child: Text(
-                          "Click Me",
-                          style: TextStyle(color: Colors.white),
-                        )),
-                  ),
-                  ZoAnimatedGradientBorder(
-                    width: 150,
-                    height: 45,
-                    borderThickness: 3,
-                    shouldAnimate: false,
-                    gradientColor: [Colors.orange, Colors.white, Colors.green],
-                    duration: Duration(seconds: 4),
-                    child: Container(
-                        alignment: Alignment.center,
-                        color: Colors.white,
-                        child: Text(
-                          "Click Me",
-                          style: TextStyle(color: Colors.black),
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Styled Monocrome Borders",
-                      style: TextStyle(color: Colors.white))),
+                  child: Text("Pulse Borders",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold))),
             ),
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ZoMonoCromeBorder(
-                    trackBorderColor: Colors.white,
-                    cornerRadius: 50.0,
-                    borderStyle: ZoMonoCromeBorderStyle.mirror,
-                    borderWidth: 5.5,
+                  ZoPulsatingBorder(
+                    layerCount: 2,
+                    type: ZoPulsatingBorderType.radarPulse,
+                    pulseColor: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      width: 100,
-                      height: 100,
                       alignment: Alignment.center,
-                      child:
-                          Text("Mirror", style: TextStyle(color: Colors.white)),
+                      width: 120,
+                      height: 45,
                       decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "Radar Pulse",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                  ZoMonoCromeBorder(
-                    trackBorderColor: Colors.white,
-                    cornerRadius: 50.0,
-                    borderStyle: ZoMonoCromeBorderStyle.repeated,
-                    borderWidth: 5.5,
+                  SizedBox(
+                    width: 80,
+                  ),
+
+                  // For circle pulse
+                  ZoPulsatingBorder(
+                    type: ZoPulsatingBorderType.pulse,
+                    borderRadius: BorderRadius.circular(100),
+                    pulseColor: Colors.blue,
                     child: Container(
+                      alignment: Alignment.center,
                       width: 100,
                       height: 100,
-                      alignment: Alignment.center,
-                      child: Text("Repeated",
-                          style: TextStyle(color: Colors.white)),
                       decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text(
+                        "Radar Pulse",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
-                  ZoMonoCromeBorder(
-                    trackBorderColor: Colors.white,
-                    cornerRadius: 50.0,
-                    borderStyle: ZoMonoCromeBorderStyle.stroke,
-                    borderWidth: 5.5,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      alignment: Alignment.center,
-                      child:
-                          Text("Stroke", style: TextStyle(color: Colors.white)),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -278,3 +352,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+/// For animation we need ticker mixin

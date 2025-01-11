@@ -199,10 +199,10 @@ class LastColorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
+    return SizeProviderWidget(builder: (context, constraints) {
       return Container(
-        width: constraints.maxWidth * 0.95,
-        height: constraints.maxHeight * 0.95,
+        width: constraints.width * 0.95,
+        height: constraints.height * 0.95,
         decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius:
