@@ -4,7 +4,7 @@
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-![SimulatorScreenRecording-iPhone15-2024-08-24at22 13 17-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b662b146-addf-46f0-b003-4a51249e7193)
+
 
 A package that gives us a modern way to show gradient border and animate it
 
@@ -26,6 +26,7 @@ import 'package:zo_animated_border/zo_animated_border.dart';
 ```
 
 # Usage
+![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 
 ```dart
 ZoAnimatedGradientBorder(
@@ -47,6 +48,33 @@ ZoAnimatedGradientBorder(
 ```
 
 For MonoChrome border
+
+![mono_chrome (online-video-cutter com)](https://github.com/user-attachments/assets/d798997d-a68c-447e-90e1-5e8fc8dd56bf)
+
+```dart
+ZoMonoCromeBorder(
+  trackBorderColor: Colors.white,
+  cornerRadius: 50.0,
+  borderStyle: ZoMonoCromeBorderStyle.mirror,
+  borderWidth: 5.5,
+  child: Container(
+          width: 100,
+          height: 100,
+          alignment: Alignment.center,
+          child: Text("Mirror", 
+          style:  TextStyle(color: Colors.white)),
+          decoration: BoxDecoration(
+          color: Colors.red,
+          shape: BoxShape.circle,
+           ),
+        ),
+      ),
+```
+
+
+For MonoChrome border
+
+![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
 
 ```dart
 ZoMonoCromeBorder(
