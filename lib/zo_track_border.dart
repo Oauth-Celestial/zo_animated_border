@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:zo_animated_border/clipper/track_painter.dart';
+import 'package:zo_animated_border/painter/track_painter.dart';
 
 enum ZoMonoCromeBorderStyle { stroke, repeated, mirror }
 

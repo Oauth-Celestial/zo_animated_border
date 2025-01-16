@@ -4,8 +4,6 @@ part of 'zo_animated_border.dart';
 class ZoAnimatedGradientBorder extends StatefulWidget {
   ZoAnimatedGradientBorder(
       {super.key,
-      required this.width,
-      required this.height,
       this.borderRadius = 30,
       this.blurRadius = 30,
       this.spreadRadius = 1,
@@ -34,10 +32,6 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
   /// border Thickness
   final double borderThickness;
 
-  final double width;
-
-  final double height;
-
   final Widget? child;
 
   /// should animate the border
@@ -52,199 +46,43 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
 
 class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
-  Animation<Alignment>? _topAlignmentAnimation;
-  Animation<Alignment>? _bottomAlignmentAnimation;
-  Color topColor = Colors.blue;
-
-  Color bottomColor = Colors.red;
+  late final AnimationController _animationController;
+  late final Tween<double> _animTween;
+  late final Animation<double> _turnAnim;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animTween = Tween<double>(begin: 0.1, end: 2 * math.pi);
+    _turnAnim = _animTween.animate(_animationController);
 
-    if (widget.gradientColor.isEmpty) {
-      widget.gradientColor = [Colors.red, Colors.blue];
-    }
-
-    _controller = AnimationController(vsync: this, duration: widget.duration);
-
-    _initTopAnimation();
-    _initBottomAnimation();
-    if (widget.shouldAnimate) {
-      _controller?.repeat();
-    }
-
-    topColor = widget.gradientColor.first;
-    bottomColor = widget.gradientColor.last;
-  }
-
-  /// Sets the alignment animation for bottom color (Last color in the list)
-  void _initBottomAnimation() {
-    _bottomAlignmentAnimation = TweenSequence<Alignment>([
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1)
-    ]).animate(_controller!);
-  }
-
-  /// Sets the alignment animation for top color (first color in the list)
-  void _initTopAnimation() {
-    _topAlignmentAnimation = TweenSequence<Alignment>([
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1),
-      TweenSequenceItem(
-          tween: Tween<Alignment>(
-              begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1)
-    ]).animate(_controller!);
+    _animationController
+      ..forward()
+      ..repeat(reverse: false);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    _controller?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      height: widget.height,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              widget.child != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(widget.borderRadius)),
-                      child: widget.child,
-                    )
-                  : const SizedBox.shrink(),
-              ClipPath(
-                clipper: BorderCutClipper(
-                    radius: widget.borderRadius,
-                    thickness: widget.borderThickness),
-                child: AnimatedBuilder(
-                  animation: _controller!,
-                  builder: (context, _) {
-                    return Stack(
-                      children: [
-                        /// Creates the shadow with the first color in list
-                        FirstColorWidget(widget: widget, topColor: topColor),
-
-                        /// Creates the shadow with the last color in list
-                        Align(
-                          alignment: _bottomAlignmentAnimation!.value,
-                          child: LastColorWidget(
-                              widget: widget, bottomColor: bottomColor),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(widget.borderRadius)),
-                              gradient: LinearGradient(
-                                  begin: _topAlignmentAnimation!.value,
-                                  end: _bottomAlignmentAnimation!.value,
-                                  colors: widget.gradientColor)),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class LastColorWidget extends StatelessWidget {
-  const LastColorWidget({
-    super.key,
-    required this.widget,
-    required this.bottomColor,
-  });
-
-  final ZoAnimatedGradientBorder widget;
-  final Color bottomColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizeProviderWidget(builder: (context, constraints) {
-      return Container(
-        width: constraints.width * 0.95,
-        height: constraints.height * 0.95,
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius:
-                BorderRadius.all(Radius.circular(widget.borderRadius)),
-            boxShadow: [
-              BoxShadow(
-                  color: bottomColor.withValues(alpha: widget.glowOpacity),
-                  offset: Offset.zero,
-                  blurRadius: widget.blurRadius,
-                  spreadRadius: widget.spreadRadius)
-            ]),
-      );
-    });
-  }
-}
-
-class FirstColorWidget extends StatelessWidget {
-  const FirstColorWidget({
-    super.key,
-    required this.widget,
-    required this.topColor,
-  });
-
-  final ZoAnimatedGradientBorder widget;
-  final Color topColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        width: constraints.maxWidth,
-        height: constraints.maxHeight,
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(widget.borderRadius),
-            boxShadow: [
-              BoxShadow(
-                  color: topColor.withValues(alpha: widget.glowOpacity),
-                  offset: Offset.zero,
-                  blurRadius: widget.blurRadius,
-                  spreadRadius: widget.spreadRadius)
-            ]),
+    return SizeProviderWidget(builder: (context, size) {
+      return SizedBox(
+        width: size.width,
+        height: size.height,
+        child: AnimatedBuilder(
+            animation: _turnAnim,
+            child: widget.child,
+            builder: (context, child) {
+              return CustomPaint(
+                  painter: BorderPainter(angle: _turnAnim.value),
+                  child: child!);
+            }),
       );
     });
   }
