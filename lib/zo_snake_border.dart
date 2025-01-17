@@ -55,7 +55,7 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
       animation: _animation,
       builder: (context, child) {
         return CustomPaint(
-          painter: SnakeBorderPainter(
+          painter: ZoSnakeBorderPainter(
             progress: _animation.value,
             borderWidth: widget.borderWidth,
             colorFrom: widget.snakeHeadColor,

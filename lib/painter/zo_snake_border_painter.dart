@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:ui' as ui;
 
-class SnakeBorderPainter extends CustomPainter {
+class ZoSnakeBorderPainter extends CustomPainter {
   final double progress;
   final double borderWidth;
   final Color colorFrom;
@@ -10,7 +10,7 @@ class SnakeBorderPainter extends CustomPainter {
   final Color staticBorderColor;
   final BorderRadius borderRadius;
 
-  SnakeBorderPainter({
+  ZoSnakeBorderPainter({
     required this.progress,
     required this.borderWidth,
     required this.colorFrom,
@@ -80,7 +80,7 @@ class SnakeBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant SnakeBorderPainter oldDelegate) {
+  bool shouldRepaint(covariant ZoSnakeBorderPainter oldDelegate) {
     return oldDelegate.progress != progress;
   }
 }

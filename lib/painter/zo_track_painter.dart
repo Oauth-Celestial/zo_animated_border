@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 import 'package:zo_animated_border/zo_track_border.dart';
 
-class TrackPainter extends CustomPainter {
+class ZoTrackPainter extends CustomPainter {
   /// Animation of the AnimationController
   final Animation animation;
 
@@ -18,7 +18,7 @@ class TrackPainter extends CustomPainter {
 
   final ZoMonoCromeBorderStyle borderStyle;
 
-  TrackPainter(
+  ZoTrackPainter(
       {required this.animation,
       required this.cornerRadius,
       required this.trackWidth,
@@ -74,5 +74,5 @@ class TrackPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(TrackPainter oldDelegate) => true;
+  bool shouldRepaint(ZoTrackPainter oldDelegate) => true;
 }

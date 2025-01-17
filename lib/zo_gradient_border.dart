@@ -4,35 +4,27 @@ part of 'zo_animated_border.dart';
 class ZoAnimatedGradientBorder extends StatefulWidget {
   ZoAnimatedGradientBorder(
       {super.key,
-      this.borderRadius = 30,
-      this.blurRadius = 30,
-      this.spreadRadius = 1,
-      this.glowOpacity = 0.3,
-      this.duration = const Duration(milliseconds: 600),
+      this.borderRadius = 0,
+      this.glowOpacity = 1.0,
+      this.duration = const Duration(seconds: 1),
       this.borderThickness = 1,
-      this.child,
+      required this.child,
       required this.gradientColor,
       this.shouldAnimate = true});
 
   /// Radius of the glow border
   final double borderRadius;
 
-  /// How much the shadow should be blurred
-  final double blurRadius;
-
-  /// How much the shadow should spread
-  final double spreadRadius;
-
   /// How much the shadow should glow
   final double glowOpacity;
 
-  /// set the animation duration defaults to  600 milliseconds
+  /// set the animation duration defaults to 1 second
   final Duration duration;
 
   /// border Thickness
   final double borderThickness;
 
-  final Widget? child;
+  final Widget child;
 
   /// should animate the border
   final bool shouldAnimate;
@@ -54,13 +46,14 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+        AnimationController(vsync: this, duration: widget.duration);
     _animTween = Tween<double>(begin: 0.1, end: 2 * math.pi);
     _turnAnim = _animTween.animate(_animationController);
-
-    _animationController
-      ..forward()
-      ..repeat(reverse: false);
+    if (widget.shouldAnimate) {
+      _animationController
+        ..forward()
+        ..repeat(reverse: false);
+    }
   }
 
   @override
@@ -71,19 +64,17 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
 
   @override
   Widget build(BuildContext context) {
-    return SizeProviderWidget(builder: (context, size) {
-      return SizedBox(
-        width: size.width,
-        height: size.height,
-        child: AnimatedBuilder(
-            animation: _turnAnim,
-            child: widget.child,
-            builder: (context, child) {
-              return CustomPaint(
-                  painter: BorderPainter(angle: _turnAnim.value),
-                  child: child!);
-            }),
-      );
-    });
+    return AnimatedBuilder(
+        animation: _turnAnim,
+        builder: (context, child) {
+          return CustomPaint(
+              painter: ZoGradientBorderPainter(
+                  borderRadius: widget.borderRadius,
+                  borderThickness: widget.borderThickness,
+                  gradientColor: widget.gradientColor,
+                  glowOpacity: widget.glowOpacity,
+                  angle: _turnAnim.value),
+              child: widget.child);
+        });
   }
 }

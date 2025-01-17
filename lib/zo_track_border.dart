@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:zo_animated_border/painter/track_painter.dart';
+import 'package:zo_animated_border/painter/zo_track_painter.dart';
 
 enum ZoMonoCromeBorderStyle { stroke, repeated, mirror }
 
@@ -93,7 +93,7 @@ class _ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: TrackPainter(
+      painter: ZoTrackPainter(
           animation: _controller!,
           cornerRadius: widget.cornerRadius,
           trackWidth: widget.borderWidth,

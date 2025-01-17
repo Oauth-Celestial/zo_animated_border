@@ -1,5 +1,3 @@
-import 'package:example/border_paint_test.dart';
-import 'package:example/border_test.dart';
 import 'package:flutter/material.dart';
 
 import 'package:zo_animated_border/zo_animated_border.dart';
@@ -60,65 +58,44 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 20,
             ),
             SizedBox(
-              height: 300,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: ZoAnimatedGradientBorder(
-                      borderRadius: 100,
-                      borderThickness: 4,
-                      gradientColor: [Colors.yellow, Colors.orange],
-                      duration: Duration(seconds: 4),
-                      child: Container(
-                          width: 100,
-                          height: 100,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text(
-                            "Color",
-                            style: TextStyle(color: Colors.black),
-                          )),
-                    ),
+                  ZoAnimatedGradientBorder(
+                    borderThickness: 8,
+                    borderRadius: 10,
+                    glowOpacity: 1.0,
+                    gradientColor: [Colors.yellow, Colors.orange],
+                    duration: Duration(seconds: 4),
+                    child: Container(
+                        width: 100,
+                        height: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          "Color",
+                          style: TextStyle(color: Colors.black),
+                        )),
                   ),
-                  // ZoAnimatedGradientBorder(
-                  //   // width: 100,
-                  //   // height: 100,
-                  //   borderRadius: 100,
-                  //   borderThickness: 4,
-                  //   gradientColor: [Colors.red, Colors.blue],
-                  //   duration: Duration(seconds: 4),
-                  //   child: Container(
-                  //       width: 100,
-                  //       height: 100,
-                  //       alignment: Alignment.center,
-                  //       color: Colors.black,
-                  //       child: Text(
-                  //         "Color",
-                  //         style: TextStyle(color: Colors.black),
-                  //       )),
-                  // ),
-                  // ZoAnimatedGradientBorder(
-                  //   // width: 100,
-                  //   // height: 100,
-                  //   borderRadius: 100,
-                  //   borderThickness: 4,
-                  //   gradientColor: [Colors.orange, Colors.white, Colors.green],
-                  //   duration: Duration(seconds: 4),
-                  //   child: Container(
-                  //       width: 100,
-                  //       height: 100,
-                  //       alignment: Alignment.center,
-                  //       color: Colors.black,
-                  //       child: Text(
-                  //         "Color",
-                  //         style: TextStyle(color: Colors.black),
-                  //       )),
-                  // ),
+                  ZoAnimatedGradientBorder(
+                    borderRadius: 100,
+                    borderThickness: 4,
+                    gradientColor: [Colors.orange, Colors.white, Colors.green],
+                    duration: Duration(seconds: 4),
+                    child: Container(
+                        width: 100,
+                        height: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(
+                          "Color",
+                          style: TextStyle(color: Colors.black),
+                        )),
+                  ),
                 ],
               ),
             ),
