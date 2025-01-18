@@ -48,6 +48,8 @@ ZoAnimatedGradientBorder(
 
 For Snake Border
 
+![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
+
 ```dart
 ZoSnakeBorder(
     duration: 3,
