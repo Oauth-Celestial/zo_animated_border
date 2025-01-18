@@ -4,7 +4,7 @@ import 'package:zo_animated_border/widget/size_provider_widget.dart';
 enum ZoPulsatingBorderType { pulse, radarPulse }
 
 class ZoPulsatingBorder extends StatefulWidget {
-  ZoPulsatingBorder(
+  const ZoPulsatingBorder(
       {super.key,
       required this.child,
       this.layerCount = 2,

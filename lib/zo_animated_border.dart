@@ -1,6 +1,6 @@
 library zo_animated_border;
 
-export 'zo_track_border.dart';
+export 'zo_monocrome_border.dart';
 export 'zo_pulsating_border.dart';
 export 'zo_snake_border.dart';
 import 'package:flutter/material.dart';

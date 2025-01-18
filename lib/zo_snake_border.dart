@@ -9,10 +9,10 @@ class ZoSnakeBorder extends StatefulWidget {
   final Color snakeTailColor;
   final Color snakeTrackColor;
   final BorderRadius borderRadius;
-  double glowOpacity;
+  final double glowOpacity;
   final EdgeInsetsGeometry padding;
 
-  ZoSnakeBorder({
+  const ZoSnakeBorder({
     required this.child,
     this.duration = 15,
     this.borderWidth = 3,

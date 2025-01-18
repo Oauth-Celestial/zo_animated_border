@@ -35,17 +35,16 @@ class ZoMonoCromeBorder extends StatefulWidget {
 
   final ZoMonoCromeBorderStyle borderStyle;
 
-  const ZoMonoCromeBorder({
-    required this.child,
-    this.controller,
-    this.duration = const Duration(seconds: 4),
-    this.cornerRadius = 0.0,
-    this.borderWidth = 1,
-    this.trackBorderColor = Colors.red,
-    this.padding = EdgeInsets.zero,
-    this.borderStyle = ZoMonoCromeBorderStyle.stroke,
-    Key? key,
-  }) : super(key: key);
+  const ZoMonoCromeBorder(
+      {required this.child,
+      this.controller,
+      this.duration = const Duration(seconds: 4),
+      this.cornerRadius = 0.0,
+      this.borderWidth = 1,
+      this.trackBorderColor = Colors.red,
+      this.padding = EdgeInsets.zero,
+      this.borderStyle = ZoMonoCromeBorderStyle.stroke,
+      super.key});
 
   @override
   ZoMonoCromeBorderState createState() => ZoMonoCromeBorderState();
