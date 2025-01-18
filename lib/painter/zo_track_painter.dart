@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:zo_animated_border/widget/zo_track_border.dart';
+import 'package:zo_animated_border/zo_monocrome_border.dart';
 
 class ZoTrackPainter extends CustomPainter {
   /// Animation of the AnimationController
