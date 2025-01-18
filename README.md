@@ -25,14 +25,12 @@ import 'package:zo_animated_border/zo_animated_border.dart';
 
 # Usage
 
-For Gradient  border
+For Gradient border
 
 ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 
 ```dart
 ZoAnimatedGradientBorder(
-    width: 200,
-    height: 200,
     borderRadius: 100,
     borderThickness: 4,
     gradientColor: [Colors.yellow,Colors.orange],
@@ -46,6 +44,32 @@ ZoAnimatedGradientBorder(
                   ),
                ),
             )
+```
+
+For Snake Border
+
+```dart
+ZoSnakeBorder(
+    duration: 3,
+    glowOpacity: 0,
+    snakeHeadColor: Colors.red,
+    snakeTailColor: Colors.blue,
+    snakeTrackColor: Colors.blueGrey,
+    borderWidth: 5,
+    borderRadius: BorderRadius.circular(10),
+    child: Container(
+            width: 150,
+            height: 45,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)),
+            child: Text(
+                  "Snake Border",
+            style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
 ```
 
 For Pulsating border
@@ -97,3 +121,11 @@ ZoMonoCromeBorder(
 ```
 
 Feel free to post a feature requests or report a bug [here](https://github.com/Oauth-Celestial/zo_animated_border/issues).
+
+## My Other packages
+
+- [connectivity_watcher](https://pub.dev/packages/connectivity_watcher): A Flutter package to monitor internet connectivity with subsecond response times, even on mobile networks.
+- [ultimate_extension](https://pub.dev/packages/ultimate_extension): Enhances Dart collections and objects with utilities for advanced data manipulation and simpler coding.
+- [theme_manager_plus](https://pub.dev/packages/theme_manager_plus): Allows customization of your app's theme with your own theme class, eliminating the need for traditional
+- [date_util_plus](https://pub.dev/packages/date_util_plus): A powerful Dart API designed to augment and simplify date and time handling in your Dart projects.
+- [pick_color](https://pub.dev/packages/pick_color): A Flutter package that allows you to extract colors and hex codes from images with a simple touch.

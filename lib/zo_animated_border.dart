@@ -7,6 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'dart:math' as math;
 
-import 'package:zo_animated_border/painter/gradient_border_painter.dart';
+import 'package:zo_animated_border/painter/zo_gradient_border_painter.dart';
 
 part 'zo_gradient_border.dart';

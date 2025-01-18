@@ -9,13 +9,10 @@ extension GetBorderStyle on ZoMonoCromeBorderStyle {
   TileMode get value {
     switch (this) {
       case ZoMonoCromeBorderStyle.stroke:
-        // TODO: Handle this case.
         return TileMode.clamp;
       case ZoMonoCromeBorderStyle.repeated:
-        // TODO: Handle this case.
         return TileMode.repeated;
       case ZoMonoCromeBorderStyle.mirror:
-        // TODO: Handle this case.
         return TileMode.mirror;
     }
   }
@@ -51,10 +48,10 @@ class ZoMonoCromeBorder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ZoMonoCromeBorderState createState() => _ZoMonoCromeBorderState();
+  ZoMonoCromeBorderState createState() => ZoMonoCromeBorderState();
 }
 
-class _ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
+class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
 

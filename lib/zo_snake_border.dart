@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/painter/snake_border_painter.dart';
+import 'package:zo_animated_border/painter/zo_snake_border_painter.dart';
 
 class ZoSnakeBorder extends StatefulWidget {
   final Widget child;
@@ -7,17 +7,19 @@ class ZoSnakeBorder extends StatefulWidget {
   final double borderWidth;
   final Color snakeHeadColor;
   final Color snakeTailColor;
-  final Color staticBorderColor;
+  final Color snakeTrackColor;
   final BorderRadius borderRadius;
+  double glowOpacity;
   final EdgeInsetsGeometry padding;
 
-  const ZoSnakeBorder({
+  ZoSnakeBorder({
     required this.child,
     this.duration = 15,
-    this.borderWidth = 1.5,
-    this.snakeHeadColor = const Color(0xFFFFAA40),
-    this.snakeTailColor = const Color(0xFF9C40FF),
-    this.staticBorderColor = const Color(0xFFCCCCCC),
+    this.borderWidth = 3,
+    this.glowOpacity = 8,
+    this.snakeHeadColor = Colors.deepOrange,
+    this.snakeTailColor = Colors.lightGreen,
+    this.snakeTrackColor = const Color(0xFFCCCCCC),
     this.borderRadius = const BorderRadius.all(Radius.circular(0)),
     this.padding = EdgeInsets.zero,
     super.key,
@@ -57,10 +59,11 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
         return CustomPaint(
           painter: ZoSnakeBorderPainter(
             progress: _animation.value,
+            glowOpacity: widget.glowOpacity,
             borderWidth: widget.borderWidth,
             colorFrom: widget.snakeHeadColor,
             colorTo: widget.snakeTailColor,
-            staticBorderColor: widget.staticBorderColor,
+            staticBorderColor: widget.snakeTrackColor,
             borderRadius: widget.borderRadius,
           ),
           child: Padding(

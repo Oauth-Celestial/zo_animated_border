@@ -9,15 +9,16 @@ class ZoSnakeBorderPainter extends CustomPainter {
   final Color colorTo;
   final Color staticBorderColor;
   final BorderRadius borderRadius;
+  final double glowOpacity;
 
-  ZoSnakeBorderPainter({
-    required this.progress,
-    required this.borderWidth,
-    required this.colorFrom,
-    required this.colorTo,
-    required this.staticBorderColor,
-    required this.borderRadius,
-  });
+  ZoSnakeBorderPainter(
+      {required this.progress,
+      required this.borderWidth,
+      required this.colorFrom,
+      required this.colorTo,
+      required this.staticBorderColor,
+      required this.borderRadius,
+      this.glowOpacity = 0.8});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -62,7 +63,7 @@ class ZoSnakeBorderPainter extends CustomPainter {
 
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 3.0)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, glowOpacity * 5)
       ..strokeWidth = borderWidth;
 
     paint.shader = ui.Gradient.linear(
