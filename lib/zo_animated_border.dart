@@ -3,6 +3,7 @@ library zo_animated_border;
 export 'zo_track_border.dart';
 export 'zo_pulsating_border.dart';
 export 'zo_snake_border.dart';
+export 'zo_dual_border.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:math' as math;

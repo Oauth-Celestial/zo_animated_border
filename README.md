@@ -31,19 +31,21 @@ For Gradient border
 
 ```dart
 ZoAnimatedGradientBorder(
-    borderRadius: 100,
-    borderThickness: 4,
-    gradientColor: [Colors.yellow,Colors.orange],
-    duration: Duration(seconds: 4),
-    child: Container(
-            alignment: Alignment.center,
-            color: Colors.black,
-            child: Text(
-                    "Color",
-                    style:TextStyle(color:Colors.black),
-                  ),
-               ),
-            )
+        borderRadius: 100,
+        borderThickness: 4,
+        gradientColor: [Colors.yellow, Colors.orange],
+        duration: Duration(seconds: 4),
+        child: Container(
+                width: 100,
+                height: 100,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Text(
+                      "Circle",
+                      style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
 ```
 
 For Snake Border

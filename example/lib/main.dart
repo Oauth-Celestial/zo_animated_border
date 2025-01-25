@@ -61,17 +61,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                  ZoSnakeBorder(
+                  ZoDualBorder(
                     duration: 3,
-                    glowOpacity: 0,
-                    snakeHeadColor: Colors.red,
-                    snakeTailColor: Colors.blue,
-                    snakeTrackColor: Colors.blueGrey,
-                    borderWidth: 5,
+                    glowOpacity: 0.1,
+                    firstBorderColor: Colors.red,
+                    secondBorderColor: Colors.blue,
+                    trackBorderColor: Colors.blueGrey,
+                    borderWidth: 8,
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       width: 150,
-                      height: 45,
+                      height: 150,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -82,24 +82,43 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  ZoSnakeBorder(
-                    duration: 3,
-                    glowOpacity: 0.3,
-                    snakeHeadColor: Colors.red,
-                    snakeTailColor: Colors.blue,
-                    snakeTrackColor: Colors.blueGrey,
-                    borderWidth: 7,
-                    borderRadius: BorderRadius.circular(60),
+                  // ZoSnakeBorder(
+                  //   duration: 3,
+                  //   glowOpacity: 0.1,
+                  //   snakeHeadColor: Colors.red,
+                  //   snakeTailColor: Colors.blue,
+                  //   snakeTrackColor: Colors.blueGrey,
+                  //   borderWidth: 7,
+                  //   borderRadius: BorderRadius.circular(60),
+                  //   child: Container(
+                  //     width: 100,
+                  //     height: 100,
+                  //     alignment: Alignment.center,
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(60)),
+                  //     child: Text(
+                  //       "Snake Border",
+                  //       style: TextStyle(color: Colors.black),
+                  //     ),
+                  //   ),
+                  // )
+
+                  ZoAnimatedGradientBorder(
+                    borderRadius: 100,
+                    borderThickness: 4,
+                    glowOpacity: 0.1,
+                    gradientColor: [Colors.yellow, Colors.orange],
+                    duration: Duration(seconds: 4),
                     child: Container(
                       width: 100,
                       height: 100,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(60)),
+                          shape: BoxShape.circle, color: Colors.black),
                       child: Text(
-                        "Snake Border",
-                        style: TextStyle(color: Colors.black),
+                        "Circle",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   )

@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/painter/zo_snake_border_painter.dart';
+import 'package:zo_animated_border/painter/zo_dual_border.dart';
 
-class ZoSnakeBorder extends StatefulWidget {
+class ZoDualBorder extends StatefulWidget {
   final Widget child;
   final double duration;
   final double borderWidth;
-  final Color snakeHeadColor;
-  final Color snakeTailColor;
-  final Color snakeTrackColor;
+  final Color firstBorderColor;
+  final Color secondBorderColor;
+  final Color trackBorderColor;
   final BorderRadius borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
   double glowOpacity;
   final EdgeInsetsGeometry padding;
 
-  ZoSnakeBorder({
+  ZoDualBorder({
     required this.child,
     this.duration = 15,
     this.borderWidth = 3,
-    this.glowOpacity = 0.1,
-    this.snakeHeadColor = Colors.deepOrange,
-    this.snakeTailColor = Colors.lightGreen,
-    this.snakeTrackColor = const Color(0xFFCCCCCC),
+    this.glowOpacity = 0.3,
+    this.firstBorderColor = Colors.deepOrange,
+    this.secondBorderColor = Colors.lightGreen,
+    this.trackBorderColor = const Color(0xFFCCCCCC),
     this.borderRadius = const BorderRadius.all(Radius.circular(0)),
     this.padding = EdgeInsets.zero,
     super.key,
   });
 
   @override
-  ZoSnakeBorderState createState() => ZoSnakeBorderState();
+  ZoDualBorderState createState() => ZoDualBorderState();
 }
 
-class ZoSnakeBorderState extends State<ZoSnakeBorder>
+class ZoDualBorderState extends State<ZoDualBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -62,13 +62,13 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
       animation: _animation,
       builder: (context, child) {
         return CustomPaint(
-          painter: ZoSnakeBorderPainter(
+          painter: ZoDualBorderPainter(
             progress: _animation.value,
             glowOpacity: widget.glowOpacity,
             borderWidth: widget.borderWidth,
-            colorFrom: widget.snakeHeadColor,
-            colorTo: widget.snakeTailColor,
-            staticBorderColor: widget.snakeTrackColor,
+            firstBorderColor: widget.firstBorderColor,
+            secondBorderColor: widget.secondBorderColor,
+            staticBorderColor: widget.trackBorderColor,
             borderRadius: widget.borderRadius,
           ),
           child: Padding(

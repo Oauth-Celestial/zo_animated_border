@@ -63,7 +63,6 @@ class ZoSnakeBorderPainter extends CustomPainter {
 
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, glowOpacity * 5)
       ..strokeWidth = borderWidth;
 
     paint.shader = ui.Gradient.linear(
@@ -77,6 +76,24 @@ class ZoSnakeBorderPainter extends CustomPainter {
       [0.0, 0.3, 1.0],
     );
 
+    for (int i = 1; i <= glowOpacity * 10; i++) {
+      final glowPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (10 * i).toDouble())
+        ..strokeWidth = borderWidth;
+
+      glowPaint.shader = ui.Gradient.linear(
+        gradientStart,
+        gradientEnd,
+        [
+          colorTo,
+          colorFrom,
+        ],
+        [0.3, 1.0],
+      );
+
+      canvas.drawPath(extractPath, glowPaint);
+    }
     canvas.drawPath(extractPath, paint);
   }
 
