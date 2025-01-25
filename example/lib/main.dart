@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:zo_animated_border/zo_animated_border.dart';
+import 'dart:ui' as ui;
 
 void main() {
   runApp(const MyApp());
@@ -104,24 +105,48 @@ class _MyHomePageState extends State<MyHomePage> {
                   //   ),
                   // )
 
-                  ZoAnimatedGradientBorder(
-                    borderRadius: 100,
-                    borderThickness: 4,
-                    glowOpacity: 0.1,
-                    gradientColor: [Colors.yellow, Colors.orange],
-                    duration: Duration(seconds: 4),
+                  // ZoAnimatedGradientBorder(
+                  //   borderRadius: 100,
+                  //   borderThickness: 4,
+                  //   glowOpacity: 0.1,
+                  //   gradientColor: [Colors.yellow, Colors.orange],
+                  //   duration: Duration(seconds: 4),
+                  //   child: Container(
+                  //     width: 100,
+                  //     height: 100,
+                  //     alignment: Alignment.center,
+                  //     decoration: BoxDecoration(
+                  //         shape: BoxShape.circle, color: Colors.black),
+                  //     child: Text(
+                  //       "Circle",
+                  //       style: TextStyle(color: Colors.white),
+                  //     ),
+                  //   ),
+                  // )
+
+                  ZoBreathingBorder(
+                    borderWidth: 1.0,
+                    borderRadius: BorderRadius.circular(16),
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                      Colors.red,
+                      Colors.orange
+                    ],
+                    duration: const Duration(seconds: 4),
                     child: Container(
-                      width: 100,
-                      height: 100,
+                      width: 150,
+                      height: 150,
+                      color: Colors.white,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.black),
-                      child: Text(
-                        "Circle",
-                        style: TextStyle(color: Colors.white),
+                      child: const Text(
+                        'Breathing Border',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
+                  ),
                 ]))
           ],
         ),
@@ -130,5 +155,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-/// For animation we need ticker mixin
