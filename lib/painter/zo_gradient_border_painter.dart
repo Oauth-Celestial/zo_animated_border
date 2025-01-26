@@ -22,7 +22,7 @@ class ZoGradientBorderPainter extends CustomPainter {
 
   final Paint pulsePaint = Paint()..style = PaintingStyle.stroke;
 
-  LinearGradient get _gradient => LinearGradient(
+  SweepGradient get _gradient => SweepGradient(
       colors: gradientColor,
       stops: _generateColorStops(
         gradientColor,

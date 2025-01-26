@@ -31,21 +31,93 @@ For Gradient border
 
 ```dart
 ZoAnimatedGradientBorder(
-        borderRadius: 100,
-        borderThickness: 4,
-        gradientColor: [Colors.yellow, Colors.orange],
-        duration: Duration(seconds: 4),
-        child: Container(
-                width: 100,
-                height: 100,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                child: Text(
-                      "Circle",
-                      style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
+  borderRadius: 100,
+  borderThickness: 4,
+  gradientColor: [
+    Colors.yellow,
+    Colors.orange,
+  ],
+  duration: Duration(seconds: 4),
+  child: Container(
+    width: 100,
+    height: 100,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+    ),
+    child: Text(
+      "Circle",
+      style: TextStyle(color: Colors.white),
+    ),
+  ),
+);
+```
+
+For Dual border
+
+![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
+
+```dart
+ZoDualBorder(
+  duration: Duration(seconds: 3),
+  glowOpacity: 0.4,
+  firstBorderColor: Colors.yellow,
+  secondBorderColor: Colors.orange,
+  trackBorderColor: Colors.transparent,
+  borderWidth: 8,
+  borderRadius: BorderRadius.circular(10),
+  child: Container(
+    width: 150,
+    height: 150,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Text(
+      "Dual Border",
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    ),
+  ),
+);
+
+```
+
+For Breathing border
+
+![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
+
+```dart
+ZoBreathingBorder(
+  borderWidth: 3.0,
+  borderRadius: BorderRadius.circular(75),
+  colors: [
+    Colors.blue,
+    Colors.purple,
+    Colors.red,
+    Colors.orange,
+  ],
+  duration: const Duration(seconds: 4),
+  child: Container(
+    width: 150,
+    height: 150,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(75),
+    ),
+    alignment: Alignment.center,
+    child: const Text(
+      'Breathing Border',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+);
 ```
 
 For Snake Border
@@ -54,26 +126,28 @@ For Snake Border
 
 ```dart
 ZoSnakeBorder(
-    duration: 3,
-    glowOpacity: 0,
-    snakeHeadColor: Colors.red,
-    snakeTailColor: Colors.blue,
-    snakeTrackColor: Colors.blueGrey,
-    borderWidth: 5,
-    borderRadius: BorderRadius.circular(10),
-    child: Container(
-            width: 150,
-            height: 45,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10)),
-            child: Text(
-                  "Snake Border",
-            style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
+  duration: 3,
+  glowOpacity: 0,
+  snakeHeadColor: Colors.red,
+  snakeTailColor: Colors.blue,
+  snakeTrackColor: Colors.blueGrey,
+  borderWidth: 5,
+  borderRadius: BorderRadius.circular(10),
+  child: Container(
+    width: 150,
+    height: 45,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Text(
+      "Snake Border",
+      style: TextStyle(color: Colors.black),
+    ),
+  ),
+);
+
 ```
 
 For Pulsating border
@@ -82,22 +156,23 @@ For Pulsating border
 
 ```dart
 ZoPulsatingBorder(
-      type: ZoPulsatingBorderType.pulse,
-      borderRadius: BorderRadius.circular(100),
-      pulseColor: Colors.blue,
-      child: Container(
-        alignment: Alignment.center,
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(50)),
-            child: Text(
-                 "Radar Pulse",
-               style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
+  type: ZoPulsatingBorderType.pulse,
+  borderRadius: BorderRadius.circular(100),
+  pulseColor: Colors.blue,
+  child: Container(
+    alignment: Alignment.center,
+    width: 100,
+    height: 100,
+    decoration: BoxDecoration(
+      color: Colors.red,
+      borderRadius: BorderRadius.circular(50),
+    ),
+    child: Text(
+      "Radar Pulse",
+      style: TextStyle(color: Colors.white),
+    ),
+  ),
+);
 ```
 
 For MonoChrome border
@@ -111,17 +186,19 @@ ZoMonoCromeBorder(
   borderStyle: ZoMonoCromeBorderStyle.mirror,
   borderWidth: 5.5,
   child: Container(
-          width: 100,
-          height: 100,
-          alignment: Alignment.center,
-          child: Text("Mirror", 
-          style:  TextStyle(color: Colors.white)),
-          decoration: BoxDecoration(
-          color: Colors.red,
-          shape: BoxShape.circle,
-           ),
-        ),
-      ),
+    width: 100,
+    height: 100,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.red,
+      shape: BoxShape.circle,
+    ),
+    child: Text(
+      "Mirror",
+      style: TextStyle(color: Colors.white),
+    ),
+  ),
+);
 ```
 
 Feel free to post a feature requests or report a bug [here](https://github.com/Oauth-Celestial/zo_animated_border/issues).
