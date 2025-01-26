@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:zo_animated_border/zo_animated_border.dart';
+import 'dart:ui' as ui;
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Snake Border",
+                  child: Text("Breathing Border",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold))),
             ),
@@ -61,48 +61,58 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                  ZoSnakeBorder(
-                    duration: 3,
-                    glowOpacity: 0,
-                    snakeHeadColor: Colors.red,
-                    snakeTailColor: Colors.blue,
-                    snakeTrackColor: Colors.blueGrey,
-                    borderWidth: 5,
-                    borderRadius: BorderRadius.circular(10),
+                  ZoBreathingBorder(
+                    borderWidth: 3.0,
+                    borderRadius: BorderRadius.circular(16),
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                      Colors.red,
+                      Colors.orange
+                    ],
+                    duration: const Duration(seconds: 4),
                     child: Container(
                       width: 150,
-                      height: 45,
-                      alignment: Alignment.center,
+                      height: 150,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        "Snake Border",
-                        style: TextStyle(color: Colors.black),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Breathing Border',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  ZoSnakeBorder(
-                    duration: 3,
-                    glowOpacity: 0.3,
-                    snakeHeadColor: Colors.red,
-                    snakeTailColor: Colors.blue,
-                    snakeTrackColor: Colors.blueGrey,
-                    borderWidth: 7,
-                    borderRadius: BorderRadius.circular(60),
+                  ZoBreathingBorder(
+                    borderWidth: 3.0,
+                    borderRadius: BorderRadius.circular(75),
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                      Colors.red,
+                      Colors.orange
+                    ],
+                    duration: const Duration(seconds: 4),
                     child: Container(
-                      width: 100,
-                      height: 100,
-                      alignment: Alignment.center,
+                      width: 150,
+                      height: 150,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(60)),
-                      child: Text(
-                        "Snake Border",
-                        style: TextStyle(color: Colors.black),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(75),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Breathing Border',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
+                  ),
                 ]))
           ],
         ),
@@ -111,5 +121,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-/// For animation we need ticker mixin

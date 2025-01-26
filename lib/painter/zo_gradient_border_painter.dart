@@ -10,7 +10,7 @@ class ZoGradientBorderPainter extends CustomPainter {
       {required this.angle,
       this.borderRadius,
       this.borderThickness = 5,
-      this.glowOpacity = 0.8,
+      this.glowOpacity = 0.3,
       required this.gradientColor});
 
   List<double> _generateColorStops(List<dynamic> colors) {
@@ -31,9 +31,6 @@ class ZoGradientBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint glowPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..maskFilter = MaskFilter.blur(BlurStyle.outer, glowOpacity * 10);
     final borderPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderThickness;
@@ -45,12 +42,20 @@ class ZoGradientBorderPainter extends CustomPainter {
     );
 
     borderPaint.shader = _gradient.createShader(rect);
-    glowPaint.shader = _gradient.createShader(rect);
-    pulsePaint.shader = _gradient.createShader(rect);
+
     RRect radiiRect =
         RRect.fromRectAndRadius(rect, Radius.circular(borderRadius ?? 0));
-    canvas.drawRRect(radiiRect, glowPaint);
 
+    for (int i = 1; i <= glowOpacity * 10; i++) {
+      final glowPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (10 * i).toDouble())
+        ..strokeWidth = borderThickness;
+
+      glowPaint.shader = _gradient.createShader(rect);
+
+      canvas.drawRRect(radiiRect, glowPaint);
+    }
     canvas.drawRRect(radiiRect, borderPaint);
   }
 

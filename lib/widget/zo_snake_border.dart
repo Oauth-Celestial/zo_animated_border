@@ -9,6 +9,8 @@ class ZoSnakeBorder extends StatefulWidget {
   final Color snakeTailColor;
   final Color snakeTrackColor;
   final BorderRadius borderRadius;
+
+  /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
   final EdgeInsetsGeometry padding;
 
@@ -16,7 +18,7 @@ class ZoSnakeBorder extends StatefulWidget {
     required this.child,
     this.duration = 15,
     this.borderWidth = 3,
-    this.glowOpacity = 8,
+    this.glowOpacity = 0.1,
     this.snakeHeadColor = Colors.deepOrange,
     this.snakeTailColor = Colors.lightGreen,
     this.snakeTrackColor = const Color(0xFFCCCCCC),
@@ -37,6 +39,9 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
   @override
   void initState() {
     super.initState();
+    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+      throw Exception("Glow opacity should be between 0.0 and 1.0");
+    }
     _controller = AnimationController(
       duration: Duration(seconds: widget.duration.toInt()),
       vsync: this,

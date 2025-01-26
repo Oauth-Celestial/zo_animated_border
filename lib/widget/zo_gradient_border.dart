@@ -1,11 +1,11 @@
-part of 'zo_animated_border.dart';
+part of '../zo_animated_border.dart';
 
 // ignore: must_be_immutable
 class ZoAnimatedGradientBorder extends StatefulWidget {
   ZoAnimatedGradientBorder(
       {super.key,
       this.borderRadius = 0,
-      this.glowOpacity = 1.0,
+      this.glowOpacity = 0.5,
       this.duration = const Duration(seconds: 1),
       this.borderThickness = 1,
       required this.child,
@@ -15,7 +15,7 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
   /// Radius of the glow border
   final double borderRadius;
 
-  /// How much the shadow should glow
+  /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
 
   /// set the animation duration defaults to 1 second
@@ -45,6 +45,9 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
   @override
   void initState() {
     super.initState();
+    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+      throw Exception("Glow opacity should be between 0.0 and 1.0");
+    }
     _animationController =
         AnimationController(vsync: this, duration: widget.duration);
     _animTween = Tween<double>(begin: 0.1, end: 2 * math.pi);

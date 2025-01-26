@@ -1,6 +1,6 @@
 name: zo_animated_border
 description: "A package that provides a modern way to create gradient borders with animation in Flutter"
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/Oauth-Celestial/zo_animated_border
 
 environment:
