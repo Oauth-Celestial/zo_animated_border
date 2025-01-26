@@ -55,7 +55,8 @@ ZoAnimatedGradientBorder(
 
 For Dual border
 
-![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
+![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
+
 
 ```dart
 ZoDualBorder(
@@ -87,7 +88,8 @@ ZoDualBorder(
 
 For Breathing border
 
-![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
+![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
+
 
 ```dart
 ZoBreathingBorder(
