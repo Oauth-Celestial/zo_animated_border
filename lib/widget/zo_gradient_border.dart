@@ -1,4 +1,4 @@
-part of 'zo_animated_border.dart';
+part of '../zo_animated_border.dart';
 
 // ignore: must_be_immutable
 class ZoAnimatedGradientBorder extends StatefulWidget {

@@ -57,7 +57,6 @@ For Dual border
 
 ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 
-
 ```dart
 ZoDualBorder(
   duration: Duration(seconds: 3),
@@ -89,7 +88,6 @@ ZoDualBorder(
 For Breathing border
 
 ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
-
 
 ```dart
 ZoBreathingBorder(

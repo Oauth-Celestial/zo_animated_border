@@ -11,10 +11,10 @@ class ZoDualBorder extends StatefulWidget {
   final BorderRadius borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
-  double glowOpacity;
+  final double glowOpacity;
   final EdgeInsetsGeometry padding;
 
-  ZoDualBorder({
+  const ZoDualBorder({
     required this.child,
     this.duration = const Duration(seconds: 1),
     this.borderWidth = 3,

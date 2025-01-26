@@ -11,10 +11,10 @@ class ZoSnakeBorder extends StatefulWidget {
   final BorderRadius borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
-  double glowOpacity;
+  final double glowOpacity;
   final EdgeInsetsGeometry padding;
 
-  ZoSnakeBorder({
+  const ZoSnakeBorder({
     required this.child,
     this.duration = 15,
     this.borderWidth = 3,

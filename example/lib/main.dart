@@ -87,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-
                   ZoBreathingBorder(
                     borderWidth: 3.0,
                     borderRadius: BorderRadius.circular(75),
@@ -114,114 +113,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  // ZoDualBorder(
-                  //   duration: Duration(seconds: 3),
-                  //   glowOpacity: 0.4,
-                  //   firstBorderColor: Colors.yellow,
-                  //   secondBorderColor: Colors.orange,
-                  //   trackBorderColor: Colors.transparent,
-                  //   borderWidth: 8,
-                  //   borderRadius: BorderRadius.circular(10),
-                  //   child: Container(
-                  //     width: 150,
-                  //     height: 150,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     child: Text(
-                  //       "Dual Border",
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // ZoDualBorder(
-                  //   duration: Duration(seconds: 3),
-                  //   glowOpacity: 0.4,
-                  //   firstBorderColor: Colors.yellow,
-                  //   secondBorderColor: Colors.orange,
-                  //   trackBorderColor: Colors.transparent,
-                  //   borderWidth: 8,
-                  //   borderRadius: BorderRadius.circular(70),
-                  //   child: Container(
-                  //     width: 150,
-                  //     height: 150,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: BorderRadius.circular(70)),
-                  //     child: Text(
-                  //       "Dual Border",
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // ZoSnakeBorder(
-                  //   duration: 3,
-                  //   glowOpacity: 0.1,
-                  //   snakeHeadColor: Colors.red,
-                  //   snakeTailColor: Colors.blue,
-                  //   snakeTrackColor: Colors.blueGrey,
-                  //   borderWidth: 7,
-                  //   borderRadius: BorderRadius.circular(60),
-                  //   child: Container(
-                  //     width: 100,
-                  //     height: 100,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: BorderRadius.circular(60)),
-                  //     child: Text(
-                  //       "Snake Border",
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //   ),
-                  // )
-
-                  // ZoAnimatedGradientBorder(
-                  //   borderRadius: 100,
-                  //   borderThickness: 4,
-                  //   glowOpacity: 0.1,
-                  //   gradientColor: [Colors.yellow, Colors.orange],
-                  //   duration: Duration(seconds: 4),
-                  //   child: Container(
-                  //     width: 100,
-                  //     height: 100,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //         shape: BoxShape.circle, color: Colors.black),
-                  //     child: Text(
-                  //       "Circle",
-                  //       style: TextStyle(color: Colors.white),
-                  //     ),
-                  //   ),
-                  // )
-
-                  // ZoBreathingBorder(
-                  //   borderWidth: 1.0,
-                  //   borderRadius: BorderRadius.circular(16),
-                  //   colors: [
-                  //     Colors.blue,
-                  //     Colors.purple,
-                  //     Colors.red,
-                  //     Colors.orange
-                  //   ],
-                  //   duration: const Duration(seconds: 4),
-                  //   child: Container(
-                  //     width: 150,
-                  //     height: 150,
-                  //     color: Colors.white,
-                  //     alignment: Alignment.center,
-                  //     child: const Text(
-                  //       'Breathing Border',
-                  //       textAlign: TextAlign.center,
-                  //       style: TextStyle(
-                  //           fontSize: 16, fontWeight: FontWeight.bold),
-                  //     ),
-                  //   ),
-                  // ),
                 ]))
           ],
         ),

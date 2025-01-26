@@ -1,4 +1,9 @@
 
+## 0.0.5
+
+* Added Dual border, Breathing Border .
+* Fixed glow opacity and  spread issue.
+
 ## 0.0.4
 
 * Added Snake border .
