@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
 
 class ZoSnakeBorderPainter extends CustomPainter {
   final double progress;
@@ -54,12 +54,8 @@ class ZoSnakeBorderPainter extends CustomPainter {
     }
 
     // Calculate gradient start and end points
-    final gradientStart =
-        pathMetrics.getTangentForOffset(start)?.position ?? Offset.zero;
-    final gradientEnd = pathMetrics
-            .getTangentForOffset((start + pathLength / 8) % pathLength)
-            ?.position ??
-        Offset.zero;
+    final gradientStart = pathMetrics.getTangentForOffset(start)?.position ?? Offset.zero;
+    final gradientEnd = pathMetrics.getTangentForOffset((start + pathLength / 8) % pathLength)?.position ?? Offset.zero;
 
     final paint = Paint()
       ..style = PaintingStyle.stroke
@@ -69,7 +65,7 @@ class ZoSnakeBorderPainter extends CustomPainter {
       gradientStart,
       gradientEnd,
       [
-        colorTo.withValues(alpha: 0.0),
+        colorTo.withAlpha(0),
         colorTo,
         colorFrom,
       ],

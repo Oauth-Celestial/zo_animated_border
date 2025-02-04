@@ -25,18 +25,15 @@ class ZoPulsatingBorder extends StatefulWidget {
   ZoPulsatingBorderState createState() => ZoPulsatingBorderState();
 }
 
-class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
-    with SingleTickerProviderStateMixin {
+class ZoPulsatingBorderState extends State<ZoPulsatingBorder> with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
   Animation? _animation;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: widget.animationDuration);
+    _animationController = AnimationController(vsync: this, duration: widget.animationDuration);
     _animation = Tween(begin: 0.0, end: 18.0).animate(
-      CurvedAnimation(
-          parent: _animationController!, curve: widget.animationCurve),
+      CurvedAnimation(parent: _animationController!, curve: widget.animationCurve),
     );
     _animationController?.repeat();
     super.initState();
@@ -59,15 +56,12 @@ class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
             return Container(
               decoration: BoxDecoration(
                 borderRadius: widget.borderRadius,
-                border: Border.all(
-                    color: widget.pulseColor.withValues(alpha: 255),
-                    width: 1.0),
+                border: Border.all(color: widget.pulseColor.withAlpha(255), width: 1.0),
                 // shape: BoxShape.rectangle,
                 boxShadow: [
                   for (int i = 1; i <= widget.layerCount; i++)
                     BoxShadow(
-                      color: widget.pulseColor
-                          .withValues(alpha: _animationController!.value / 2),
+                      color: widget.pulseColor.withAlpha((_animationController!.value / 2).round()),
                       spreadRadius: _animation!.value * i,
                     )
                 ],
@@ -79,8 +73,7 @@ class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
               children: [
                 ...List.generate(widget.layerCount.toInt() + 1, (index) {
                   return ScaleTransition(
-                    scale: Tween<double>(begin: 1.0, end: 1.0 + (index * 0.12))
-                        .animate(
+                    scale: Tween<double>(begin: 1.0, end: 1.0 + (index * 0.12)).animate(
                       CurvedAnimation(
                         parent: _animationController!,
                         curve: Interval(0.0, 1.0, curve: widget.animationCurve),
@@ -91,8 +84,7 @@ class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
                       height: size.height,
                       decoration: BoxDecoration(
                         borderRadius: widget.borderRadius,
-                        border:
-                            Border.all(color: widget.pulseColor, width: 1.0),
+                        border: Border.all(color: widget.pulseColor, width: 1.0),
                       ),
                     ),
                   );
