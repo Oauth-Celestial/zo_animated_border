@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/zo_animated_border.dart';
-import 'dart:ui' as ui;
 
 void main() {
   runApp(const MyApp());
@@ -57,63 +56,27 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 20,
             ),
-            SizedBox(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                  ZoBreathingBorder(
-                    borderWidth: 3.0,
-                    borderRadius: BorderRadius.circular(16),
-                    colors: [
-                      Colors.blue,
-                      Colors.purple,
-                      Colors.red,
-                      Colors.orange
-                    ],
-                    duration: const Duration(seconds: 4),
+            Row(
+              children: [
+                SizedBox(
+                  width: 20,
+                ),
+                ZoDottedBorder(
                     child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Breathing Border',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
+                      height: 100,
+                      width: 100,
+                      color: Colors.red,
                     ),
-                  ),
-                  ZoBreathingBorder(
-                    borderWidth: 3.0,
-                    borderRadius: BorderRadius.circular(75),
-                    colors: [
-                      Colors.blue,
-                      Colors.purple,
-                      Colors.red,
-                      Colors.orange
-                    ],
-                    duration: const Duration(seconds: 4),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(75),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Breathing Border',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ]))
+                    animate: true,
+                    borderRadius: 10,
+                    dashLength: 10,
+                    gapLength: 5,
+                    strokeWidth: 3,
+                    color: Colors.blue,
+                    animationDuration: Duration(seconds: 4),
+                    borderStyle: BorderStyleType.monochrome),
+              ],
+            ),
           ],
         ),
       ),
