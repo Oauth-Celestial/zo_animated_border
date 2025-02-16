@@ -87,6 +87,8 @@ ZoDualBorder(
 
 For Dotted border
 
+![dotted](https://github.com/user-attachments/assets/c1027326-76e4-4f4b-b31d-21303fcb8055)
+
 ```dart
 ZoDottedBorder(
   child: Container(
