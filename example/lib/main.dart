@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Breathing Border",
+                  child: Text("Dotted Border",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold))),
             ),
@@ -66,6 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 100,
                       width: 100,
                       color: Colors.red,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "MonoChrome",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
                     ),
                     animate: true,
                     borderRadius: 10,
@@ -75,6 +80,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.blue,
                     animationDuration: Duration(seconds: 4),
                     borderStyle: BorderStyleType.monochrome),
+                SizedBox(
+                  width: 40,
+                ),
+                ZoDottedBorder(
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Text(
+                        "Gradient",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ),
+                    animate: true,
+                    borderRadius: 70,
+                    dashLength: 10,
+                    gapLength: 5,
+                    strokeWidth: 3,
+                    color: Colors.blue,
+                    animationDuration: Duration(seconds: 4),
+                    borderStyle: BorderStyleType.gradient),
               ],
             ),
           ],

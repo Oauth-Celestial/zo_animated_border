@@ -4,29 +4,34 @@ import 'package:zo_animated_border/painter/zo_dotted_painter.dart';
 enum BorderStyleType { gradient, monochrome }
 
 class ZoDottedBorder extends StatefulWidget {
-  double borderRadius;
+  final double borderRadius;
   final double dashLength;
   final double gapLength;
   final double strokeWidth;
   final Duration animationDuration;
   final bool animate;
-  Color? color;
-  Gradient? gradient;
+  final Color color;
+  final Gradient gradient;
   final BorderStyleType borderStyle;
+  final EdgeInsetsGeometry? padding;
 
-  Widget child;
+  final double animationSpeed;
 
-  ZoDottedBorder({
+  final Widget child;
+
+  const ZoDottedBorder({
     super.key,
     this.borderRadius = 0,
     this.animate = true,
     this.dashLength = 10,
     this.gapLength = 5,
+    this.animationSpeed = 0.4,
     this.strokeWidth = 3,
     this.color = Colors.blue,
     this.animationDuration = const Duration(seconds: 10),
-    this.gradient,
+    this.gradient = const LinearGradient(colors: [Colors.red, Colors.blue]),
     this.borderStyle = BorderStyleType.monochrome,
+    this.padding,
     required this.child,
   });
 
@@ -41,6 +46,7 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
   @override
   void initState() {
     super.initState();
+
     if (widget.animate) {
       _controller = AnimationController(
         vsync: this,
@@ -59,17 +65,18 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
             progress: _controller.value,
             borderRadius: widget.borderRadius,
             dashLength: widget.dashLength,
+            animationSpeed: widget.animationSpeed,
             gapLength: widget.gapLength,
             strokeWidth: widget.strokeWidth,
             borderStyle: widget.borderStyle,
-            color: widget.color ?? Colors.blue,
+            color: widget.color,
             gradient: widget.gradient,
           ),
           child: child,
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: widget.padding ?? const EdgeInsets.all(8.0),
         child: widget.child,
       ),
     );

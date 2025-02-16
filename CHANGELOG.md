@@ -1,4 +1,8 @@
 
+## 0.0.6
+
+* Added Dotted animated border.
+
 ## 0.0.5
 
 * Added Dual border, Breathing Border .

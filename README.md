@@ -85,6 +85,31 @@ ZoDualBorder(
 
 ```
 
+For Dotted border
+
+```dart
+ZoDottedBorder(
+  child: Container(
+    height: 100,
+    width: 100,
+    color: Colors.red,
+    alignment: Alignment.center,
+    child: Text(
+      "MonoChrome",
+      style: TextStyle(fontSize: 14, color: Colors.white),
+    ),
+  ),
+  animate: true,
+  borderRadius: 10,
+  dashLength: 10,
+  gapLength: 5,
+  strokeWidth: 3,
+  color: Colors.blue,
+  animationDuration: Duration(seconds: 4),
+  borderStyle: BorderStyleType.monochrome,
+);
+```
+
 For Breathing border
 
 ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)

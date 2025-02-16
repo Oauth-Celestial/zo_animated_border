@@ -11,7 +11,7 @@ class ZoDottedBorderPainter extends CustomPainter {
   final double gapLength;
   final double strokeWidth;
   final Color color;
-  double animationSpeed;
+  double? animationSpeed;
   Gradient? gradient;
   final BorderStyleType borderStyle;
 
@@ -49,14 +49,14 @@ class ZoDottedBorderPainter extends CustomPainter {
     for (PathMetric pathMetric in pathMetrics) {
       double totalLength = pathMetric.length;
       double phase =
-          (progress * animationSpeed * totalLength) % (dashLength + gapLength);
+          (progress * animationSpeed! * totalLength) % (dashLength + gapLength);
 
-      double distance = phase; // 🔥 Ensures animation is seamless
+      double distance = phase;
       while (distance < totalLength) {
         double nextDistance = min(distance + dashLength, totalLength);
         if (nextDistance > 0) {
-          // 🔥 Ensures no invalid path extraction
           Path extractPath = pathMetric.extractPath(distance, nextDistance);
+
           canvas.drawPath(extractPath, paint);
         }
         distance += dashLength + gapLength;
