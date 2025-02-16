@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:zo_animated_border/painter/zo_track_painter.dart';
-import 'package:zo_animated_border/zo_monocrome_border.dart';
+
+enum ZoMonoCromeBorderStyle { stroke, repeated, mirror }
 
 extension GetBorderStyle on ZoMonoCromeBorderStyle {
   TileMode get value {
