@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_dotted_border.dart';
 
 class ZoDottedBorderPainter extends CustomPainter {
-  final double progress;
+  final Animation<double> progress;
   final double borderRadius;
   final double dashLength;
   final double gapLength;
@@ -25,7 +25,7 @@ class ZoDottedBorderPainter extends CustomPainter {
     this.color = Colors.black,
     this.gradient,
     required this.borderStyle,
-  });
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -48,8 +48,8 @@ class ZoDottedBorderPainter extends CustomPainter {
     PathMetrics pathMetrics = path.computeMetrics();
     for (PathMetric pathMetric in pathMetrics) {
       double totalLength = pathMetric.length;
-      double phase =
-          (progress * animationSpeed! * totalLength) % (dashLength + gapLength);
+      double phase = (progress.value * animationSpeed! * totalLength) %
+          (dashLength + gapLength);
 
       double distance = phase;
       while (distance < totalLength) {

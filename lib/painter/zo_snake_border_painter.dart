@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class ZoSnakeBorderPainter extends CustomPainter {
-  final double progress;
+  final Animation<double> progress;
   final double borderWidth;
   final Color colorFrom;
   final Color colorTo;
@@ -18,7 +18,8 @@ class ZoSnakeBorderPainter extends CustomPainter {
       required this.colorTo,
       required this.staticBorderColor,
       required this.borderRadius,
-      this.glowOpacity = 0.8});
+      this.glowOpacity = 0.8})
+      : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -41,7 +42,7 @@ class ZoSnakeBorderPainter extends CustomPainter {
     final pathLength = pathMetrics.length;
 
     // Adjust the animation to prevent the jump
-    final animationProgress = progress % 1.0;
+    final animationProgress = progress.value % 1.0;
     final start = animationProgress * pathLength;
     final end = (start + pathLength / 4) % pathLength;
 

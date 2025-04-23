@@ -1,4 +1,9 @@
 
+## 0.0.7
+
+* Resolved excessive widget rebuilds when animated = true
+* Optimized Border Painter widgets
+
 ## 0.0.6
 
 * Added Dotted animated border.

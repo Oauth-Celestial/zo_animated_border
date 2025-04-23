@@ -9,19 +9,18 @@ class ZoBreathingBorder extends StatefulWidget {
   final Widget child;
 
   const ZoBreathingBorder({
-    Key? key,
     required this.borderWidth,
     required this.borderRadius,
     required this.colors,
     required this.child,
     this.duration = const Duration(seconds: 3),
-  }) : super(key: key);
+  });
 
   @override
-  _ZoBreathingBorderState createState() => _ZoBreathingBorderState();
+  ZoBreathingBorderState createState() => ZoBreathingBorderState();
 }
 
-class _ZoBreathingBorderState extends State<ZoBreathingBorder>
+class ZoBreathingBorderState extends State<ZoBreathingBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Color?> _colorAnimation;
@@ -48,18 +47,12 @@ class _ZoBreathingBorderState extends State<ZoBreathingBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _colorAnimation,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoBreathingBorderPainter(
-            color: _colorAnimation.value ?? widget.colors.first,
-            borderWidth: widget.borderWidth,
-            borderRadius: widget.borderRadius,
-          ),
-          child: child,
-        );
-      },
+    return CustomPaint(
+      painter: ZoBreathingBorderPainter(
+        color: _colorAnimation,
+        borderWidth: widget.borderWidth,
+        borderRadius: widget.borderRadius,
+      ),
       child: Padding(
         padding: EdgeInsets.all(widget.borderWidth * 2),
         child: widget.child,

@@ -57,24 +57,18 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoDottedBorderPainter(
-            progress: _controller.value,
-            borderRadius: widget.borderRadius,
-            dashLength: widget.dashLength,
-            animationSpeed: widget.animationSpeed,
-            gapLength: widget.gapLength,
-            strokeWidth: widget.strokeWidth,
-            borderStyle: widget.borderStyle,
-            color: widget.color,
-            gradient: widget.gradient,
-          ),
-          child: child,
-        );
-      },
+    return CustomPaint(
+      painter: ZoDottedBorderPainter(
+        progress: _controller,
+        borderRadius: widget.borderRadius,
+        dashLength: widget.dashLength,
+        animationSpeed: widget.animationSpeed,
+        gapLength: widget.gapLength,
+        strokeWidth: widget.strokeWidth,
+        borderStyle: widget.borderStyle,
+        color: widget.color,
+        gradient: widget.gradient,
+      ),
       child: Padding(
         padding: widget.padding ?? const EdgeInsets.all(8.0),
         child: widget.child,

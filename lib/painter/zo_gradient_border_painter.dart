@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ZoGradientBorderPainter extends CustomPainter {
-  double angle;
+  Animation<double> angle;
   double? borderRadius;
   double borderThickness;
   List<Color> gradientColor;
@@ -11,7 +11,8 @@ class ZoGradientBorderPainter extends CustomPainter {
       this.borderRadius,
       this.borderThickness = 5,
       this.glowOpacity = 0.3,
-      required this.gradientColor});
+      required this.gradientColor})
+      : super(repaint: angle);
 
   List<double> _generateColorStops(List<dynamic> colors) {
     return colors.asMap().entries.map((entry) {
@@ -27,7 +28,7 @@ class ZoGradientBorderPainter extends CustomPainter {
       stops: _generateColorStops(
         gradientColor,
       ),
-      transform: GradientRotation(angle));
+      transform: GradientRotation(angle.value));
 
   @override
   void paint(Canvas canvas, Size size) {

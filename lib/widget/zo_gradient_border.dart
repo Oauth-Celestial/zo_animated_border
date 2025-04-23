@@ -39,7 +39,7 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
 class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final Tween<double> _animTween;
+
   late final Animation<double> _turnAnim;
 
   @override
@@ -50,8 +50,9 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     }
     _animationController =
         AnimationController(vsync: this, duration: widget.duration);
-    _animTween = Tween<double>(begin: 0.1, end: 2 * math.pi);
-    _turnAnim = _animTween.animate(_animationController);
+
+    _turnAnim = Tween<double>(begin: 0.1, end: 2 * math.pi)
+        .animate(_animationController);
     if (widget.shouldAnimate) {
       _animationController
         ..forward()
@@ -67,17 +68,13 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: _turnAnim,
-        builder: (context, child) {
-          return CustomPaint(
-              painter: ZoGradientBorderPainter(
-                  borderRadius: widget.borderRadius,
-                  borderThickness: widget.borderThickness,
-                  gradientColor: widget.gradientColor,
-                  glowOpacity: widget.glowOpacity,
-                  angle: _turnAnim.value),
-              child: widget.child);
-        });
+    return CustomPaint(
+        painter: ZoGradientBorderPainter(
+            borderRadius: widget.borderRadius,
+            borderThickness: widget.borderThickness,
+            gradientColor: widget.gradientColor,
+            glowOpacity: widget.glowOpacity,
+            angle: _turnAnim),
+        child: widget.child);
   }
 }

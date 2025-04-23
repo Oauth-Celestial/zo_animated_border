@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class ZoDualBorderPainter extends CustomPainter {
-  final double progress;
+  final Animation<double> progress;
   final double borderWidth;
   final Color firstBorderColor;
   final Color secondBorderColor;
@@ -20,7 +20,7 @@ class ZoDualBorderPainter extends CustomPainter {
     required this.staticBorderColor,
     required this.borderRadius,
     this.glowOpacity = 0.1,
-  });
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -44,7 +44,7 @@ class ZoDualBorderPainter extends CustomPainter {
     final pathLength = pathMetrics.length;
 
     // Calculate the primary animation path
-    final animationProgress = progress % 1.0;
+    final animationProgress = progress.value % 1.0;
     final start = animationProgress * pathLength;
     final end = (start + pathLength / 4) % pathLength;
 
@@ -90,7 +90,7 @@ class ZoDualBorderPainter extends CustomPainter {
     }
 
     // Calculate the mirrored animation path
-    final mirroredProgress = (progress + 0.5) % 1.0; // Offset by 50%
+    final mirroredProgress = (progress.value + 0.5) % 1.0; // Offset by 50%
     final mirroredStart = mirroredProgress * pathLength;
     final mirroredEnd = (mirroredStart + pathLength / 4) % pathLength;
 

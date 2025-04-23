@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ZoBreathingBorderPainter extends CustomPainter {
-  final Color color;
+  final Animation<Color?> color;
   final double borderWidth;
   final BorderRadius borderRadius;
 
@@ -9,7 +9,7 @@ class ZoBreathingBorderPainter extends CustomPainter {
     required this.color,
     required this.borderWidth,
     required this.borderRadius,
-  });
+  }) : super(repaint: color);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -24,7 +24,7 @@ class ZoBreathingBorderPainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
-      ..color = color
+      ..color = color.value!
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, borderWidth * 2);
 
     canvas.drawRRect(rrect, paint);

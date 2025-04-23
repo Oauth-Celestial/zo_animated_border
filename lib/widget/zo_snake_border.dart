@@ -58,25 +58,20 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoSnakeBorderPainter(
-            progress: _animation.value,
-            glowOpacity: widget.glowOpacity,
-            borderWidth: widget.borderWidth,
-            colorFrom: widget.snakeHeadColor,
-            colorTo: widget.snakeTailColor,
-            staticBorderColor: widget.snakeTrackColor,
-            borderRadius: widget.borderRadius,
-          ),
-          child: Padding(
-            padding: widget.padding,
-            child: widget.child,
-          ),
-        );
-      },
+    return CustomPaint(
+      painter: ZoSnakeBorderPainter(
+        progress: _animation,
+        glowOpacity: widget.glowOpacity,
+        borderWidth: widget.borderWidth,
+        colorFrom: widget.snakeHeadColor,
+        colorTo: widget.snakeTailColor,
+        staticBorderColor: widget.snakeTrackColor,
+        borderRadius: widget.borderRadius,
+      ),
+      child: Padding(
+        padding: widget.padding,
+        child: widget.child,
+      ),
     );
   }
 }
