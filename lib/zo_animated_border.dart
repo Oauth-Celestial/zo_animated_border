@@ -6,6 +6,7 @@ export 'widget/zo_snake_border.dart';
 export 'widget/zo_dual_border.dart';
 export 'widget/zo_breathing_border.dart';
 export 'widget/zo_dotted_border.dart';
+export 'widget/zo_multi_color_border.dart';
 
 import 'package:flutter/material.dart';
 

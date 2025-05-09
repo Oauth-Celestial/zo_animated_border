@@ -1,4 +1,6 @@
+import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:example/example/ex_zo_monochrome.dart';
+import 'package:example/example/ex_zo_multicolor_border.dart';
 import 'package:example/example/ex_zo_snake_border.dart';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/zo_animated_border.dart';
@@ -43,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(child: ExZoMonochromeBorder()),
+      body: Center(child: ExZoGradientBorder()),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
