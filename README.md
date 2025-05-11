@@ -6,6 +6,12 @@
 
 A package that provides a modern way to create gradient borders with animation in Flutter
 
+![pp](https://github.com/user-attachments/assets/a3360439-a84e-4ac5-ade6-1c76d44551d7)
+
+
+
+
+
 ## Getting started
 
 First, add zo_animated_border as a dependency in your pubspec.yaml file
@@ -54,6 +60,10 @@ ZoAnimatedGradientBorder(
 ```
 
 For MultiColor Border
+
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/f874e032-8635-4748-b9d4-1071fbe40c4d" width="50%">
+</p>
 
 ```dart
 ZoMultiColorBorder(
