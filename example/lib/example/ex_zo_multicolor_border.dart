@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/painter/zo_multi_color_border.dart';
 
 import 'package:zo_animated_border/zo_animated_border.dart';
 

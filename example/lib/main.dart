@@ -1,6 +1,5 @@
 import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/zo_animated_border.dart';
 
 void main() {
   runApp(const MyApp());
