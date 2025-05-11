@@ -53,6 +53,40 @@ ZoAnimatedGradientBorder(
 );
 ```
 
+For MultiColor Border
+
+```dart
+ZoMultiColorBorder(
+  colors: [
+    Colors.orange,
+    Colors.white,
+    Colors.green,
+    Colors.indigo,
+    Colors.pink,
+  ],
+  strokeWidth: 3,
+  borderRadius: 75,
+  child: Padding(
+    padding: const EdgeInsets.all(3.0),
+    child: Container(
+      width: 150,
+      height: 150,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        "MultiColor Border",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,
+      ),
+    ),
+  ),
+)
+
+```
+
 For Dual border
 
 ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
