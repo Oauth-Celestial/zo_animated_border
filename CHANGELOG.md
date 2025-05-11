@@ -1,4 +1,9 @@
 
+## 0.0.8
+
+* Added Multicolor border.
+* Fixed gradient glow issue for large shaped widgets
+
 ## 0.0.7
 
 * Resolved excessive widget rebuilds when animated = true

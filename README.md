@@ -8,10 +8,6 @@ A package that provides a modern way to create gradient borders with animation i
 
 ![pp](https://github.com/user-attachments/assets/a3360439-a84e-4ac5-ade6-1c76d44551d7)
 
-
-
-
-
 ## Getting started
 
 First, add zo_animated_border as a dependency in your pubspec.yaml file
