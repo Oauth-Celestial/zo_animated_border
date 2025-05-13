@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_multi_color_border.dart';
 
-class ZoMultiColorBorder extends StatelessWidget {
+class ZoMultiColorBorder extends StatefulWidget {
   final double borderRadius;
 
   final double gapLength;
@@ -20,16 +20,42 @@ class ZoMultiColorBorder extends StatelessWidget {
       this.colors = const [Colors.blue, Colors.black]});
 
   @override
+  State<ZoMultiColorBorder> createState() => _ZoMultiColorBorderState();
+}
+
+class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    )..repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? const EdgeInsets.all(8.0),
+      padding: widget.padding ?? const EdgeInsets.all(8.0),
       child: CustomPaint(
           painter: ZoMultiColorBorderPainter(
-              colors: colors,
-              borderRadius: borderRadius,
-              borderWidth: strokeWidth,
-              gapLength: gapLength),
-          child: child),
+              progress: _controller,
+              colors: widget.colors,
+              borderRadius: widget.borderRadius,
+              borderWidth: widget.strokeWidth,
+              gapLength: widget.gapLength),
+          child: widget.child),
     );
   }
 }

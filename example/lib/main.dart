@@ -1,4 +1,6 @@
+import 'package:example/example/ex_zo_dotted_border.dart';
 import 'package:example/example/ex_zo_gradient_border.dart';
+import 'package:example/example/ex_zo_multicolor_border.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: ExZoGradientBorder(),
+      body: ExZoDottedBorder(),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

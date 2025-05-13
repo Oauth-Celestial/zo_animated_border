@@ -56,9 +56,15 @@ class ZoDottedBorderPainter extends CustomPainter {
         double nextDistance = min(distance + dashLength, totalLength);
         if (nextDistance > 0) {
           Path extractPath = pathMetric.extractPath(distance, nextDistance);
-
+          // Tangent? tangent = pathMetric.getTangentForOffset(nextDistance);
+          // if (tangent != null) {
+          //   Path path = Path();
+          //   path.addOval(Rect.fromCenter(
+          //       center: tangent.position, width: 10, height: 10));
+          //   canvas.drawPath(path, paint);
+          // }
           canvas.drawPath(extractPath, paint);
-        }
+        } else {}
         distance += dashLength + gapLength;
       }
     }
