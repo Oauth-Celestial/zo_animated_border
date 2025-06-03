@@ -57,10 +57,8 @@ class ZoSnakeBorderPainter extends CustomPainter {
     // Calculate gradient start and end points
     final gradientStart =
         pathMetrics.getTangentForOffset(start)?.position ?? Offset.zero;
-    final gradientEnd = pathMetrics
-            .getTangentForOffset((start + pathLength / 8) % pathLength)
-            ?.position ??
-        Offset.zero;
+    final gradientEnd =
+        pathMetrics.getTangentForOffset(end)?.position ?? Offset.zero;
 
     final paint = Paint()
       ..style = PaintingStyle.stroke

@@ -1,6 +1,9 @@
+import 'package:example/example/ex_zo_breathing_border.dart';
 import 'package:example/example/ex_zo_dotted_border.dart';
 import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:example/example/ex_zo_multicolor_border.dart';
+import 'package:example/example/ex_zo_pulsating_border.dart';
+import 'package:example/example/ex_zo_snake_border.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -47,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: ExZoDottedBorder(),
+      body: ExZoMultiColorBorder(),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

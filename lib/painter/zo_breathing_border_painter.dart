@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ZoBreathingBorderPainter extends CustomPainter {
   final Animation<Color?> color;
   final double borderWidth;
+  final double spreadRadius;
   final BorderRadius borderRadius;
 
   ZoBreathingBorderPainter({
     required this.color,
     required this.borderWidth,
+    this.spreadRadius = 10,
     required this.borderRadius,
   }) : super(repaint: color);
 
@@ -22,10 +24,10 @@ class ZoBreathingBorderPainter extends CustomPainter {
     final rrect = borderRadius.toRRect(rect);
 
     final paint = Paint()
-      ..style = PaintingStyle.stroke
+      ..style = PaintingStyle.fill
       ..strokeWidth = borderWidth
       ..color = color.value!
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, borderWidth * 2);
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spreadRadius);
 
     canvas.drawRRect(rrect, paint);
   }

@@ -27,7 +27,7 @@ class ExZoBreathingBorder extends StatelessWidget {
             ),
             ZoBreathingBorder(
               borderWidth: 3.0,
-              borderRadius: BorderRadius.circular(75),
+              borderRadius: BorderRadius.circular(100),
               colors: [
                 Colors.blue,
                 Colors.purple,

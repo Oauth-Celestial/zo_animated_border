@@ -38,7 +38,7 @@ class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
       CurvedAnimation(
           parent: _animationController!, curve: widget.animationCurve),
     );
-    _animationController?.repeat();
+    _animationController?.repeat(reverse: true);
     super.initState();
   }
 
