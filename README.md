@@ -57,9 +57,8 @@ ZoAnimatedGradientBorder(
 
 For MultiColor Border
 
-<p align="left">
-  <img src="https://github.com/user-attachments/assets/f874e032-8635-4748-b9d4-1071fbe40c4d" width="50%">
-</p>
+![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
+
 
 ```dart
 ZoMultiColorBorder(
