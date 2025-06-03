@@ -10,8 +10,8 @@ class ZoMultiColorBorder extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   final List<Color> colors;
-  bool animate;
-  ZoMultiColorBorder(
+  final bool animate;
+  const ZoMultiColorBorder(
       {super.key,
       required this.child,
       this.borderRadius = 0,
