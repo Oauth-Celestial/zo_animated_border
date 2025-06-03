@@ -54,6 +54,7 @@ class ExZoMultiColorBorder extends StatelessWidget {
               width: 10,
             ),
             ZoMultiColorBorder(
+              animate: false,
               colors: [
                 Colors.orange,
                 Colors.white,

@@ -1,3 +1,8 @@
+## 0.0.9
+
+* Added animation property to Multicolor border.
+* Fixed breathing border color opacity issue.
+* Fixed Pulse border animation stuck issue.
 
 ## 0.0.8
 

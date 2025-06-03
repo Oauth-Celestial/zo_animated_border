@@ -10,12 +10,14 @@ class ZoMultiColorBorder extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   final List<Color> colors;
-  const ZoMultiColorBorder(
+  bool animate;
+  ZoMultiColorBorder(
       {super.key,
       required this.child,
       this.borderRadius = 0,
       this.gapLength = 0,
       this.strokeWidth = 3,
+      this.animate = true,
       this.padding,
       this.colors = const [Colors.blue, Colors.black]});
 
@@ -30,10 +32,14 @@ class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
   @override
   void initState() {
     // TODO: implement initState
+
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
-    )..repeat();
+    );
+    if (widget.animate) {
+      _controller.repeat();
+    }
     super.initState();
   }
 

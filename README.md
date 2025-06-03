@@ -59,7 +59,6 @@ For MultiColor Border
 
 ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
 
-
 ```dart
 ZoMultiColorBorder(
   colors: [
@@ -272,6 +271,7 @@ Feel free to post a feature requests or report a bug [here](https://github.com/O
 ## My Other packages
 
 - [zo_screenshot](https://pub.dev/packages/zo_screenshot): The zo_screenshot plugin helps restrict screenshots and screen recording in Flutter apps, enhancing security and privacy by preventing unauthorized screen captures.
+- [zo_collection_animation](https://pub.dev/packages/zo_collection_animation): A lightweight Flutter package to create smooth collect animations for coins carts
 - [connectivity_watcher](https://pub.dev/packages/connectivity_watcher): A Flutter package to monitor internet connectivity with subsecond response times, even on mobile networks.
 - [ultimate_extension](https://pub.dev/packages/ultimate_extension): Enhances Dart collections and objects with utilities for advanced data manipulation and simpler coding.
 - [theme_manager_plus](https://pub.dev/packages/theme_manager_plus): Allows customization of your app's theme with your own theme class, eliminating the need for traditional
