@@ -5,8 +5,11 @@ class ZoColorChangingBorder extends StatefulWidget {
   final Widget child;
   final double borderWidth;
   final double borderRadius;
-  double segmentLength; // 0.0 - 1.0 (fraction of perimeter)
+  // value can be set between 0.0 - 1.0
+  double segmentLength;
+  final Duration duration;
   final List<Color> colors;
+  //  value in list can be set from 0.1 to 1.0  e.g[0.1,0.6,1.0]
   final List<double>? colorStops;
   final Color staticBorderColor;
 
@@ -17,6 +20,7 @@ class ZoColorChangingBorder extends StatefulWidget {
     this.borderRadius = 12,
     this.segmentLength = 0.1,
     required this.colors,
+    this.duration = const Duration(seconds: 3),
     this.colorStops,
     this.staticBorderColor = Colors.transparent,
   });
@@ -35,9 +39,20 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
     if (widget.segmentLength >= 1) {
       widget.segmentLength = 0.9999;
     }
+
+    if (widget.colorStops != null) {
+      if (widget.colorStops!.isEmpty) {
+        throw Exception("Colors stops cannot be empty");
+      }
+
+      if (widget.colorStops!.length != widget.colors.length) {
+        throw Exception(
+            "Colors length and color stops should be of same length");
+      }
+    }
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: widget.duration,
     )..repeat();
   }
 

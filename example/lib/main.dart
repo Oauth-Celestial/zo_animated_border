@@ -1,6 +1,7 @@
 import 'package:example/example/ex_zo_breathing_border.dart';
 import 'package:example/example/ex_zo_color_changing_border.dart';
 import 'package:example/example/ex_zo_dotted_border.dart';
+import 'package:example/example/ex_zo_edge_glow_border.dart';
 import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:example/example/ex_zo_multicolor_border.dart';
 import 'package:example/example/ex_zo_pulsating_border.dart';

@@ -25,10 +25,8 @@ class ExZoGlowEdgeBorder extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-            ZoColorChangingBorder(
-              borderRadius: 0,
-              segmentLength: 0.2,
-              colors: [
+            ZoGlowingEdgeBorder(
+              gradientColors: [
                 Colors.orange,
                 Colors.white,
                 Colors.green,
@@ -44,7 +42,7 @@ class ExZoGlowEdgeBorder extends StatelessWidget {
                   ),
                   child: Text(
                     textAlign: TextAlign.center,
-                    "Color Changing Border",
+                    "Glow Edge Border",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -53,16 +51,15 @@ class ExZoGlowEdgeBorder extends StatelessWidget {
             SizedBox(
               width: 10,
             ),
-            ZoColorChangingBorder(
-              colors: [
+            ZoGlowingEdgeBorder(
+              gradientColors: [
                 Colors.orange,
                 Colors.white,
                 Colors.green,
                 Colors.indigo,
                 Colors.pink
               ],
-              segmentLength: 0.2,
-              borderRadius: 75,
+              borderRadius: 100,
               child: Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: Container(
@@ -72,7 +69,7 @@ class ExZoGlowEdgeBorder extends StatelessWidget {
                   decoration:
                       BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                   child: Text(
-                    "MultiColor Border",
+                    "Glow Edge Border",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

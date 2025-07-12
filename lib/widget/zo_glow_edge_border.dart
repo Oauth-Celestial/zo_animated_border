@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_glow_edge_border_painter.dart';
 
-class ZOGlowingEdgeBorder extends StatefulWidget {
+class ZoGlowingEdgeBorder extends StatefulWidget {
   final Widget child;
   final double borderWidth;
-  final double radius;
-  final double snakeLength;
+  final double borderRadius;
+  final double edgeLength;
+  final Duration duration;
   final List<Color> gradientColors;
 
-  const ZOGlowingEdgeBorder({
+  const ZoGlowingEdgeBorder({
     super.key,
     required this.child,
     required this.gradientColors,
     this.borderWidth = 4.0,
-    this.radius = 20.0,
-    this.snakeLength = 120.0,
+    this.duration = const Duration(seconds: 3),
+    this.borderRadius = 20.0,
+    this.edgeLength = 120.0,
   });
 
   @override
-  State<ZOGlowingEdgeBorder> createState() => _ZOGlowingEdgeBorderState();
+  State<ZoGlowingEdgeBorder> createState() => _ZoGlowingEdgeBorderState();
 }
 
-class _ZOGlowingEdgeBorderState extends State<ZOGlowingEdgeBorder>
+class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
@@ -29,7 +31,7 @@ class _ZOGlowingEdgeBorderState extends State<ZOGlowingEdgeBorder>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: widget.duration,
     )..repeat();
     super.initState();
   }
@@ -46,24 +48,11 @@ class _ZOGlowingEdgeBorderState extends State<ZOGlowingEdgeBorder>
       painter: ZOGlowingEdgePainter(
         animation: _controller,
         borderWidth: widget.borderWidth,
-        radius: widget.radius,
-        snakeLength: widget.snakeLength,
+        borderRadius: widget.borderRadius,
+        edgeLength: widget.edgeLength,
         gradientColors: widget.gradientColors,
       ),
       child: widget.child,
     );
   }
 }
-
-
-
-
-// ZOGlowingEdgeBorder(
-//           gradientColors: [Colors.purple, Colors.blue, Colors.cyan],
-//           child: Padding(
-//             padding: EdgeInsets.all(40.0),
-//             child: Text(
-//               'Custom Gradient',
-//               style: TextStyle(color: Colors.white, fontSize: 24),
-//             ),
-//           ),

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class ZOGlowingEdgePainter extends CustomPainter {
   final Animation<double> animation;
   final double borderWidth;
-  final double radius;
-  final double snakeLength;
+  final double borderRadius;
+  final double edgeLength;
   final List<Color> gradientColors;
 
   ZOGlowingEdgePainter({
     required this.animation,
     required this.borderWidth,
-    required this.radius,
-    required this.snakeLength,
+    required this.borderRadius,
+    required this.edgeLength,
     required this.gradientColors,
   }) : super(repaint: animation);
 
@@ -20,7 +20,7 @@ class ZOGlowingEdgePainter extends CustomPainter {
     final rect = Offset.zero & size;
     final rrect = RRect.fromRectAndRadius(
       rect.deflate(borderWidth / 2),
-      Radius.circular(radius),
+      Radius.circular(borderRadius),
     );
 
     final path = Path()..addRRect(rrect);
@@ -31,7 +31,7 @@ class ZOGlowingEdgePainter extends CustomPainter {
       final progress = animation.value * totalLength;
 
       final start = progress;
-      final end = progress + snakeLength;
+      final end = progress + edgeLength;
 
       Path snakePath;
 

@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Added Color animation border Glow edge border.
+
 ## 0.0.9
 
 * Added animation property to Multicolor border.

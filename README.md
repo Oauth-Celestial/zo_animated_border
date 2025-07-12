@@ -91,6 +91,39 @@ ZoMultiColorBorder(
 
 ```
 
+For Color Changing Border
+
+![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
+
+```dart
+ZoColorChangingBorder(
+  borderRadius: 0,
+  segmentLength: 0.2,
+  colors: [
+    Colors.orange,
+    Colors.white,
+    Colors.green,
+  ],
+  child: Padding(
+    padding: const EdgeInsets.all(3.0),
+    child: Container(
+      width: 150,
+      height: 150,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: const Text(
+        "Color Changing Border",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
+  ),
+);
+
+```
+
 For Dual border
 
 ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
@@ -212,6 +245,38 @@ ZoSnakeBorder(
     ),
   ),
 );
+
+```
+
+For GlowEdge Border
+
+![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
+
+```dart
+ZoGlowingEdgeBorder(
+  gradientColors: [
+    Colors.orange,
+    Colors.white,
+    Colors.green,
+  ],
+  child: Padding(
+    padding: const EdgeInsets.all(3.0),
+    child: Container(
+      width: 150,
+      height: 150,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: const Text(
+        "Glow Edge Border",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
+  ),
+);
+
 
 ```
 
