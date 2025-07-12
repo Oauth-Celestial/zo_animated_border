@@ -1,4 +1,5 @@
 import 'package:example/example/ex_zo_breathing_border.dart';
+import 'package:example/example/ex_zo_color_changing_border.dart';
 import 'package:example/example/ex_zo_dotted_border.dart';
 import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:example/example/ex_zo_multicolor_border.dart';
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: ExZoMultiColorBorder(),
+      body: ExZoColorChangingBorder(),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

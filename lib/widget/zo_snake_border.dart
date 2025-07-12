@@ -39,7 +39,7 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
   @override
   void initState() {
     super.initState();
-    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+    if (widget.glowOpacity >= 1.0 || widget.glowOpacity < 0.0) {
       throw Exception("Glow opacity should be between 0.0 and 1.0");
     }
     _controller = AnimationController(

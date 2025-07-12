@@ -7,6 +7,8 @@ export 'widget/zo_dual_border.dart';
 export 'widget/zo_breathing_border.dart';
 export 'widget/zo_dotted_border.dart';
 export 'widget/zo_multi_color_border.dart';
+export 'widget/zo_color_change_border.dart';
+export 'widget/zo_glow_edge_border.dart';
 
 import 'package:flutter/material.dart';
 
