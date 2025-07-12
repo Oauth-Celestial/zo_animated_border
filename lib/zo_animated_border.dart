@@ -1,6 +1,6 @@
 library zo_animated_border;
 
-export 'widget/zo_track_border.dart';
+export 'widget/zo_mono_crome_border.dart';
 export 'widget/zo_pulsating_border.dart';
 export 'widget/zo_snake_border.dart';
 export 'widget/zo_dual_border.dart';

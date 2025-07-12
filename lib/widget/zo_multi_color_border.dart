@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_multi_color_border.dart';
 
+/// ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
 class ZoMultiColorBorder extends StatefulWidget {
   final double borderRadius;
 

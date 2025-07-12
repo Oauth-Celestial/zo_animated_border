@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_breathing_border_painter.dart';
 
+/// ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
 class ZoBreathingBorder extends StatefulWidget {
   final double borderWidth;
   final BorderRadius borderRadius;

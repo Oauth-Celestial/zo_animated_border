@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_glow_edge_border_painter.dart';
 
+/// ![glowEdge](https://github.com/user-attachments/assets/11950588-e76c-48ca-bbd7-5ca5ec988380)
 class ZoGlowingEdgeBorder extends StatefulWidget {
   final Widget child;
   final double borderWidth;

@@ -18,6 +18,7 @@ extension GetBorderStyle on ZoMonoCromeBorderStyle {
   }
 }
 
+/// ![mono_chrome (online-video-cutter com)](https://github.com/user-attachments/assets/d798997d-a68c-447e-90e1-5e8fc8dd56bf)
 class ZoMonoCromeBorder extends StatefulWidget {
   final Widget child;
 

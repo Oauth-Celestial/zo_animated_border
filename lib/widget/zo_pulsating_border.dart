@@ -3,6 +3,7 @@ import 'package:zo_animated_border/widget/size_provider_widget.dart';
 
 enum ZoPulsatingBorderType { pulse, radarPulse }
 
+/// ![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
 class ZoPulsatingBorder extends StatefulWidget {
   const ZoPulsatingBorder(
       {super.key,

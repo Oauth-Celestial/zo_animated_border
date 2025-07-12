@@ -3,6 +3,7 @@ import 'package:zo_animated_border/painter/zo_dotted_painter.dart';
 
 enum BorderStyleType { gradient, monochrome }
 
+/// ![dotted](https://github.com/user-attachments/assets/c1027326-76e4-4f4b-b31d-21303fcb8055)
 class ZoDottedBorder extends StatefulWidget {
   final double borderRadius;
   final double dashLength;

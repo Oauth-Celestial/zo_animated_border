@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_dual_border_painter.dart';
 
+/// ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 class ZoDualBorder extends StatefulWidget {
   final Widget child;
   final Duration duration;

@@ -91,7 +91,6 @@ ZoMultiColorBorder(
 
 ```
 
-
 For Color Changing Border
 
 ![colorborder](https://github.com/user-attachments/assets/d2016016-0da1-487e-859e-63cad3b85b56)
@@ -252,7 +251,6 @@ ZoSnakeBorder(
 For GlowEdge Border
 
 ![glowEdge](https://github.com/user-attachments/assets/11950588-e76c-48ca-bbd7-5ca5ec988380)
-
 
 ```dart
 ZoGlowingEdgeBorder(

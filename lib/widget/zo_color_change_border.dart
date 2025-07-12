@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_color_changing_border_painter.dart';
 
+/// ![colorborder](https://github.com/user-attachments/assets/d2016016-0da1-487e-859e-63cad3b85b56)
 class ZoColorChangingBorder extends StatefulWidget {
   final Widget child;
   final double borderWidth;

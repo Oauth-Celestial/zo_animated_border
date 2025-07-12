@@ -1,5 +1,6 @@
 part of '../zo_animated_border.dart';
 
+/// ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 // ignore: must_be_immutable
 class ZoAnimatedGradientBorder extends StatefulWidget {
   ZoAnimatedGradientBorder(
