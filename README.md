@@ -6,7 +6,8 @@
 
 **Zo Animated Border** is a powerful Flutter package that brings modern UI to life with beautifully animated **borders**. Whether you're building a login screen, a button, or a decorative container, this package lets you wrap any widget with stylish, animated **border** effects.
 
-![pp](https://github.com/user-attachments/assets/a3360439-a84e-4ac5-ade6-1c76d44551d7)
+![final (1)](https://github.com/user-attachments/assets/35456ed5-584f-4d1f-921d-bcab0edd1f79)
+
 
 ## Getting started
 
@@ -93,7 +94,8 @@ ZoMultiColorBorder(
 
 For Color Changing Border
 
-![colorborder](https://github.com/user-attachments/assets/d2016016-0da1-487e-859e-63cad3b85b56)
+![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
+
 
 ```dart
 ZoColorChangingBorder(

@@ -7,14 +7,14 @@ class ZoColorChangingBorder extends StatefulWidget {
   final double borderWidth;
   final double borderRadius;
   // value can be set between 0.0 - 1.0
-  double segmentLength;
+  final double segmentLength;
   final Duration duration;
   final List<Color> colors;
   //  value in list can be set from 0.1 to 1.0  e.g[0.1,0.6,1.0]
   final List<double>? colorStops;
   final Color staticBorderColor;
 
-  ZoColorChangingBorder({
+  const ZoColorChangingBorder({
     super.key,
     required this.child,
     this.borderWidth = 4,
@@ -33,12 +33,15 @@ class ZoColorChangingBorder extends StatefulWidget {
 class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  double borderLength = 0;
 
   @override
   void initState() {
     super.initState();
     if (widget.segmentLength >= 1) {
-      widget.segmentLength = 0.9999;
+      borderLength = 0.9999;
+    } else {
+      borderLength = widget.segmentLength;
     }
 
     if (widget.colorStops != null) {
@@ -73,7 +76,7 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
         radius: widget.borderRadius,
         colors: widget.colors,
         colorStops: widget.colorStops,
-        segmentLength: widget.segmentLength,
+        segmentLength: borderLength,
       ),
       child: widget.child,
     );
