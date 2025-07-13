@@ -72,7 +72,8 @@ class ExZoColorChangingBorder extends StatelessWidget {
                   decoration:
                       BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                   child: Text(
-                    "MultiColor Border",
+                    textAlign: TextAlign.center,
+                    "Color Changing border",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

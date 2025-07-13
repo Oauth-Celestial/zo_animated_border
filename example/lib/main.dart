@@ -6,6 +6,7 @@ import 'package:example/example/ex_zo_gradient_border.dart';
 import 'package:example/example/ex_zo_multicolor_border.dart';
 import 'package:example/example/ex_zo_pulsating_border.dart';
 import 'package:example/example/ex_zo_snake_border.dart';
+import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Zo Animated Borders'),
+      home: TestWidget(),
       // const AnimatedGradientBorderScreen(),
     );
   }

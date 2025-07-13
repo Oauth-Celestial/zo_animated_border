@@ -16,7 +16,7 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
     required this.gradientColors,
     this.borderWidth = 4.0,
     this.duration = const Duration(seconds: 3),
-    this.borderRadius = 20.0,
+    this.borderRadius = 5.0,
     this.edgeLength = 120.0,
   });
 

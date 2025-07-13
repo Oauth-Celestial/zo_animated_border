@@ -1,22 +1,21 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class ZoMultiColorBorderPainter extends CustomPainter {
   final List<Color> colors;
   final double borderRadius;
   final double borderWidth;
-  double gapLength;
-  Animation<double>? progress;
+  final double gapLength;
+  final Animation<double>? progress;
 
-  ZoMultiColorBorderPainter(
-      {required this.colors,
-      this.borderRadius = 8.0,
-      this.borderWidth = 4.0,
-      this.progress,
-      this.gapLength = 0})
-      : super(repaint: progress);
+  ZoMultiColorBorderPainter({
+    required this.colors,
+    this.borderRadius = 8.0,
+    this.borderWidth = 4.0,
+    this.gapLength = 0,
+    this.progress,
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -24,51 +23,43 @@ class ZoMultiColorBorderPainter extends CustomPainter {
     final RRect outer =
         RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
 
-    final double perimeter = 2 * (size.width + size.height) -
-        8 * borderRadius +
-        2 * pi * borderRadius;
-    final double colorSegmentLength = perimeter / colors.length;
-
     final Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
       ..strokeCap = StrokeCap.round;
 
-    Path path = Path()..addRRect(outer);
-    PathMetrics pathMetrics = path.computeMetrics();
+    final Path path = Path()..addRRect(outer);
+    final PathMetrics pathMetrics = path.computeMetrics(forceClosed: true);
 
-    // Calculate the starting offset based on animation value
-    // This creates a seamless loop when animation completes
-    double startOffset = perimeter * (progress?.value ?? 0);
+    // Get total path length
+    final double totalLength =
+        pathMetrics.fold(0.0, (sum, m) => sum + m.length);
 
-    for (PathMetric pathMetric in pathMetrics) {
+    final double colorSegmentLength =
+        (totalLength - (gapLength * colors.length)) / colors.length;
+
+    final double startOffset = (progress?.value ?? 0) * totalLength;
+
+    for (final pathMetric in path.computeMetrics(forceClosed: true)) {
       double currentDistance = startOffset;
 
-      // Draw the full loop (perimeter) starting from startOffset
       for (int i = 0; i < colors.length; i++) {
-        final double segmentStart = currentDistance % perimeter;
+        double segmentStart = currentDistance % pathMetric.length;
         double segmentEnd = segmentStart + colorSegmentLength;
 
-        // Wrap around if needed
-        if (segmentEnd > perimeter) {
-          // Draw first part
-          paint.color = colors[i];
-          canvas.drawPath(
-            pathMetric.extractPath(segmentStart, perimeter),
-            paint,
-          );
+        paint.color = colors[i];
 
-          // Draw remaining part from beginning
-          canvas.drawPath(
-            pathMetric.extractPath(0, segmentEnd - perimeter),
-            paint,
-          );
+        if (segmentEnd > pathMetric.length) {
+          // Wrap around
+          final firstPart =
+              pathMetric.extractPath(segmentStart, pathMetric.length);
+          final secondPart =
+              pathMetric.extractPath(0, segmentEnd - pathMetric.length);
+          canvas.drawPath(firstPart, paint);
+          canvas.drawPath(secondPart, paint);
         } else {
-          paint.color = colors[i];
-          canvas.drawPath(
-            pathMetric.extractPath(segmentStart, segmentEnd),
-            paint,
-          );
+          final segment = pathMetric.extractPath(segmentStart, segmentEnd);
+          canvas.drawPath(segment, paint);
         }
 
         currentDistance += colorSegmentLength + gapLength;
@@ -77,7 +68,11 @@ class ZoMultiColorBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant ZoMultiColorBorderPainter oldDelegate) {
+    return oldDelegate.colors != colors ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.gapLength != gapLength ||
+        oldDelegate.progress != progress;
   }
 }
