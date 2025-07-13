@@ -2,6 +2,10 @@
 
 * Added Color animation border Glow edge border.
 
+* Fixed spacing issue in multicolor border.
+
+* Fixed bugs.
+
 ## 0.0.9
 
 * Added animation property to Multicolor border.

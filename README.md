@@ -4,7 +4,7 @@
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-A package that provides a modern way to create gradient borders with animation in Flutter
+**Zo Animated Border** is a powerful Flutter package that brings modern UI to life with beautifully animated **borders**. Whether you're building a login screen, a button, or a decorative container, this package lets you wrap any widget with stylish, animated **border** effects.
 
 ![pp](https://github.com/user-attachments/assets/a3360439-a84e-4ac5-ade6-1c76d44551d7)
 
@@ -331,7 +331,7 @@ ZoMonoCromeBorder(
 );
 ```
 
-Feel free to post a feature requests or report a bug [here](https://github.com/Oauth-Celestial/zo_animated_border/issues).
+Feel free to post a feature requests or report a bug [issues](https://github.com/Oauth-Celestial/zo_animated_border/issues).
 
 ## My Other packages
 
