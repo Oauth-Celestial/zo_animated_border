@@ -8,6 +8,7 @@ import 'package:example/example/ex_zo_pulsating_border.dart';
 import 'package:example/example/ex_zo_snake_border.dart';
 import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:zo_animated_border/widget/zo_signal_border.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TestWidget(),
+      home: MyHomePage(title: ""),
       // const AnimatedGradientBorderScreen(),
     );
   }
@@ -45,16 +46,33 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(
-          widget.title,
-          style: TextStyle(color: Colors.white),
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Text(
+            widget.title,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
-      body: ExZoColorChangingBorder(),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: Center(
+          child: ZoSignalBorder(
+            maxRadius: 120,
+            ringColors: [
+              Colors.yellow,
+              Colors.orange,
+              Colors.red,
+              Colors.purple,
+              Colors.blue,
+            ],
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration:
+                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            ),
+          ),
+        )
+        // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
