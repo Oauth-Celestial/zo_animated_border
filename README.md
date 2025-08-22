@@ -126,7 +126,8 @@ ZoColorChangingBorder(
 
 For Signal Border
 
-![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
+![Simulator Screen Recording - iPhone 15 Pro - 2025-08-19 at 11 56 35 (online-video-cutter com)](https://github.com/user-attachments/assets/cdbd5676-34b2-4826-8e2b-e8d317e9c526)
+
 
 ```dart
 ZoSignalBorder(
@@ -137,17 +138,18 @@ ZoSignalBorder(
     Colors.red,
     Colors.purple,
     Colors.blue,
-    ],
+  ],
   child: Container(
-          alignment: Alignment.center,
-          width: 130,
-          height: 130,
-          decoration:BoxDecoration(
-            color: Colors.white, 
-            shape: BoxShape.circle),
-              child: Text("Signal Border"),
-            ),
-          );
+    alignment: Alignment.center,
+    width: 130,
+    height: 130,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      shape: BoxShape.circle,
+    ),
+    child: const Text("Signal Border"),
+  ),
+);
 
 ```
 
