@@ -4,7 +4,7 @@ import 'package:zo_animated_border/painter/zo_snake_border_painter.dart';
 /// ![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
 class ZoSnakeBorder extends StatefulWidget {
   final Widget child;
-  final double duration;
+  final Duration animationDuration;
   final double borderWidth;
   final Color snakeHeadColor;
   final Color snakeTailColor;
@@ -17,7 +17,7 @@ class ZoSnakeBorder extends StatefulWidget {
 
   const ZoSnakeBorder({
     required this.child,
-    this.duration = 15,
+    this.animationDuration = const Duration(seconds: 10),
     this.borderWidth = 3,
     this.glowOpacity = 0.1,
     this.snakeHeadColor = Colors.deepOrange,
@@ -44,7 +44,7 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
       throw Exception("Glow opacity should be between 0.0 and 1.0");
     }
     _controller = AnimationController(
-      duration: Duration(seconds: widget.duration.toInt()),
+      duration: widget.animationDuration,
       vsync: this,
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);

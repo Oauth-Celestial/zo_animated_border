@@ -1,8 +1,12 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_dotted_border.dart';
+
+enum ZoBorderDirection {
+  clockwise,
+  anticlockwise,
+}
 
 class ZoDottedBorderPainter extends CustomPainter {
   final Animation<double> progress;
@@ -11,9 +15,10 @@ class ZoDottedBorderPainter extends CustomPainter {
   final double gapLength;
   final double strokeWidth;
   final Color color;
-  double? animationSpeed;
-  Gradient? gradient;
+  final double animationSpeed;
+  final Gradient? gradient;
   final BorderStyleType borderStyle;
+  final ZoBorderDirection direction;
 
   ZoDottedBorderPainter({
     required this.progress,
@@ -25,6 +30,7 @@ class ZoDottedBorderPainter extends CustomPainter {
     this.color = Colors.black,
     this.gradient,
     required this.borderStyle,
+    this.direction = ZoBorderDirection.clockwise,
   }) : super(repaint: progress);
 
   @override
@@ -40,31 +46,35 @@ class ZoDottedBorderPainter extends CustomPainter {
       paint.color = color;
     }
 
-    Path path = Path();
-    path.addRRect(RRect.fromRectAndRadius(
+    // Rounded rectangle path
+    final Path path = Path()
+      ..addRRect(RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
-        Radius.circular(borderRadius)));
+        Radius.circular(borderRadius),
+      ));
 
-    PathMetrics pathMetrics = path.computeMetrics();
-    for (PathMetric pathMetric in pathMetrics) {
-      double totalLength = pathMetric.length;
-      double phase = (progress.value * animationSpeed! * totalLength) %
+    for (final pathMetric in path.computeMetrics()) {
+      final totalLength = pathMetric.length;
+
+      // Direction multiplier: +1 for clockwise, -1 for anticlockwise
+      final double directionMultiplier =
+          direction == ZoBorderDirection.anticlockwise ? 1.0 : -1.0;
+
+      // Smooth phase offset
+      final double phase = (progress.value *
+              animationSpeed *
+              totalLength *
+              directionMultiplier) %
           (dashLength + gapLength);
 
-      double distance = phase;
+      double distance = -phase;
       while (distance < totalLength) {
-        double nextDistance = min(distance + dashLength, totalLength);
-        if (nextDistance > 0) {
-          Path extractPath = pathMetric.extractPath(distance, nextDistance);
-          // Tangent? tangent = pathMetric.getTangentForOffset(nextDistance);
-          // if (tangent != null) {
-          //   Path path = Path();
-          //   path.addOval(Rect.fromCenter(
-          //       center: tangent.position, width: 10, height: 10));
-          //   canvas.drawPath(path, paint);
-          // }
+        final double start = max(distance, 0);
+        final double end = min(distance + dashLength, totalLength);
+        if (end > start) {
+          final Path extractPath = pathMetric.extractPath(start, end);
           canvas.drawPath(extractPath, paint);
-        } else {}
+        }
         distance += dashLength + gapLength;
       }
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class SizeProviderWidget extends StatefulWidget {
   final Widget Function(BuildContext context, Size size) builder;

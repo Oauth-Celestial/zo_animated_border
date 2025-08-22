@@ -7,7 +7,7 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
       {super.key,
       this.borderRadius = 0,
       this.glowOpacity = 0.5,
-      this.duration = const Duration(seconds: 1),
+      this.animationDuration = const Duration(seconds: 1),
       this.borderThickness = 1,
       required this.child,
       required this.gradientColor,
@@ -20,7 +20,7 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
   final double glowOpacity;
 
   /// set the animation duration defaults to 1 second
-  final Duration duration;
+  final Duration animationDuration;
 
   /// border Thickness
   final double borderThickness;
@@ -50,7 +50,7 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
       throw Exception("Glow opacity should be between 0.0 and 1.0");
     }
     _animationController =
-        AnimationController(vsync: this, duration: widget.duration);
+        AnimationController(vsync: this, duration: widget.animationDuration);
 
     _turnAnim = Tween<double>(begin: 0.1, end: 2 * math.pi)
         .animate(_animationController);

@@ -27,7 +27,7 @@ class ExZoSnakeBorder extends StatelessWidget {
               width: 20,
             ),
             ZoSnakeBorder(
-              duration: 3,
+              animationDuration: Duration(seconds: 3),
               glowOpacity: 0,
               snakeHeadColor: Colors.red,
               snakeTailColor: Colors.blue,

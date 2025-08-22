@@ -8,7 +8,6 @@
 
 ![final (1)](https://github.com/user-attachments/assets/35456ed5-584f-4d1f-921d-bcab0edd1f79)
 
-
 ## Getting started
 
 First, add zo_animated_border as a dependency in your pubspec.yaml file
@@ -96,7 +95,6 @@ For Color Changing Border
 
 ![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
 
-
 ```dart
 ZoColorChangingBorder(
   borderRadius: 0,
@@ -126,13 +124,39 @@ ZoColorChangingBorder(
 
 ```
 
+For Signal Border
+
+![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
+
+```dart
+ZoSignalBorder(
+  maxRadius: 120,
+  ringColors: [
+    Colors.yellow,
+    Colors.orange,
+    Colors.red,
+    Colors.purple,
+    Colors.blue,
+    ],
+  child: Container(
+          alignment: Alignment.center,
+          width: 130,
+          height: 130,
+          decoration:BoxDecoration(
+            color: Colors.white, 
+            shape: BoxShape.circle),
+              child: Text("Signal Border"),
+            ),
+          );
+
+```
+
 For Dual border
 
 ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 
 ```dart
 ZoDualBorder(
-  duration: Duration(seconds: 3),
   glowOpacity: 0.4,
   firstBorderColor: Colors.yellow,
   secondBorderColor: Colors.orange,
@@ -180,7 +204,6 @@ ZoDottedBorder(
   gapLength: 5,
   strokeWidth: 3,
   color: Colors.blue,
-  animationDuration: Duration(seconds: 4),
   borderStyle: BorderStyleType.monochrome,
 );
 ```
@@ -226,7 +249,6 @@ For Snake Border
 
 ```dart
 ZoSnakeBorder(
-  duration: 3,
   glowOpacity: 0,
   snakeHeadColor: Colors.red,
   snakeTailColor: Colors.blue,

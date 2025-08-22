@@ -11,7 +11,7 @@ class TestWidget extends StatelessWidget {
         borderRadius: 100,
         borderThickness: 4,
         gradientColor: [Colors.yellow, Colors.orange],
-        duration: const Duration(seconds: 4),
+        animationDuration: const Duration(seconds: 4),
         child: Container(
           width: 80,
           height: 80,
@@ -23,7 +23,7 @@ class TestWidget extends StatelessWidget {
         borderThickness: 2,
         shouldAnimate: false,
         gradientColor: [Colors.red, Colors.blue],
-        duration: const Duration(seconds: 4),
+        animationDuration: const Duration(seconds: 4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Container(
@@ -41,7 +41,7 @@ class TestWidget extends StatelessWidget {
         shouldAnimate: false,
         borderRadius: 30,
         gradientColor: [Colors.orange, Colors.white, Colors.green],
-        duration: const Duration(seconds: 4),
+        animationDuration: const Duration(seconds: 4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Container(
@@ -102,7 +102,7 @@ class TestWidget extends StatelessWidget {
         ),
       ),
       ZoDualBorder(
-        duration: const Duration(seconds: 3),
+        animationDuration: const Duration(seconds: 3),
         glowOpacity: 0.4,
         firstBorderColor: Colors.yellow,
         secondBorderColor: Colors.orange,
@@ -143,7 +143,7 @@ class TestWidget extends StatelessWidget {
         ),
       ),
       ZoSnakeBorder(
-        duration: 3,
+        animationDuration: Duration(seconds: 3),
         glowOpacity: 0,
         snakeHeadColor: Colors.red,
         snakeTailColor: Colors.blue,
@@ -222,7 +222,7 @@ class TestWidget extends StatelessWidget {
         child: Column(
           children: [
             ZoGlowingEdgeBorder(
-              duration: Duration(seconds: 8),
+              animationDuration: Duration(seconds: 8),
               gradientColors: [
                 Colors.orange,
                 Colors.white,

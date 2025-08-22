@@ -25,6 +25,7 @@ class ZoSignalBorder extends StatefulWidget {
 class _ZoSignalBorderState extends State<ZoSignalBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  // late Animation<double> _curvedAnimation;
 
   @override
   void initState() {
@@ -33,6 +34,9 @@ class _ZoSignalBorderState extends State<ZoSignalBorder>
       vsync: this,
       duration: widget.animationDuration,
     )..repeat();
+
+    // _curvedAnimation =
+    //     CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
   }
 
   @override

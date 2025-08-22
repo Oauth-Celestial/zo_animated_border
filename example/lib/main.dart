@@ -1,14 +1,6 @@
-import 'package:example/example/ex_zo_breathing_border.dart';
-import 'package:example/example/ex_zo_color_changing_border.dart';
-import 'package:example/example/ex_zo_dotted_border.dart';
-import 'package:example/example/ex_zo_edge_glow_border.dart';
-import 'package:example/example/ex_zo_gradient_border.dart';
-import 'package:example/example/ex_zo_multicolor_border.dart';
-import 'package:example/example/ex_zo_pulsating_border.dart';
-import 'package:example/example/ex_zo_snake_border.dart';
-import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_signal_border.dart';
+import 'package:zo_animated_border/zo_animated_border.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,10 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Colors.blue,
             ],
             child: Container(
-              width: 100,
-              height: 100,
+              alignment: Alignment.center,
+              width: 130,
+              height: 130,
               decoration:
                   BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: Text("Signal Border"),
             ),
           ),
         )
@@ -76,3 +70,21 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 }
+
+
+// ZoSignalBorder(
+//             maxRadius: 120,
+//             ringColors: [
+//               Colors.yellow,
+//               Colors.orange,
+//               Colors.red,
+//               Colors.purple,
+//               Colors.blue,
+//             ],
+//             child: Container(
+//               width: 100,
+//               height: 100,
+//               decoration:
+//                   BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+//             ),
+//           ),

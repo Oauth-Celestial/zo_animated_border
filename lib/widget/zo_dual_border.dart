@@ -4,7 +4,7 @@ import 'package:zo_animated_border/painter/zo_dual_border_painter.dart';
 /// ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 class ZoDualBorder extends StatefulWidget {
   final Widget child;
-  final Duration duration;
+  final Duration animationDuration;
   final double borderWidth;
   final Color firstBorderColor;
   final Color secondBorderColor;
@@ -17,7 +17,7 @@ class ZoDualBorder extends StatefulWidget {
 
   const ZoDualBorder({
     required this.child,
-    this.duration = const Duration(seconds: 1),
+    this.animationDuration = const Duration(seconds: 1),
     this.borderWidth = 3,
     this.glowOpacity = 0.3,
     this.firstBorderColor = Colors.deepOrange,
@@ -44,7 +44,7 @@ class ZoDualBorderState extends State<ZoDualBorder>
       throw Exception("Glow opacity should be between 0.0 and 1.0");
     }
     _controller = AnimationController(
-      duration: widget.duration,
+      duration: widget.animationDuration,
       vsync: this,
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);

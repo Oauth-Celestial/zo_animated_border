@@ -6,7 +6,7 @@ class ZoBreathingBorder extends StatefulWidget {
   final double borderWidth;
   final BorderRadius borderRadius;
   final List<Color> colors;
-  final Duration duration;
+  final Duration animationDuration;
   final Widget child;
 
   const ZoBreathingBorder({
@@ -14,7 +14,7 @@ class ZoBreathingBorder extends StatefulWidget {
     required this.borderRadius,
     required this.colors,
     required this.child,
-    this.duration = const Duration(seconds: 3),
+    this.animationDuration = const Duration(seconds: 3),
   });
 
   @override
@@ -33,7 +33,7 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
     // Set up the animation controller
     _controller = AnimationController(
       vsync: this,
-      duration: widget.duration,
+      duration: widget.animationDuration,
     )..repeat(reverse: true);
 
     // Set up the tween for the color animation

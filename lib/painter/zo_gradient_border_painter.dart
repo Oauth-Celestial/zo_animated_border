@@ -50,7 +50,7 @@ class ZoGradientBorderPainter extends CustomPainter {
     for (int i = 1; i <= glowOpacity * 10; i++) {
       final glowPaint = Paint()
         ..style = PaintingStyle.stroke
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (10 * i).toDouble())
+        ..maskFilter = MaskFilter.blur(BlurStyle.solid, (5 * i).toDouble())
         ..strokeWidth = borderThickness;
 
       glowPaint.shader = _gradient.createShader(rect);

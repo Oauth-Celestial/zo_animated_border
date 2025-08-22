@@ -24,7 +24,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
 
   final ValueChanged<AnimationController>? controller;
 
-  final Duration duration;
+  final Duration animationDuration;
 
   final double cornerRadius;
 
@@ -39,7 +39,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
   const ZoMonoCromeBorder(
       {required this.child,
       this.controller,
-      this.duration = const Duration(seconds: 4),
+      this.animationDuration = const Duration(seconds: 4),
       this.cornerRadius = 0.0,
       this.borderWidth = 1,
       this.trackBorderColor = Colors.red,
@@ -69,7 +69,7 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
 
     _controller = AnimationController(
       vsync: this,
-      duration: widget.duration,
+      duration: widget.animationDuration,
     )..addStatusListener((status) {
         if (status == AnimationStatus.reverse) {}
       });

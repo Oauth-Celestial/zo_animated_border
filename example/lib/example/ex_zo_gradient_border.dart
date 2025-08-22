@@ -37,7 +37,7 @@ class ExZoGradientBorder extends StatelessWidget {
                   Colors.yellow,
                   Colors.orange,
                 ],
-                duration: Duration(seconds: 4),
+                animationDuration: Duration(seconds: 4),
                 child: Container(
                   width: 100,
                   height: 100,

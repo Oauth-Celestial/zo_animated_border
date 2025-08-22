@@ -27,7 +27,7 @@ class ExZoDualBorder extends StatelessWidget {
               width: 20,
             ),
             ZoDualBorder(
-              duration: Duration(seconds: 3),
+              animationDuration: Duration(seconds: 3),
               glowOpacity: 0.4,
               firstBorderColor: Colors.yellow,
               secondBorderColor: Colors.orange,

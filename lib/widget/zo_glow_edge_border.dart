@@ -7,7 +7,7 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
   final double borderWidth;
   final double borderRadius;
   final double edgeLength;
-  final Duration duration;
+  final Duration animationDuration;
   final List<Color> gradientColors;
 
   const ZoGlowingEdgeBorder({
@@ -15,7 +15,7 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
     required this.child,
     required this.gradientColors,
     this.borderWidth = 4.0,
-    this.duration = const Duration(seconds: 3),
+    this.animationDuration = const Duration(seconds: 3),
     this.borderRadius = 5.0,
     this.edgeLength = 120.0,
   });
@@ -32,7 +32,7 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: widget.duration,
+      duration: widget.animationDuration,
     )..repeat();
     super.initState();
   }

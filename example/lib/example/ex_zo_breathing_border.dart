@@ -34,7 +34,7 @@ class ExZoBreathingBorder extends StatelessWidget {
                 Colors.red,
                 Colors.orange,
               ],
-              duration: const Duration(seconds: 4),
+              animationDuration: const Duration(seconds: 4),
               child: Container(
                 width: 150,
                 height: 150,
