@@ -1,3 +1,11 @@
+## 1.0.1
+
+* Added Signl Border.
+
+* Fixed laggy animation for dotted border.
+
+* renamed `duration` to `animationDuration`.
+
 ## 1.0.0
 
 * Added Color animation border Glow edge border.

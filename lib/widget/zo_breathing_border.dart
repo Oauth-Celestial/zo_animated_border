@@ -10,6 +10,7 @@ class ZoBreathingBorder extends StatefulWidget {
   final Widget child;
 
   const ZoBreathingBorder({
+    super.key,
     required this.borderWidth,
     required this.borderRadius,
     required this.colors,

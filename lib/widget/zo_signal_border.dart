@@ -5,12 +5,12 @@ class ZoSignalBorder extends StatefulWidget {
   final List<Color> ringColors;
   final Widget child;
 
-  Duration animationDuration;
+  final Duration animationDuration;
 
-  double borderRadius;
-  double maxRadius;
+  final double borderRadius;
+  final double maxRadius;
 
-  ZoSignalBorder(
+  const ZoSignalBorder(
       {super.key,
       required this.ringColors,
       required this.child,
