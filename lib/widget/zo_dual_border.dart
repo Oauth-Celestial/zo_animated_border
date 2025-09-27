@@ -14,7 +14,7 @@ class ZoDualBorder extends StatefulWidget {
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
   final EdgeInsetsGeometry padding;
-
+  final Curve animationCurve;
   const ZoDualBorder({
     required this.child,
     this.animationDuration = const Duration(seconds: 1),
@@ -25,6 +25,7 @@ class ZoDualBorder extends StatefulWidget {
     this.trackBorderColor = const Color(0xFFCCCCCC),
     this.borderRadius = const BorderRadius.all(Radius.circular(0)),
     this.padding = EdgeInsets.zero,
+    this.animationCurve = Curves.linear,
     super.key,
   });
 
@@ -47,7 +48,8 @@ class ZoDualBorderState extends State<ZoDualBorder>
       duration: widget.animationDuration,
       vsync: this,
     );
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve));
     _controller.repeat();
   }
 

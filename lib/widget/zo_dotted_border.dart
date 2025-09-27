@@ -20,6 +20,8 @@ class ZoDottedBorder extends StatefulWidget {
 
   final Widget child;
 
+  final Curve animationCurve;
+
   const ZoDottedBorder({
     super.key,
     this.borderRadius = 0,
@@ -33,6 +35,7 @@ class ZoDottedBorder extends StatefulWidget {
     this.gradient = const LinearGradient(colors: [Colors.red, Colors.blue]),
     this.borderStyle = BorderStyleType.monochrome,
     this.padding,
+    this.animationCurve = Curves.linear,
     required this.child,
   });
 
@@ -43,16 +46,19 @@ class ZoDottedBorder extends StatefulWidget {
 class _ZoDottedBorderState extends State<ZoDottedBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  Animation<double>? _curvedAnimation;
 
   @override
   void initState() {
     super.initState();
-
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.animationDuration,
+    );
+    _curvedAnimation =
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve);
     if (widget.animate) {
-      _controller = AnimationController(
-        vsync: this,
-        duration: widget.animationDuration,
-      )..repeat();
+      _controller.repeat();
     }
   }
 
@@ -60,7 +66,7 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ZoDottedBorderPainter(
-        progress: _controller,
+        progress: _curvedAnimation!,
         borderRadius: widget.borderRadius,
         dashLength: widget.dashLength,
         animationSpeed: widget.animationSpeed,

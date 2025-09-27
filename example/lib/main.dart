@@ -1,3 +1,4 @@
+import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_signal_border.dart';
 import 'package:zo_animated_border/zo_animated_border.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: ""),
+      home: TestWidget(),
       // const AnimatedGradientBorderScreen(),
     );
   }

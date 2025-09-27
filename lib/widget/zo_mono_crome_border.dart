@@ -35,6 +35,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
   final EdgeInsets padding;
 
   final ZoMonoCromeBorderStyle borderStyle;
+  final Curve animationCurve;
 
   const ZoMonoCromeBorder(
       {required this.child,
@@ -42,6 +43,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
       this.animationDuration = const Duration(seconds: 4),
       this.cornerRadius = 0.0,
       this.borderWidth = 1,
+      this.animationCurve = Curves.linear,
       this.trackBorderColor = Colors.red,
       this.padding = EdgeInsets.zero,
       this.borderStyle = ZoMonoCromeBorderStyle.stroke,
@@ -54,6 +56,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
 class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
+  Animation<double>? _curveAnimation;
 
   @override
   void didUpdateWidget(ZoMonoCromeBorder oldWidget) {
@@ -75,6 +78,8 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
       });
 
     _controller?.repeat();
+    _curveAnimation =
+        CurvedAnimation(parent: _controller!, curve: widget.animationCurve);
 
     if (_controller != null) {
       widget.controller?.call(_controller!);
@@ -91,7 +96,7 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ZoTrackPainter(
-          animation: _controller!,
+          animation: _curveAnimation!,
           cornerRadius: widget.cornerRadius,
           trackWidth: widget.borderWidth,
           trackBorderColor: widget.trackBorderColor,

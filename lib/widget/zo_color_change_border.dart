@@ -13,18 +13,19 @@ class ZoColorChangingBorder extends StatefulWidget {
   //  value in list can be set from 0.1 to 1.0  e.g[0.1,0.6,1.0]
   final List<double>? colorStops;
   final Color staticBorderColor;
+  final Curve animationCurve;
 
-  const ZoColorChangingBorder({
-    super.key,
-    required this.child,
-    this.borderWidth = 4,
-    this.borderRadius = 12,
-    this.segmentLength = 0.1,
-    required this.colors,
-    this.animationDuration = const Duration(seconds: 3),
-    this.colorStops,
-    this.staticBorderColor = Colors.transparent,
-  });
+  const ZoColorChangingBorder(
+      {super.key,
+      required this.child,
+      this.borderWidth = 4,
+      this.borderRadius = 12,
+      this.segmentLength = 0.1,
+      required this.colors,
+      this.animationDuration = const Duration(seconds: 3),
+      this.colorStops,
+      this.staticBorderColor = Colors.transparent,
+      this.animationCurve = Curves.linear});
 
   @override
   State<ZoColorChangingBorder> createState() => _ZoColorChangingBorderState();
@@ -33,6 +34,7 @@ class ZoColorChangingBorder extends StatefulWidget {
 class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  Animation<double>? _curveAnimation;
   double borderLength = 0;
 
   @override
@@ -58,6 +60,9 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
       vsync: this,
       duration: widget.animationDuration,
     )..repeat();
+
+    _curveAnimation =
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve);
   }
 
   @override
@@ -70,7 +75,7 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ColorChangingPainter(
-        animation: _controller,
+        animation: _curveAnimation!,
         staticBorderColor: widget.staticBorderColor,
         borderWidth: widget.borderWidth,
         radius: widget.borderRadius,

@@ -34,6 +34,7 @@ For Gradient border
 ```dart
 ZoAnimatedGradientBorder(
   borderRadius: 100,
+  animationCurve: Curves.linear,
   borderThickness: 4,
   gradientColor: [
     Colors.yellow,
@@ -127,7 +128,6 @@ ZoColorChangingBorder(
 For Signal Border
 
 ![Simulator Screen Recording - iPhone 15 Pro - 2025-08-19 at 11 56 35 (online-video-cutter com)](https://github.com/user-attachments/assets/cdbd5676-34b2-4826-8e2b-e8d317e9c526)
-
 
 ```dart
 ZoSignalBorder(

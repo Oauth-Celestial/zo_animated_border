@@ -10,6 +10,7 @@ class ZoSnakeBorder extends StatefulWidget {
   final Color snakeTailColor;
   final Color snakeTrackColor;
   final BorderRadius borderRadius;
+  final Curve animationCurve;
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
@@ -25,6 +26,7 @@ class ZoSnakeBorder extends StatefulWidget {
     this.snakeTrackColor = const Color(0xFFCCCCCC),
     this.borderRadius = const BorderRadius.all(Radius.circular(0)),
     this.padding = EdgeInsets.zero,
+    this.animationCurve = Curves.linear,
     super.key,
   });
 
@@ -47,7 +49,8 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
       duration: widget.animationDuration,
       vsync: this,
     );
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve));
     _controller.repeat();
   }
 

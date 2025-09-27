@@ -3,16 +3,6 @@ part of '../zo_animated_border.dart';
 /// ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 // ignore: must_be_immutable
 class ZoAnimatedGradientBorder extends StatefulWidget {
-  ZoAnimatedGradientBorder(
-      {super.key,
-      this.borderRadius = 0,
-      this.glowOpacity = 0.5,
-      this.animationDuration = const Duration(seconds: 1),
-      this.borderThickness = 1,
-      required this.child,
-      required this.gradientColor,
-      this.shouldAnimate = true});
-
   /// Radius of the glow border
   final double borderRadius;
 
@@ -31,6 +21,19 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
   final bool shouldAnimate;
 
   List<Color> gradientColor;
+
+  final Curve animationCurve;
+
+  ZoAnimatedGradientBorder(
+      {super.key,
+      this.borderRadius = 0,
+      this.glowOpacity = 0.5,
+      this.animationDuration = const Duration(seconds: 1),
+      this.borderThickness = 1,
+      this.animationCurve = Curves.linear,
+      required this.child,
+      required this.gradientColor,
+      this.shouldAnimate = true});
 
   @override
   State<ZoAnimatedGradientBorder> createState() =>
@@ -52,8 +55,9 @@ class _ZoAnimatedGradientBorderState extends State<ZoAnimatedGradientBorder>
     _animationController =
         AnimationController(vsync: this, duration: widget.animationDuration);
 
-    _turnAnim = Tween<double>(begin: 0.1, end: 2 * math.pi)
-        .animate(_animationController);
+    _turnAnim = Tween<double>(begin: 0.1, end: 2 * math.pi).animate(
+        CurvedAnimation(
+            parent: _animationController, curve: widget.animationCurve));
     if (widget.shouldAnimate) {
       _animationController
         ..forward()

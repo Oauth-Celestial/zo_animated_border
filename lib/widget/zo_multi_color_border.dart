@@ -14,6 +14,7 @@ class ZoMultiColorBorder extends StatefulWidget {
 
   final List<Color> colors;
   final bool animate;
+  final Curve animationCurve;
   const ZoMultiColorBorder(
       {super.key,
       required this.child,
@@ -23,6 +24,7 @@ class ZoMultiColorBorder extends StatefulWidget {
       this.strokeWidth = 3,
       this.animate = true,
       this.padding,
+      this.animationCurve = Curves.linear,
       this.colors = const [Colors.blue, Colors.black]});
 
   @override
@@ -32,7 +34,7 @@ class ZoMultiColorBorder extends StatefulWidget {
 class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
+  Animation<double>? _curveAnimation;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,9 +43,12 @@ class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
       vsync: this,
       duration: widget.animationDuration,
     );
+    _curveAnimation =
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve);
     if (widget.animate) {
       _controller.repeat();
     }
+
     super.initState();
   }
 
@@ -60,7 +65,7 @@ class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
       padding: widget.padding ?? const EdgeInsets.all(8.0),
       child: CustomPaint(
           painter: ZoMultiColorBorderPainter(
-              progress: _controller,
+              progress: _curveAnimation,
               colors: widget.colors,
               borderRadius: widget.borderRadius,
               borderWidth: widget.strokeWidth,

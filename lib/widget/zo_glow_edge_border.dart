@@ -9,16 +9,17 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
   final double edgeLength;
   final Duration animationDuration;
   final List<Color> gradientColors;
+  final Curve animationCurve;
 
-  const ZoGlowingEdgeBorder({
-    super.key,
-    required this.child,
-    required this.gradientColors,
-    this.borderWidth = 4.0,
-    this.animationDuration = const Duration(seconds: 3),
-    this.borderRadius = 5.0,
-    this.edgeLength = 120.0,
-  });
+  const ZoGlowingEdgeBorder(
+      {super.key,
+      required this.child,
+      required this.gradientColors,
+      this.borderWidth = 4.0,
+      this.animationDuration = const Duration(seconds: 3),
+      this.borderRadius = 5.0,
+      this.edgeLength = 120.0,
+      this.animationCurve = Curves.linear});
 
   @override
   State<ZoGlowingEdgeBorder> createState() => _ZoGlowingEdgeBorderState();
@@ -27,6 +28,7 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
 class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  Animation<double>? _curveAnimation;
 
   @override
   void initState() {
@@ -34,6 +36,8 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
       vsync: this,
       duration: widget.animationDuration,
     )..repeat();
+    _curveAnimation =
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve);
     super.initState();
   }
 
@@ -47,7 +51,7 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ZOGlowingEdgePainter(
-        animation: _controller,
+        animation: _curveAnimation!,
         borderWidth: widget.borderWidth,
         borderRadius: widget.borderRadius,
         edgeLength: widget.edgeLength,

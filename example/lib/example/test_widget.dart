@@ -9,6 +9,7 @@ class TestWidget extends StatelessWidget {
     final widgets = [
       ZoAnimatedGradientBorder(
         borderRadius: 100,
+        animationCurve: Curves.linear,
         borderThickness: 4,
         gradientColor: [Colors.yellow, Colors.orange],
         animationDuration: const Duration(seconds: 4),

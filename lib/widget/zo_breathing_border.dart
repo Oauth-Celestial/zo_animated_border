@@ -8,6 +8,7 @@ class ZoBreathingBorder extends StatefulWidget {
   final List<Color> colors;
   final Duration animationDuration;
   final Widget child;
+  final Curve animationCurve;
 
   const ZoBreathingBorder({
     super.key,
@@ -15,6 +16,7 @@ class ZoBreathingBorder extends StatefulWidget {
     required this.borderRadius,
     required this.colors,
     required this.child,
+    this.animationCurve = Curves.linear,
     this.animationDuration = const Duration(seconds: 3),
   });
 
@@ -38,7 +40,8 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
     )..repeat(reverse: true);
 
     // Set up the tween for the color animation
-    _colorAnimation = ColorTweenSequence(widget.colors).animate(_controller);
+    _colorAnimation = ColorTweenSequence(widget.colors).animate(
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve));
   }
 
   @override

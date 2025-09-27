@@ -4,17 +4,17 @@ import 'package:zo_animated_border/painter/zo_signal_painter.dart';
 class ZoSignalBorder extends StatefulWidget {
   final List<Color> ringColors;
   final Widget child;
-
   final Duration animationDuration;
-
   final double borderRadius;
   final double maxRadius;
+  final Curve animationCurve;
 
   const ZoSignalBorder(
       {super.key,
       required this.ringColors,
       required this.child,
       this.maxRadius = 180,
+      this.animationCurve = Curves.linear,
       this.animationDuration = const Duration(seconds: 3),
       this.borderRadius = 0});
 
@@ -25,7 +25,7 @@ class ZoSignalBorder extends StatefulWidget {
 class _ZoSignalBorderState extends State<ZoSignalBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  // late Animation<double> _curvedAnimation;
+  late Animation<double> _curvedAnimation;
 
   @override
   void initState() {
@@ -35,8 +35,8 @@ class _ZoSignalBorderState extends State<ZoSignalBorder>
       duration: widget.animationDuration,
     )..repeat();
 
-    // _curvedAnimation =
-    //     CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
+    _curvedAnimation =
+        CurvedAnimation(parent: _controller, curve: widget.animationCurve);
   }
 
   @override
@@ -51,7 +51,7 @@ class _ZoSignalBorderState extends State<ZoSignalBorder>
         painter: ZoSignalPainter(
           maxRadius: widget.maxRadius,
           borderRadius: widget.borderRadius,
-          progress: _controller,
+          progress: _curvedAnimation,
           ringColors: widget.ringColors,
         ),
         child: widget.child);
