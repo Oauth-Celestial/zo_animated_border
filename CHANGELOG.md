@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 ## 1.0.2
 
 * Added support for passing `animationCurve` to all borders
 
+=======
+>>>>>>> 31683774a5974cd191a5c4c33bc387e048b658f9
 ## 1.0.1
 
 * Added Signl Border.
