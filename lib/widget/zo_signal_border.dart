@@ -6,6 +6,7 @@ class ZoSignalBorder extends StatefulWidget {
   final Widget child;
   final Duration animationDuration;
   final double borderRadius;
+  final double minRadius;
   final double maxRadius;
   final Curve animationCurve;
 
@@ -13,6 +14,7 @@ class ZoSignalBorder extends StatefulWidget {
       {super.key,
       required this.ringColors,
       required this.child,
+      this.minRadius = 0,
       this.maxRadius = 180,
       this.animationCurve = Curves.linear,
       this.animationDuration = const Duration(seconds: 3),
@@ -49,6 +51,7 @@ class _ZoSignalBorderState extends State<ZoSignalBorder>
   Widget build(BuildContext context) {
     return CustomPaint(
         painter: ZoSignalPainter(
+          minRadius: widget.minRadius,
           maxRadius: widget.maxRadius,
           borderRadius: widget.borderRadius,
           progress: _curvedAnimation,
