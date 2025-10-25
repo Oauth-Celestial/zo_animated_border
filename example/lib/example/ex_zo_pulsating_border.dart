@@ -21,30 +21,26 @@ class ExZoPulsatingBorder extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Row(
-          children: [
-            SizedBox(
-              width: 20,
+        SizedBox(
+          width: 20,
+        ),
+        ZoPulsatingBorder(
+          type: ZoPulsatingBorderType.radarPulse,
+          borderRadius: BorderRadius.circular(100),
+          pulseColor: Colors.blue,
+          child: Container(
+            alignment: Alignment.center,
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(50),
             ),
-            ZoPulsatingBorder(
-              type: ZoPulsatingBorderType.pulse,
-              borderRadius: BorderRadius.circular(100),
-              pulseColor: Colors.blue,
-              child: Container(
-                alignment: Alignment.center,
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(
-                  "Radar Pulse",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            )
-          ],
+            child: Text(
+              "Radar Pulse",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ),
       ],
     );

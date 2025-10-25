@@ -18,50 +18,43 @@ class ZoMultiColorBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final RRect outer =
-        RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+    int segments = colors.length;
 
-    final Paint paint = Paint()
+    Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+
+    Paint paint = Paint()
       ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
       ..strokeWidth = borderWidth
-      ..strokeCap = StrokeCap.round;
+      ..color = Colors.black;
 
-    final Path path = Path()..addRRect(outer);
-    final PathMetrics pathMetrics = path.computeMetrics(forceClosed: true);
+    Path path = Path()..addRRect(rRect);
 
-    // Get total path length
-    final double totalLength =
-        pathMetrics.fold(0.0, (sum, m) => sum + m.length);
+    for (PathMetric p in path.computeMetrics()) {
+      double totalLength = p.length;
+      double segmentLength = (totalLength - gapLength * segments) / segments;
 
-    final double colorSegmentLength =
-        (totalLength - (gapLength * colors.length)) / colors.length;
+      double progressOffset = totalLength * (progress?.value ?? 0);
 
-    final double startOffset = (progress?.value ?? 0) * totalLength;
-
-    for (final pathMetric in path.computeMetrics(forceClosed: true)) {
-      double currentDistance = startOffset;
-
-      for (int i = 0; i < colors.length; i++) {
-        double segmentStart = currentDistance % pathMetric.length;
-        double segmentEnd = segmentStart + colorSegmentLength;
-
+      for (int i = 0; i < segments; i++) {
         paint.color = colors[i];
+        double start = (segmentLength + gapLength) * i + progressOffset;
+        double end = start + segmentLength;
 
-        if (segmentEnd > pathMetric.length) {
-          // Wrap around
-          final firstPart =
-              pathMetric.extractPath(segmentStart, pathMetric.length);
-          final secondPart =
-              pathMetric.extractPath(0, segmentEnd - pathMetric.length);
-          canvas.drawPath(firstPart, paint);
-          canvas.drawPath(secondPart, paint);
+        start = start % totalLength;
+        end = end % totalLength;
+
+        Path drawPath;
+        if (end > start) {
+          drawPath = p.extractPath(start, end);
         } else {
-          final segment = pathMetric.extractPath(segmentStart, segmentEnd);
-          canvas.drawPath(segment, paint);
+          drawPath = Path()
+            ..addPath(p.extractPath(start, totalLength), Offset.zero)
+            ..addPath(p.extractPath(0, end), Offset.zero);
         }
 
-        currentDistance += colorSegmentLength + gapLength;
+        canvas.drawPath(drawPath, paint);
       }
     }
   }

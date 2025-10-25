@@ -38,9 +38,9 @@ class ZoTrackPainter extends CustomPainter {
       paint.shader = SweepGradient(
         tileMode: borderStyle.value,
         colors: [
-          Colors.transparent,
+          trackBorderColor.withAlpha(0),
           trackBorderColor,
-          Colors.transparent,
+          trackBorderColor.withAlpha(0)
         ],
         stops: const [
           0.0,

@@ -1,3 +1,7 @@
+import 'package:example/example/ex_zo_dual_border.dart';
+import 'package:example/example/ex_zo_multicolor_border.dart';
+import 'package:example/example/ex_zo_pulsating_border.dart';
+import 'package:example/example/ex_zo_ripple.dart';
 import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_signal_border.dart';
@@ -20,7 +24,19 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TestWidget(),
+      home: Scaffold(
+          backgroundColor: Colors.black,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+              ),
+              // ExZoPulsatingBorder(),
+              ExZoDualBorder()
+            ],
+          )),
       // const AnimatedGradientBorderScreen(),
     );
   }
@@ -71,21 +87,3 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 }
-
-
-// ZoSignalBorder(
-//             maxRadius: 120,
-//             ringColors: [
-//               Colors.yellow,
-//               Colors.orange,
-//               Colors.red,
-//               Colors.purple,
-//               Colors.blue,
-//             ],
-//             child: Container(
-//               width: 100,
-//               height: 100,
-//               decoration:
-//                   BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-//             ),
-//           ),

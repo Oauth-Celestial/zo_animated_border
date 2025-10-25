@@ -7,9 +7,7 @@ class ZoDualBorderPainter extends CustomPainter {
   final Color firstBorderColor;
   final Color secondBorderColor;
   final Color staticBorderColor;
-
   final BorderRadius borderRadius;
-
   final double glowOpacity;
 
   ZoDualBorderPainter({
@@ -24,14 +22,9 @@ class ZoDualBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromCenter(
-      center: Offset(size.width / 2, size.height / 2),
-      width: size.width,
-      height: size.height,
-    );
+    final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
 
-    // Draw static border
     final staticPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
@@ -39,107 +32,58 @@ class ZoDualBorderPainter extends CustomPainter {
     canvas.drawRRect(rrect, staticPaint);
 
     final path = Path()..addRRect(rrect);
+    final metric = path.computeMetrics().first;
+    final length = metric.length;
 
-    final pathMetrics = path.computeMetrics().first;
-    final pathLength = pathMetrics.length;
+    void drawAnimatedBorder({required double offset, required Color color}) {
+      final start = offset * length;
+      final end = (start + length / 4) % length;
 
-    // Calculate the primary animation path
-    final animationProgress = progress.value % 1.0;
-    final start = animationProgress * pathLength;
-    final end = (start + pathLength / 4) % pathLength;
+      Path segment;
+      if (end > start) {
+        segment = metric.extractPath(start, end);
+      } else {
+        segment = Path()
+          ..addPath(metric.extractPath(start, length), Offset.zero)
+          ..addPath(metric.extractPath(0, end), Offset.zero);
+      }
 
-    Path extractPath;
-    if (end > start) {
-      extractPath = pathMetrics.extractPath(start, end);
-    } else {
-      extractPath = pathMetrics.extractPath(start, pathLength);
-      extractPath.addPath(pathMetrics.extractPath(0, end), Offset.zero);
-    }
+      final path1 = metric.getTangentForOffset(start)?.position ?? Offset.zero;
+      final path2 =
+          metric.getTangentForOffset((start + length / 8) % length)?.position ??
+              Offset.zero;
 
-    // Calculate gradient for primary path
-    final gradientStart =
-        pathMetrics.getTangentForOffset(start)?.position ?? Offset.zero;
-    final gradientEnd = pathMetrics
-            .getTangentForOffset((start + pathLength / 8) % pathLength)
-            ?.position ??
-        Offset.zero;
-
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth;
-
-    paint.shader = ui.Gradient.linear(
-      gradientStart,
-      gradientEnd,
-      [
-        firstBorderColor,
-        firstBorderColor,
-        firstBorderColor,
-      ],
-      [0.0, 0.3, 1.0],
-    );
-
-    canvas.drawPath(extractPath, paint);
-    for (int i = 1; i <= glowOpacity * 10; i++) {
-      final glowPaint = Paint()
+      final paint = Paint()
         ..style = PaintingStyle.stroke
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (5 * i).toDouble())
-        ..color = firstBorderColor
-        ..strokeWidth = borderWidth;
-      canvas.drawPath(extractPath, glowPaint);
+        ..strokeWidth = borderWidth
+        ..shader = ui.Gradient.linear(
+          path1,
+          path2,
+          [color, color, color],
+          [0.0, 0.3, 1.0],
+        );
+
+      canvas.drawPath(segment, paint);
+
+      for (int i = 1; i <= glowOpacity * 10; i++) {
+        canvas.drawPath(
+          segment,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = borderWidth
+            ..color = color
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, 5.0 * i),
+        );
+      }
     }
 
-    // Calculate the mirrored animation path
-    final mirroredProgress = (progress.value + 0.5) % 1.0; // Offset by 50%
-    final mirroredStart = mirroredProgress * pathLength;
-    final mirroredEnd = (mirroredStart + pathLength / 4) % pathLength;
-
-    Path mirroredPath;
-    if (mirroredEnd > mirroredStart) {
-      mirroredPath = pathMetrics.extractPath(mirroredStart, mirroredEnd);
-    } else {
-      mirroredPath = pathMetrics.extractPath(mirroredStart, pathLength);
-      mirroredPath.addPath(
-          pathMetrics.extractPath(0, mirroredEnd), Offset.zero);
-    }
-
-    // Calculate gradient for mirrored path
-    final mirroredGradientStart =
-        pathMetrics.getTangentForOffset(mirroredStart)?.position ?? Offset.zero;
-    final mirroredGradientEnd = pathMetrics
-            .getTangentForOffset((mirroredStart + pathLength / 8) % pathLength)
-            ?.position ??
-        Offset.zero;
-
-    final mirroredPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth;
-
-    mirroredPaint.shader = ui.Gradient.linear(
-      mirroredGradientStart,
-      mirroredGradientEnd,
-      [
-        secondBorderColor,
-        secondBorderColor,
-        secondBorderColor,
-      ],
-      [0.0, 0.3, 1.0],
+    drawAnimatedBorder(offset: progress.value % 1.0, color: firstBorderColor);
+    drawAnimatedBorder(
+      offset: (progress.value + 0.5) % 1.0,
+      color: secondBorderColor,
     );
-
-    canvas.drawPath(mirroredPath, mirroredPaint);
-// add Glow to the second  border
-    for (int i = 1; i <= glowOpacity * 10; i++) {
-      final glowPaint = Paint()
-        ..style = PaintingStyle.stroke
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (5 * i).toDouble())
-        ..color = secondBorderColor
-        ..strokeWidth = borderWidth;
-      canvas.drawPath(mirroredPath, glowPaint);
-    }
   }
 
   @override
-  bool shouldRepaint(covariant ZoDualBorderPainter oldDelegate) {
-    return oldDelegate.progress != progress;
-  }
+  bool shouldRepaint(covariant ZoDualBorderPainter oldDelegate) => true;
 }
