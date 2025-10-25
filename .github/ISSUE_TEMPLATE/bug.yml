@@ -1,0 +1,85 @@
+name: 🐛 Bug
+description: Report a bug to help improve zo_animated_border.
+title: "[BUG] <description>"
+labels: ["🛠 goal: fix", "🚦 status: awaiting triage"]
+body:
+  - type: checkboxes
+    id: duplicates
+    attributes:
+      label: Has this bug been raised before?
+      description: Check both open and closed issues to ensure this isn't a duplicate.
+      options:
+        - label: I have checked "open" AND "closed" issues and this is not a duplicate
+          required: true
+
+  - type: input
+    attributes:
+      label: Where did you find this bug?
+      description: Mention if it occurred in your local Flutter project or another environment.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Version of zo_animated_border
+      description: Example — "v1.0.2" (check your pubspec.lock or pub.dev version)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug. Include any relevant information or context.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Provide a numbered list of the exact steps to reproduce the bug.
+      value: |
+        Example:
+
+        1. Add zo_animated_border to your widget.
+        2. Run the app.
+        3. Observe that the border animation stops unexpectedly.
+        4. Expected smooth animation but got a flicker.
+
+        If you don’t know the exact steps, describe what you were doing and what went wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Add screenshots or screen recordings if relevant.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: assignee
+    attributes:
+      label: Do you want to work on this issue?
+      multiple: false
+      options:
+        - "No"
+        - "Yes"
+      default: 0
+    validations:
+      required: false
+
+  - type: textarea
+    id: extrainfo
+    attributes:
+      label: If "Yes" above, explain how you plan to fix it
+      description: Include any technical approach or reference to relevant parts of the codebase.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to help improve **zo_animated_border**!

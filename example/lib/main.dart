@@ -2,6 +2,7 @@ import 'package:example/example/ex_zo_dual_border.dart';
 import 'package:example/example/ex_zo_multicolor_border.dart';
 import 'package:example/example/ex_zo_pulsating_border.dart';
 import 'package:example/example/ex_zo_ripple.dart';
+import 'package:example/example/ex_zo_snake_border.dart';
 import 'package:example/example/test_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_signal_border.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
                 width: double.infinity,
               ),
               // ExZoPulsatingBorder(),
-              ExZoDualBorder()
+              ExZoSnakeBorder()
             ],
           )),
       // const AnimatedGradientBorderScreen(),
