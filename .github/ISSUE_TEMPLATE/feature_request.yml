@@ -1,0 +1,61 @@
+name: 💡 Feature Request
+description: Have a new idea or improvement for zo_animated_border? Let us know!
+title: "[FEATURE] <description>"
+labels: ["⭐ goal: addition", "🚦 status: awaiting triage"]
+body:
+  - type: checkboxes
+    id: duplicates
+    attributes:
+      label: Is this a unique feature?
+      description: Please make sure this feature has not already been requested.
+      options:
+        - label: I have checked "open" AND "closed" issues and this is not a duplicate
+          required: true
+
+  - type: textarea
+    attributes:
+      label: Is your feature request related to a problem or missing functionality?
+      description: Describe what problem or limitation this feature would solve. For example, "It’s difficult to customize the border animation speed."
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Proposed Solution
+      description: Clearly describe the enhancement or new functionality you are suggesting. Include details, examples, or comparisons if relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Visuals or Code Snippets
+      description: Add screenshots, mockups, or short code examples if helpful.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: assignee
+    attributes:
+      label: Do you want to work on this feature?
+      multiple: false
+      options:
+        - "No"
+        - "Yes"
+      default: 0
+    validations:
+      required: false
+
+  - type: textarea
+    id: extrainfo
+    attributes:
+      label: If "Yes" above, how do you plan to implement it?
+      description: Briefly explain your technical approach or reference any related parts of the codebase.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve **zo_animated_border**!

@@ -1,3 +1,8 @@
+## 1.0.4
+
+* Added Ripple border
+* Fixed  jitter issue in `ZoDualBorder` ,`ZoDualBorder`
+
 ## 1.0.3
 
 * Added support for passing `animationCurve` to all borders
@@ -8,7 +13,7 @@
 
 ## 1.0.1
 
-* Added Signl Border.
+* Added Signal Border.
 
 * Fixed laggy animation for dotted border.
 
