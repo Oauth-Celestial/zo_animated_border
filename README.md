@@ -92,6 +92,29 @@ ZoMultiColorBorder(
 
 ```
 
+For Ripple Border
+![ripple](https://github.com/user-attachments/assets/cfbc07b8-ffdc-440e-8383-99177ae4f305)
+
+```dart
+ZoRippleEffect(
+  rippleColor: Colors.cyanAccent,
+  minCircleSize: 120,
+  numberOfCircles: 4,
+  animationDuration: const Duration(seconds: 4),
+  child: const CircleAvatar(
+    radius: 40,
+    backgroundColor: Colors.cyanAccent,
+    child: Icon(
+      Icons.home,
+      color: Colors.white,
+      size: 30,
+    ),
+  ),
+);
+
+```
+
+
 For Color Changing Border
 
 ![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
