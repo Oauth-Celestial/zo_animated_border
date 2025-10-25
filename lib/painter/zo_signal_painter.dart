@@ -4,11 +4,13 @@ class ZoSignalPainter extends CustomPainter {
   final Animation<double> progress;
   final List<Color> ringColors;
   final double borderRadius;
+  final double minRadius;
   final double maxRadius;
 
   ZoSignalPainter(
       {required this.progress,
       required this.ringColors,
+      required this.minRadius,
       required this.maxRadius,
       this.borderRadius = 0})
       : super(repaint: progress);
@@ -19,7 +21,7 @@ class ZoSignalPainter extends CustomPainter {
 
     for (int i = 0; i < ringColors.length; i++) {
       double rippleProgress = (progress.value + (i / ringColors.length)) % 1.0;
-      double radius = rippleProgress * maxRadius;
+      double radius = minRadius + (maxRadius - minRadius) * rippleProgress;
 
       final paint = Paint()
         ..color = ringColors[i].withValues(alpha: 1.0 - rippleProgress)
