@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ZoHandDrawnPainter extends CustomPainter {
-  final double progress;
+  final Animation<double> progress;
   final Color color;
   final double blur;
   final double strokeWidth;
@@ -12,7 +12,8 @@ class ZoHandDrawnPainter extends CustomPainter {
       {required this.progress,
       this.color = Colors.amber,
       this.blur = 5,
-      this.strokeWidth = 8});
+      this.strokeWidth = 8})
+      : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -20,10 +21,11 @@ class ZoHandDrawnPainter extends CustomPainter {
     final baseRadius = min(size.width, size.height) / 2.8;
 
     final path = Path();
+    double currentProgress = progress.value;
 
     for (double i = 0; i <= 2 * pi; i += 0.05) {
-      double noise = sin(i * 5 + progress * 2 * pi) * 1.5;
-      noise += cos(i * 3 - progress * pi) * 1.0;
+      double noise = sin(i * 5 + currentProgress * 2 * pi) * 1.5;
+      noise += cos(i * 3 - currentProgress * pi) * 1.0;
       noise += sin(i * 12) * 0.5;
 
       double r = baseRadius + noise;

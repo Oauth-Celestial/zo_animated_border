@@ -34,7 +34,7 @@ class _ZoHandDrawnBorderState extends State<ZoHandDrawnBorder>
     _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
-    )..repeat(reverse: true); // Subtle continuous movement
+    )..repeat(reverse: true);
   }
 
   @override
@@ -53,7 +53,7 @@ class _ZoHandDrawnBorderState extends State<ZoHandDrawnBorder>
               color: widget.borderColor,
               strokeWidth: widget.borderWidth,
               blur: widget.glowOpacity,
-              progress: _controller.value),
+              progress: _controller),
           child: Container(
             padding: widget.padding, // Space for the border
             child: widget.child,
