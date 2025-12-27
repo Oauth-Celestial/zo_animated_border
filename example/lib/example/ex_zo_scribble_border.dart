@@ -30,10 +30,10 @@ class ExZoHandDrawBorder extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              ZoHandDrawnBorder(
+              ZoScribbleBorder(
                 borderColor: Colors.white,
                 padding: EdgeInsets.all(50),
-                radius: 80,
+                borderRadius: 100,
                 child: ClipOval(
                   child: Image.asset(
                     'assets/pnglogo.png', // Replace with your asset

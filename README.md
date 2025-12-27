@@ -92,6 +92,55 @@ ZoMultiColorBorder(
 
 ```
 
+For Circular Text Border
+
+```dart
+ZoCircularTextBorder(
+  text: 'The Zerone',
+  radius: 60,
+  rotationDuration: const Duration(seconds: 12),
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.2,
+  ),
+  child: Container(
+    width: 100,
+    height: 100,
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.red,
+    ),
+  ),
+),
+
+```
+
+For Scribble Border
+
+```dart
+ZoScribbleBorder(
+  borderColor: Colors.white,
+  padding: const EdgeInsets.all(50),
+  borderRadius: 100,
+  child: ClipOval(
+    child: Image.asset(
+      'assets/pnglogo.png', // Replace with your asset
+      width: 110,
+      height: 110,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(
+            Icons.face,
+            size: 80,
+            color: Colors.orange,
+          ),
+    ),
+  ),
+),
+```
+
 For Ripple Border
 
 ![ripple](https://github.com/user-attachments/assets/cfbc07b8-ffdc-440e-8383-99177ae4f305)
@@ -114,7 +163,6 @@ ZoRippleEffect(
 );
 
 ```
-
 
 For Color Changing Border
 
@@ -385,6 +433,7 @@ Feel free to post a feature requests or report a bug [issues](https://github.com
 
 ## My Other packages
 
+- [zo_micro_interactions](https://pub.dev/packages/zo_micro_interactions): A curated set of high-quality Flutter micro-interactions designed for modern, polished apps.
 - [zo_screenshot](https://pub.dev/packages/zo_screenshot): The zo_screenshot plugin helps restrict screenshots and screen recording in Flutter apps, enhancing security and privacy by preventing unauthorized screen captures.
 - [zo_collection_animation](https://pub.dev/packages/zo_collection_animation): A lightweight Flutter package to create smooth collect animations for coins carts
 - [connectivity_watcher](https://pub.dev/packages/connectivity_watcher): A Flutter package to monitor internet connectivity with subsecond response times, even on mobile networks.

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/painter/zo_hand_drawn_border_painter.dart';
+import 'package:zo_animated_border/painter/zo_scribble_border_painter.dart';
 
-class ZoHandDrawnBorder extends StatefulWidget {
+class ZoScribbleBorder extends StatefulWidget {
   final Widget child;
-  final double radius;
+  final double borderRadius;
   final EdgeInsetsGeometry? padding;
   final Duration animationDuration;
   final Color borderColor;
   final double borderWidth;
   final double glowOpacity;
 
-  const ZoHandDrawnBorder(
+  const ZoScribbleBorder(
       {super.key,
       required this.child,
-      required this.radius,
+      required this.borderRadius,
       this.padding,
       this.borderColor = Colors.green,
       this.borderWidth = 8,
@@ -21,10 +21,10 @@ class ZoHandDrawnBorder extends StatefulWidget {
       this.animationDuration = const Duration(seconds: 4)});
 
   @override
-  State<ZoHandDrawnBorder> createState() => _ZoHandDrawnBorderState();
+  State<ZoScribbleBorder> createState() => _ZoScribbleBorderState();
 }
 
-class _ZoHandDrawnBorderState extends State<ZoHandDrawnBorder>
+class _ZoScribbleBorderState extends State<ZoScribbleBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
@@ -49,8 +49,9 @@ class _ZoHandDrawnBorderState extends State<ZoHandDrawnBorder>
       animation: _controller,
       builder: (context, child) {
         return CustomPaint(
-          painter: ZoHandDrawnPainter(
+          painter: ZoScribblePainter(
               color: widget.borderColor,
+              borderRadius: widget.borderRadius,
               strokeWidth: widget.borderWidth,
               blur: widget.glowOpacity,
               progress: _controller),
