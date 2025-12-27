@@ -94,6 +94,8 @@ ZoMultiColorBorder(
 
 For Circular Text Border
 
+![circular_text](https://github.com/user-attachments/assets/58ce333c-cbb0-41b8-9709-a7ca61460876)
+
 ```dart
 ZoCircularTextBorder(
   text: 'The Zerone',
@@ -118,6 +120,9 @@ ZoCircularTextBorder(
 ```
 
 For Scribble Border
+
+![scribble_border](https://github.com/user-attachments/assets/36d0df7c-60f6-426f-87cc-4797d38b6742)
+
 
 ```dart
 ZoScribbleBorder(
