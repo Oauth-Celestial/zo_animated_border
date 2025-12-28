@@ -1,4 +1,5 @@
-# zo_animated_border
+
+<img width="3312" height="600" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
 
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
@@ -6,7 +7,6 @@
 
 **Zo Animated Border** is a powerful Flutter package that brings modern UI to life with beautifully animated **borders**. Whether you're building a login screen, a button, or a decorative container, this package lets you wrap any widget with stylish, animated **border** effects.
 
-![final (1)](https://github.com/user-attachments/assets/35456ed5-584f-4d1f-921d-bcab0edd1f79)
 
 ## Getting started
 
