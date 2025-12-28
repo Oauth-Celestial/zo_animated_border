@@ -1,7 +1,15 @@
+## 1.0.6
+
+* Bug Fixes.
+
+## 1.0.5
+
+* Added `ZoScribbleBorder` ,`ZoCircularTextBorder`.
+
 ## 1.0.4
 
 * Added Ripple border
-* Fixed  jitter issue in `ZoDualBorder` ,`ZoDualBorder`
+* Fixed  jitter issue in `ZoDualBorder`.
 
 ## 1.0.3
 

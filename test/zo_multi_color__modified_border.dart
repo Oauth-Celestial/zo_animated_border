@@ -68,51 +68,49 @@ class ZoMultiColorBorderPainter extends CustomPainter {
   }
 }
 
+// final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
+// final RRect outer =
+//     RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
 
+// final Paint paint = Paint()
+//   ..style = PaintingStyle.stroke
+//   ..strokeWidth = borderWidth
+//   ..strokeCap = StrokeCap.round;
 
-  // final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    // final RRect outer =
-    //     RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+// final Path path = Path()..addRRect(outer);
+// final PathMetrics pathMetrics = path.computeMetrics(forceClosed: true);
 
-    // final Paint paint = Paint()
-    //   ..style = PaintingStyle.stroke
-    //   ..strokeWidth = borderWidth
-    //   ..strokeCap = StrokeCap.round;
+// Get total path length
+// final double totalLength =
+//     pathMetrics.fold(0.0, (sum, m) => sum + m.length);
 
-    // final Path path = Path()..addRRect(outer);
-    // final PathMetrics pathMetrics = path.computeMetrics(forceClosed: true);
+// final double colorSegmentLength =
+//     (totalLength - (gapLength * colors.length)) / colors.length;
 
-    // Get total path length
-    // final double totalLength =
-    //     pathMetrics.fold(0.0, (sum, m) => sum + m.length);
+// final double startOffset = (progress?.value ?? 0) * totalLength;
 
-    // final double colorSegmentLength =
-    //     (totalLength - (gapLength * colors.length)) / colors.length;
+// for (final pathMetric in path.computeMetrics(forceClosed: true)) {
+//   double currentDistance = startOffset;
 
-    // final double startOffset = (progress?.value ?? 0) * totalLength;
+//   for (int i = 0; i < colors.length; i++) {
+//     double segmentStart = currentDistance % pathMetric.length;
+//     double segmentEnd = segmentStart + colorSegmentLength;
 
-    // for (final pathMetric in path.computeMetrics(forceClosed: true)) {
-    //   double currentDistance = startOffset;
+//     paint.color = colors[i];
 
-    //   for (int i = 0; i < colors.length; i++) {
-    //     double segmentStart = currentDistance % pathMetric.length;
-    //     double segmentEnd = segmentStart + colorSegmentLength;
+//     if (segmentEnd > pathMetric.length) {
+//       // Wrap around
+//       final firstPart =
+//           pathMetric.extractPath(segmentStart, pathMetric.length);
+//       final secondPart =
+//           pathMetric.extractPath(0, segmentEnd - pathMetric.length);
+//       canvas.drawPath(firstPart, paint);
+//       canvas.drawPath(secondPart, paint);
+//     } else {
+//       final segment = pathMetric.extractPath(segmentStart, segmentEnd);
+//       canvas.drawPath(segment, paint);
+//     }
 
-    //     paint.color = colors[i];
-
-    //     if (segmentEnd > pathMetric.length) {
-    //       // Wrap around
-    //       final firstPart =
-    //           pathMetric.extractPath(segmentStart, pathMetric.length);
-    //       final secondPart =
-    //           pathMetric.extractPath(0, segmentEnd - pathMetric.length);
-    //       canvas.drawPath(firstPart, paint);
-    //       canvas.drawPath(secondPart, paint);
-    //     } else {
-    //       final segment = pathMetric.extractPath(segmentStart, segmentEnd);
-    //       canvas.drawPath(segment, paint);
-    //     }
-
-    //     currentDistance += colorSegmentLength + gapLength;
-    //   }
-    // }
+//     currentDistance += colorSegmentLength + gapLength;
+//   }
+// }

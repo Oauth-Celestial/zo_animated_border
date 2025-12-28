@@ -49,20 +49,18 @@ class _ZoSignalBorderState extends State<ZoSignalBorder>
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints){
-        final effectiveMinRadius = widget.minRadius ?? (constraints.biggest.shortestSide / 2);
-        return CustomPaint(
+    return LayoutBuilder(builder: (context, constraints) {
+      final effectiveMinRadius =
+          widget.minRadius ?? (constraints.biggest.shortestSide / 2);
+      return CustomPaint(
           painter: ZoSignalPainter(
             minRadius: effectiveMinRadius,
             maxRadius: widget.maxRadius,
             borderRadius: widget.borderRadius,
             progress: _curvedAnimation,
             ringColors: widget.ringColors,
-            ),
-          child: widget.child
-        );
-      }
-    );
+          ),
+          child: widget.child);
+    });
   }
 }

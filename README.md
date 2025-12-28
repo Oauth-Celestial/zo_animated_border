@@ -1,12 +1,11 @@
-# zo_animated_border
+
+<img width="3312" height="400" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
 
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
 **Zo Animated Border** is a powerful Flutter package that brings modern UI to life with beautifully animated **borders**. Whether you're building a login screen, a button, or a decorative container, this package lets you wrap any widget with stylish, animated **border** effects.
-
-![final (1)](https://github.com/user-attachments/assets/35456ed5-584f-4d1f-921d-bcab0edd1f79)
 
 ## Getting started
 
@@ -92,6 +91,59 @@ ZoMultiColorBorder(
 
 ```
 
+For Circular Text Border
+
+![circular_text](https://github.com/user-attachments/assets/58ce333c-cbb0-41b8-9709-a7ca61460876)
+
+```dart
+ZoCircularTextBorder(
+  text: 'The Zerone',
+  radius: 60,
+  rotationDuration: const Duration(seconds: 12),
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.2,
+  ),
+  child: Container(
+    width: 100,
+    height: 100,
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.red,
+    ),
+  ),
+),
+
+```
+
+For Scribble Border
+
+![scribble_border](https://github.com/user-attachments/assets/36d0df7c-60f6-426f-87cc-4797d38b6742)
+
+```dart
+ZoScribbleBorder(
+  borderColor: Colors.white,
+  padding: const EdgeInsets.all(50),
+  borderRadius: 100,
+  child: ClipOval(
+    child: Image.asset(
+      'assets/pnglogo.png', // Replace with your asset
+      width: 110,
+      height: 110,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(
+            Icons.face,
+            size: 80,
+            color: Colors.orange,
+          ),
+    ),
+  ),
+),
+```
+
 For Ripple Border
 
 ![ripple](https://github.com/user-attachments/assets/cfbc07b8-ffdc-440e-8383-99177ae4f305)
@@ -114,7 +166,6 @@ ZoRippleEffect(
 );
 
 ```
-
 
 For Color Changing Border
 
@@ -385,6 +436,7 @@ Feel free to post a feature requests or report a bug [issues](https://github.com
 
 ## My Other packages
 
+- [zo_micro_interactions](https://pub.dev/packages/zo_micro_interactions): A curated set of high-quality Flutter micro-interactions designed for modern, polished apps.
 - [zo_screenshot](https://pub.dev/packages/zo_screenshot): The zo_screenshot plugin helps restrict screenshots and screen recording in Flutter apps, enhancing security and privacy by preventing unauthorized screen captures.
 - [zo_collection_animation](https://pub.dev/packages/zo_collection_animation): A lightweight Flutter package to create smooth collect animations for coins carts
 - [connectivity_watcher](https://pub.dev/packages/connectivity_watcher): A Flutter package to monitor internet connectivity with subsecond response times, even on mobile networks.
