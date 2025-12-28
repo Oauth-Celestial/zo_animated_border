@@ -7,7 +7,6 @@
 
 **Zo Animated Border** is a powerful Flutter package that brings modern UI to life with beautifully animated **borders**. Whether you're building a login screen, a button, or a decorative container, this package lets you wrap any widget with stylish, animated **border** effects.
 
-
 ## Getting started
 
 First, add zo_animated_border as a dependency in your pubspec.yaml file
@@ -122,7 +121,6 @@ ZoCircularTextBorder(
 For Scribble Border
 
 ![scribble_border](https://github.com/user-attachments/assets/36d0df7c-60f6-426f-87cc-4797d38b6742)
-
 
 ```dart
 ZoScribbleBorder(

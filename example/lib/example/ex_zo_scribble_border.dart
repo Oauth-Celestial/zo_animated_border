@@ -14,25 +14,12 @@ class ExZoHandDrawBorder extends StatelessWidget {
           SizedBox(
             width: double.infinity,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Hand Draw border",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold))),
-          ),
-          SizedBox(
-            height: 20,
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 20,
-              ),
               ZoScribbleBorder(
                 borderColor: Colors.white,
-                padding: EdgeInsets.all(50),
+                padding: EdgeInsets.all(20),
                 borderRadius: 100,
                 child: ClipOval(
                   child: Image.asset(

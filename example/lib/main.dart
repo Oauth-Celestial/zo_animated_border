@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:example/example/ex_text_border.dart';
-import 'package:example/example/ex_zo_hand_border.dart';
+import 'package:example/example/ex_zo_scribble_border.dart';
 import 'package:flutter/material.dart';
 import 'package:characters/characters.dart';
 import 'package:zo_animated_border/painter/zo_rotating_text_border_painter.dart';
