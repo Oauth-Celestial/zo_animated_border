@@ -1,5 +1,5 @@
 
-<img width="3312" height="600" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
+<img width="3312" height="400" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
 
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)

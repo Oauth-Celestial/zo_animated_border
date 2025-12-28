@@ -1,3 +1,7 @@
+## 1.0.6
+
+* Bug Fixes.
+
 ## 1.0.5
 
 * Added `ZoScribbleBorder` ,`ZoCircularTextBorder`.
