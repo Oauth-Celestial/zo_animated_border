@@ -12,7 +12,7 @@ export 'widget/zo_glow_edge_border.dart';
 export 'widget/zo_signal_border.dart';
 export 'widget/zo_ripple_effect.dart';
 export 'widget/zo_scribble_border.dart';
-export 'widget/zo_rotating_text_border.dart';
+export 'widget/zo_text_border.dart';
 
 import 'package:flutter/material.dart';
 

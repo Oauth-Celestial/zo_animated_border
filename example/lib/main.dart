@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:example/example/ex_text_border.dart';
+import 'package:example/example/ex_zo_dual_border.dart';
 import 'package:example/example/ex_zo_scribble_border.dart';
 import 'package:flutter/material.dart';
 import 'package:characters/characters.dart';
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const ExZoHandDrawBorder(),
+      home: const ExZoDualBorder(),
     );
   }
 }
+
+
+// https://www.sliderrevolution.com/resources/css-border-animation/

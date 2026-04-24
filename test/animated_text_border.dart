@@ -117,7 +117,7 @@ class _TextPathWrapperState extends State<TextPathWrapper>
             animation: _controller,
             builder: (context, _) {
               return CustomPaint(
-                painter: _PathTextPainter(
+                painter: PathTextPainter(
                   text: widget.text,
                   textStyle: widget.textStyle,
                   borderRadius: widget.borderRadius,
@@ -133,14 +133,14 @@ class _TextPathWrapperState extends State<TextPathWrapper>
   }
 }
 
-class _PathTextPainter extends CustomPainter {
+class PathTextPainter extends CustomPainter {
   final String text;
   final TextStyle textStyle;
   final BorderRadius borderRadius;
   final double padding;
   final double progress;
 
-  _PathTextPainter({
+  PathTextPainter({
     required this.text,
     required this.textStyle,
     required this.borderRadius,
@@ -213,5 +213,5 @@ class _PathTextPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PathTextPainter oldDelegate) => true;
+  bool shouldRepaint(PathTextPainter oldDelegate) => true;
 }
