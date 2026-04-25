@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 void main() {
   runApp(
@@ -114,7 +113,7 @@ class SnakeBorderPainter extends CustomPainter {
       ..addRRect(RRect.fromRectAndRadius(rect, const Radius.circular(40)));
 
     final paint = Paint()
-      ..shader = LinearGradient(
+      ..shader = const LinearGradient(
         colors: [Colors.greenAccent, Colors.yellowAccent],
       ).createShader(rect)
       ..style = PaintingStyle.stroke

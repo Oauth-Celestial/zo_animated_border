@@ -52,7 +52,7 @@ class PathTextDemo extends StatelessWidget {
                 height: 150,
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: Colors.greenAccent.withOpacity(0.5)),
+                      Border.all(color: Colors.greenAccent.withValues(alpha: 0.5)),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.shield,

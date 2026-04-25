@@ -1,3 +1,10 @@
+## 1.0.7
+
+- Fixed backward compatibility issues and updated the package for the latest Flutter version.
+- Added new widgets: `ZoFireBorder` and `ZoSegmentBorder`.
+- Fixed path rendering issues in `ZoTextBorder`.
+
+
 ## 1.0.6
 
 * Bug Fixes.

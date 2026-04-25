@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ThunderBorderExample extends StatefulWidget {
+  const ThunderBorderExample({super.key});
+
   @override
-  _ThunderBorderExampleState createState() => _ThunderBorderExampleState();
+  State<ThunderBorderExample> createState() => _ThunderBorderExampleState();
 }
 
 class _ThunderBorderExampleState extends State<ThunderBorderExample>
@@ -76,7 +78,7 @@ class ThunderBorderPainter extends CustomPainter {
     final Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0
-      ..color = Colors.purpleAccent.withOpacity(0.8);
+      ..color = Colors.purpleAccent.withValues(alpha: 0.8);
 
     final Path borderPath = Path();
     final Random random = Random();
@@ -103,7 +105,7 @@ class ThunderBorderPainter extends CustomPainter {
 
     // Draw a glowing animated border
     paint.shader = LinearGradient(
-      colors: [
+      colors: const [
         Colors.purpleAccent,
         Colors.blueAccent,
         Colors.purpleAccent,

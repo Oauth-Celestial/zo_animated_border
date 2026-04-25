@@ -24,7 +24,7 @@ class ZoMultiColorBorderPainter extends CustomPainter {
     double gapLength = 8.0;
 
     Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(20));
+    RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(20));
 
     Paint paint = Paint()
       ..style = PaintingStyle.stroke

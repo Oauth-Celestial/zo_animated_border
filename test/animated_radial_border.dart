@@ -23,12 +23,12 @@ class DemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0A0C12),
+    return const Scaffold(
+      backgroundColor: Color(0xFF0A0C12),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             AnimatedBorderBox(isRadial: false),
             SizedBox(height: 40),
             AnimatedBorderBox(isRadial: true),
@@ -100,7 +100,7 @@ class BorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    final strokeWidth = 6.0;
+    const strokeWidth = 6.0;
 
     final innerRect = rect.deflate(strokeWidth / 2);
 
@@ -123,11 +123,11 @@ class BorderPainter extends CustomPainter {
       startAngle: 0,
       endAngle: 2 * pi,
       transform: GradientRotation(progress * 2 * pi),
-      colors: [
-        const Color.fromRGBO(168, 239, 255, 0.1),
-        const Color.fromRGBO(168, 239, 255, 1),
-        const Color.fromRGBO(168, 239, 255, 1),
-        const Color.fromRGBO(168, 239, 255, 0.1),
+      colors: const [
+        Color.fromRGBO(168, 239, 255, 0.1),
+        Color.fromRGBO(168, 239, 255, 1),
+        Color.fromRGBO(168, 239, 255, 1),
+        Color.fromRGBO(168, 239, 255, 0.1),
       ],
       stops: const [0.0, 0.1, 0.15, 0.25],
     ).createShader(rect);
@@ -141,10 +141,10 @@ class BorderPainter extends CustomPainter {
     return RadialGradient(
       center: Alignment(x * 2 - 1, y * 2 - 1),
       radius: 1.2,
-      colors: [
-        const Color.fromRGBO(168, 239, 255, 1),
-        const Color.fromRGBO(168, 239, 255, 1),
-        const Color.fromRGBO(168, 239, 255, 0.1),
+      colors: const [
+        Color.fromRGBO(168, 239, 255, 1),
+        Color.fromRGBO(168, 239, 255, 1),
+        Color.fromRGBO(168, 239, 255, 0.1),
       ],
       stops: const [0.0, 0.1, 0.4],
     ).createShader(rect);

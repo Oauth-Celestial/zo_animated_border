@@ -22,9 +22,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
-      body: const Center(
+      body: Center(
         child: PulsingBorder(),
       ),
     );
@@ -86,7 +86,7 @@ class _PulsePainter extends CustomPainter {
       final wave = sin(animation.value * 2 * pi + i);
       final radius = baseRadius + i * 8 + wave * 4;
 
-      paint.color = Colors.red.withOpacity(0.7 - i * 0.2);
+      paint.color = Colors.red.withValues(alpha: 0.7 - i * 0.2);
 
       canvas.drawCircle(center, radius, paint);
     }

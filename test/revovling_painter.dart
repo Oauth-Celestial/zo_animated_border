@@ -1,11 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RevolvingBorderWithFlare extends StatefulWidget {
+  const RevolvingBorderWithFlare({super.key});
+
   @override
-  _RevolvingBorderWithFlareState createState() =>
+  State<RevolvingBorderWithFlare> createState() =>
       _RevolvingBorderWithFlareState();
 }
 
@@ -76,7 +76,7 @@ class RevolvingBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double strokeWidth = 8.0;
+    const double strokeWidth = 8.0;
     final double radius = size.width / 2 - strokeWidth;
     final Offset center = Offset(size.width / 2, size.height / 2);
 
@@ -101,11 +101,11 @@ class RevolvingBorderPainter extends CustomPainter {
     final Paint flarePaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          Colors.white.withOpacity(0.8),
-          Colors.grey.withOpacity(0.4),
+          Colors.white.withValues(alpha: 0.8),
+          Colors.grey.withValues(alpha: 0.4),
           Colors.transparent,
         ],
-        stops: [0.0, 0.5, 1.0],
+        stops: const [0.0, 0.5, 1.0],
       ).createShader(
         Rect.fromCircle(
           center: Offset(

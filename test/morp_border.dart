@@ -22,12 +22,12 @@ class DemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               SizedBox(height: 40),
 
               // 🔹 Example 1: Single color (no gradient)

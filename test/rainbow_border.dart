@@ -57,9 +57,9 @@ class _AnimatedGradientBorderState extends State<AnimatedGradientBorder>
                 width: 500,
                 height: 250,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.black, Color(0xFF272727)],
