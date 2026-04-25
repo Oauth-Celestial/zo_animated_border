@@ -55,6 +55,34 @@ ZoAnimatedGradientBorder(
 );
 ```
 
+For Fire Border
+
+```dart
+ZoFireBorder(
+  duration: const Duration(seconds: 3),
+  borderWidth: 4,
+  snakeLength: 0.8, 
+  borderRadius: BorderRadius.circular(24),
+  gradient: const LinearGradient(
+    colors: [Colors.orange, Colors.red, Colors.yellow],
+  ),
+  child: Container(
+    width: 200,
+    height: 200,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.black,
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: const Icon(
+      Icons.local_fire_department,
+      color: Colors.white,
+      size: 60,
+    ),
+  ),
+)
+```
+
 For MultiColor Border
 
 ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
@@ -91,31 +119,63 @@ ZoMultiColorBorder(
 
 ```
 
-For Circular Text Border
+For Text Border
 
 ![circular_text](https://github.com/user-attachments/assets/58ce333c-cbb0-41b8-9709-a7ca61460876)
 
 ```dart
-ZoCircularTextBorder(
-  text: 'The Zerone',
-  radius: 60,
-  rotationDuration: const Duration(seconds: 12),
+ZoTextBorder(
+  text: "The Zerone",
+  borderRadius: BorderRadius.circular(100),
+  padding: 12,
+  duration: const Duration(seconds: 12),
   textStyle: const TextStyle(
-    color: Colors.white,
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 1.2,
+    color: Colors.greenAccent,
+    fontSize: 12,
   ),
   child: Container(
-    width: 100,
-    height: 100,
-    decoration: const BoxDecoration(
-      shape: BoxShape.circle,
-      color: Colors.red,
+    width: 150,
+    height: 150,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: const Icon(
+      Icons.shield,
+      color: Colors.greenAccent,
+      size: 50,
     ),
   ),
-),
+)
 
+```
+
+For Segmented Border
+
+```dart
+ZoSegmentBorder(
+  borderRadius: 20,
+  segmentLength: 0.2,
+  glowOpacity: 1.0,
+  glowRadius: 10,
+  colors: const [
+    Colors.transparent,
+    Colors.cyanAccent,
+    Colors.cyanAccent,
+    Colors.transparent,
+  ],
+  child: Container(
+    width: 250,
+    height: 120,
+    alignment: Alignment.center,
+    child: const Text(
+      "Zo Segment Border",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+    ),
+  ),
+)
 ```
 
 For Scribble Border

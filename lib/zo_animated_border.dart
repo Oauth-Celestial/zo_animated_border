@@ -13,6 +13,8 @@ export 'widget/zo_signal_border.dart';
 export 'widget/zo_ripple_effect.dart';
 export 'widget/zo_scribble_border.dart';
 export 'widget/zo_text_border.dart';
+export 'widget/zo_segment_border.dart';
+export 'widget/zo_fire_border.dart';
 
 import 'package:flutter/material.dart';
 
