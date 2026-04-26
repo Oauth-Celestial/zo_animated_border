@@ -1,113 +1,81 @@
 import 'dart:math' as math;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class ZoRotatingTextBorderPainter extends CustomPainter {
+class ZoPathTextPainter extends CustomPainter {
   final String text;
-  final double radius;
   final TextStyle textStyle;
-  final Animation<double> progress;
+  final BorderRadius borderRadius;
+  final double padding;
+  final AnimationController progress;
 
-  late List<TextPainter> _charPainters;
-  late List<double> _charWidths;
-  late double _totalTextWidth;
-
-  ZoRotatingTextBorderPainter({
+  ZoPathTextPainter({
     required this.text,
-    required this.radius,
     required this.textStyle,
+    required this.borderRadius,
+    required this.padding,
     required this.progress,
-  }) : super(repaint: progress) {
-    _initTextMetrics();
-  }
-
-  void _initTextMetrics() {
-    _charPainters = [];
-    _charWidths = [];
-    _totalTextWidth = 0;
-
-    for (final char in text.characters) {
-      final painter = TextPainter(
-        text: TextSpan(text: char, style: textStyle),
-        textDirection: TextDirection.ltr,
-      )..layout();
-
-      _charPainters.add(painter);
-      _charWidths.add(painter.width);
-      _totalTextWidth += painter.width;
-    }
-  }
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    const totalAngle = 2 * math.pi;
+    // 1. Define the Path (RRect based on child size + padding)
+    final Rect rect = Offset(-padding, -padding) &
+        Size(size.width + padding * 2, size.height + padding * 2);
+    final RRect rrect = borderRadius.toRRect(rect);
+    final Path path = Path()..addRRect(rrect);
 
-    double startAngle = -math.pi / 2 + (progress.value * totalAngle);
+    final PathMetric metric = path.computeMetrics().first;
+    final double pathLength = metric.length;
 
-    final dotSize = textStyle.fontSize!;
-    final circumference = totalAngle * radius;
-    final segmentWidth = _totalTextWidth + dotSize;
+    // 2. Measure individual characters
+    final textPainter = TextPainter(textDirection: TextDirection.ltr);
+    List<double> charWidths = [];
+    double totalTextWidth = 0;
 
-    final repetitions = math.max(1, (circumference / segmentWidth).floor());
+    for (int i = 0; i < text.length; i++) {
+      textPainter.text = TextSpan(text: text[i], style: textStyle);
+      textPainter.layout();
+      // Add extra space between characters for readability
+      double widthWithSpacing =
+          textPainter.width + (textStyle.letterSpacing ?? 0);
+      charWidths.add(widthWithSpacing);
+      totalTextWidth += widthWithSpacing;
+    }
 
-    final segmentAngle = totalAngle / repetitions;
-    final textAngle = (_totalTextWidth / segmentWidth) * segmentAngle;
-    final dotAngle = segmentAngle - textAngle;
+    // 3. Spacing logic
+    double gapBetweenRepeats = 40.0;
+    int repeats = (pathLength / (totalTextWidth + gapBetweenRepeats)).floor();
+    repeats = math.max(1, repeats);
+    double segmentLength = pathLength / repeats;
 
-    for (int i = 0; i < repetitions; i++) {
-      _drawDot(canvas, center, startAngle);
+    for (int r = 0; r < repeats; r++) {
+      double currentDist = (progress.value * pathLength) + (r * segmentLength);
 
-      double currentAngle = startAngle + dotAngle / 2;
+      for (int i = 0; i < text.length; i++) {
+        double actualDist = currentDist % pathLength;
+        Tangent? tangent = metric.getTangentForOffset(actualDist);
 
-      for (int c = 0; c < _charPainters.length; c++) {
-        final proportion = _charWidths[c] / _totalTextWidth;
-        final charAngle = textAngle * proportion;
-        final angle = currentAngle + charAngle / 2;
+        if (tangent != null) {
+          textPainter.text = TextSpan(text: text[i], style: textStyle);
+          textPainter.layout();
 
-        final offset = Offset(
-          center.dx + radius * math.cos(angle),
-          center.dy + radius * math.sin(angle),
-        );
+          canvas.save();
 
-        canvas.save();
-        canvas.translate(offset.dx, offset.dy);
-        canvas.rotate(angle + math.pi / 2);
+          canvas.translate(tangent.position.dx, tangent.position.dy);
 
-        _charPainters[c].paint(
-          canvas,
-          Offset(
-            -_charWidths[c] / 2,
-            -_charPainters[c].height / 2,
-          ),
-        );
+          canvas.rotate(-tangent.angle);
 
-        canvas.restore();
-        currentAngle += charAngle;
+          canvas.translate(0, -textPainter.height / 2);
+          textPainter.paint(canvas, Offset(-textPainter.width / 2, 0));
+          canvas.restore();
+        }
+        currentDist += charWidths[i];
       }
-
-      startAngle += segmentAngle;
     }
   }
 
-  void _drawDot(Canvas canvas, Offset center, double angle) {
-    final paint = Paint()
-      ..color = textStyle.color!
-      ..style = PaintingStyle.fill;
-
-    final offset = Offset(
-      center.dx + radius * math.cos(angle),
-      center.dy + radius * math.sin(angle),
-    );
-
-    canvas.drawCircle(offset, textStyle.fontSize! / 4, paint);
-  }
-
   @override
-  bool shouldRepaint(covariant ZoRotatingTextBorderPainter old) {
-    return old.progress != progress ||
-        old.text != text ||
-        old.radius != radius ||
-        old.textStyle != textStyle;
-  }
+  bool shouldRepaint(ZoPathTextPainter oldDelegate) => true;
 }

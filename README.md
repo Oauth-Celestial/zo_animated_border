@@ -1,6 +1,4 @@
 
-<img width="3312" height="400" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
-
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
@@ -55,6 +53,38 @@ ZoAnimatedGradientBorder(
 );
 ```
 
+For Fire Border
+
+<img width="400" height="341" alt="fire_border (online-video-cutter com)" src="https://github.com/user-attachments/assets/0c9cf98f-769d-4cd1-84c8-964623858a9c" />
+
+
+
+```dart
+ZoFireBorder(
+  duration: const Duration(seconds: 3),
+  borderWidth: 4,
+  snakeLength: 0.8, 
+  borderRadius: BorderRadius.circular(24),
+  gradient: const LinearGradient(
+    colors: [Colors.orange, Colors.red, Colors.yellow],
+  ),
+  child: Container(
+    width: 200,
+    height: 200,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.black,
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: const Icon(
+      Icons.local_fire_department,
+      color: Colors.white,
+      size: 60,
+    ),
+  ),
+)
+```
+
 For MultiColor Border
 
 ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
@@ -91,31 +121,66 @@ ZoMultiColorBorder(
 
 ```
 
-For Circular Text Border
+For Text Border
 
 ![circular_text](https://github.com/user-attachments/assets/58ce333c-cbb0-41b8-9709-a7ca61460876)
 
 ```dart
-ZoCircularTextBorder(
-  text: 'The Zerone',
-  radius: 60,
-  rotationDuration: const Duration(seconds: 12),
+ZoTextBorder(
+  text: "The Zerone",
+  borderRadius: BorderRadius.circular(100),
+  padding: 12,
+  duration: const Duration(seconds: 12),
   textStyle: const TextStyle(
-    color: Colors.white,
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 1.2,
+    color: Colors.greenAccent,
+    fontSize: 12,
   ),
   child: Container(
-    width: 100,
-    height: 100,
-    decoration: const BoxDecoration(
-      shape: BoxShape.circle,
-      color: Colors.red,
+    width: 150,
+    height: 150,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: const Icon(
+      Icons.shield,
+      color: Colors.greenAccent,
+      size: 50,
     ),
   ),
-),
+)
 
+```
+
+For Segmented Border
+
+<img width="400" height="225" alt="segment_border (online-video-cutter com) (1)" src="https://github.com/user-attachments/assets/e573b5ae-b68b-4fcf-bde6-14475780160d" />
+
+
+```dart
+ZoSegmentBorder(
+  borderRadius: 20,
+  segmentLength: 0.2,
+  glowOpacity: 1.0,
+  glowRadius: 10,
+  colors: const [
+    Colors.transparent,
+    Colors.cyanAccent,
+    Colors.cyanAccent,
+    Colors.transparent,
+  ],
+  child: Container(
+    width: 250,
+    height: 120,
+    alignment: Alignment.center,
+    child: const Text(
+      "Zo Segment Border",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+    ),
+  ),
+)
 ```
 
 For Scribble Border

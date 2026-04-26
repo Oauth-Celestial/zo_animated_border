@@ -1,0 +1,112 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+class ZoSegmentBorderPainter extends CustomPainter {
+  final AnimationController progress;
+  final double borderRadius;
+  final List<Color>? colors;
+  final List<double>? stops;
+  final Gradient? gradient;
+  final double segmentLength;
+  final double glowOpacity;
+  final double glowRadius;
+
+  ZoSegmentBorderPainter({
+    required this.progress,
+    required this.borderRadius,
+    this.colors,
+    this.stops,
+    this.gradient,
+    required this.segmentLength,
+    required this.glowOpacity,
+    required this.glowRadius,
+  }) : super(repaint: progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const strokeWidth = 6.0;
+    final rect = Offset.zero & size;
+
+    final rrect = RRect.fromRectAndRadius(
+      rect.deflate(strokeWidth / 2),
+      Radius.circular(borderRadius),
+    );
+
+    final basePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..color = Colors.white.withValues(alpha: 0.12);
+
+    canvas.drawRRect(rrect, basePaint);
+
+    final resolvedColors = _applyGlow(_resolveColors());
+    final resolvedStops = _resolveStops();
+
+    final shader = SweepGradient(
+      startAngle: 0,
+      endAngle: 2 * pi,
+      transform: GradientRotation(progress.value * 2 * pi),
+      colors: resolvedColors,
+      stops: resolvedStops,
+    ).createShader(rect);
+
+    final glowPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth * 1.8
+      ..maskFilter = MaskFilter.blur(
+        BlurStyle.normal,
+        glowRadius,
+      )
+      ..blendMode = BlendMode.plus
+      ..shader = shader;
+
+    canvas.drawRRect(rrect, glowPaint);
+
+    final mainPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..shader = shader;
+
+    canvas.drawRRect(rrect, mainPaint);
+  }
+
+  List<Color> _applyGlow(List<Color> base) {
+    return base
+        .map((c) => c.withValues(alpha: (c.a * glowOpacity).clamp(0.0, 1.0)))
+        .toList();
+  }
+
+  List<Color> _resolveColors() {
+    return colors ??
+        [
+          Colors.transparent,
+          const Color.fromRGBO(168, 239, 255, 1),
+          const Color.fromRGBO(168, 239, 255, 1),
+          Colors.transparent,
+        ];
+  }
+
+  List<double> _resolveStops() {
+    if (stops != null) return stops!;
+
+    var start = 0.0;
+    final midStart = segmentLength * 0.4;
+    final midEnd = segmentLength * 0.6;
+    final end = segmentLength;
+
+    return [start, midStart, midEnd, end];
+  }
+
+  @override
+  bool shouldRepaint(covariant ZoSegmentBorderPainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.colors != colors ||
+        oldDelegate.stops != stops ||
+        oldDelegate.gradient != gradient ||
+        oldDelegate.segmentLength != segmentLength ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowRadius != glowRadius;
+  }
+}
