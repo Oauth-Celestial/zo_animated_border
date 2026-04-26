@@ -1,6 +1,4 @@
 
-<img width="3312" height="400" alt="animated_border" src="https://github.com/user-attachments/assets/3ef4c4a3-3770-4397-b597-7d54a8fda1c3" />
-
 [![pub package](https://img.shields.io/pub/v/zo_animated_border.svg)](https://pub.dev/packages/zo_animated_border)
 [![pub points](https://img.shields.io/pub/points/zo_animated_border?color=2E8B57&label=pub%20points)](https://pub.dev/packages/zo_animated_border)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
@@ -56,6 +54,10 @@ ZoAnimatedGradientBorder(
 ```
 
 For Fire Border
+
+<img width="400" height="341" alt="fire_border (online-video-cutter com)" src="https://github.com/user-attachments/assets/0c9cf98f-769d-4cd1-84c8-964623858a9c" />
+
+
 
 ```dart
 ZoFireBorder(
@@ -150,6 +152,9 @@ ZoTextBorder(
 ```
 
 For Segmented Border
+
+<img width="400" height="225" alt="segment_border (online-video-cutter com) (1)" src="https://github.com/user-attachments/assets/e573b5ae-b68b-4fcf-bde6-14475780160d" />
+
 
 ```dart
 ZoSegmentBorder(
