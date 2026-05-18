@@ -10,6 +10,7 @@ class ZoFireBorder extends StatefulWidget {
   final double snakeLength; // New parameter: 0.0 to 1.0
   final BorderRadius borderRadius;
   final Gradient gradient;
+  final Color fireColor;
 
   const ZoFireBorder({
     super.key,
@@ -19,6 +20,7 @@ class ZoFireBorder extends StatefulWidget {
     this.snakeLength = 0.1, // Default to 10%
     required this.borderRadius,
     required this.gradient,
+    this.fireColor = Colors.orangeAccent, // Default to Colors.orangeAccent
   });
 
   @override
@@ -69,6 +71,7 @@ class _ZoFireBorderState extends State<ZoFireBorder>
         borderWidth: widget.borderWidth,
         snakeLength: widget.snakeLength,
         gradient: widget.gradient,
+        fireColor: widget.fireColor,
         borderRadius: widget.borderRadius,
         particles: particles,
         onPositionUpdate: (pos) => _currentHeadPos = pos,

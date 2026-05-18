@@ -7,6 +7,7 @@ class ZoFireBorderPainter extends CustomPainter {
   final double borderWidth;
   final double snakeLength;
   final Gradient gradient;
+  final Color fireColor;
   final BorderRadius borderRadius;
   final List<Particle> particles;
   final Function(Offset) onPositionUpdate;
@@ -16,6 +17,7 @@ class ZoFireBorderPainter extends CustomPainter {
     required this.borderWidth,
     required this.snakeLength,
     required this.gradient,
+    required this.fireColor,
     required this.borderRadius,
     required this.particles,
     required this.onPositionUpdate,
@@ -69,7 +71,7 @@ class ZoFireBorderPainter extends CustomPainter {
     // Draw trail particles
     for (final p in particles) {
       final particlePaint = Paint()
-        ..color = Colors.orangeAccent.withValues(alpha: p.life)
+        ..color = fireColor.withValues(alpha: p.life)
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, 3 * p.life);
 
       canvas.drawCircle(p.position, 2.0 * p.life, particlePaint);

@@ -17,6 +17,7 @@ class ExZoFireBorder extends StatelessWidget {
           gradient: const LinearGradient(
             colors: [Colors.orange, Colors.red, Colors.yellow],
           ),
+          fireColor: Colors.orangeAccent,
           child: Container(
             width: 200,
             height: 200,
