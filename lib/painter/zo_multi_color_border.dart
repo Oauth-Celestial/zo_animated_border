@@ -1,13 +1,20 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoMultiColorBorderPainter].
 class ZoMultiColorBorderPainter extends CustomPainter {
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The length of the gap.
   final double gapLength;
+  /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double>? progress;
 
+  /// Creates a [ZoMultiColorBorderPainter] instance.
   ZoMultiColorBorderPainter({
     required this.colors,
     this.borderRadius = 8.0,

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZOGlowingEdgePainter].
 class ZOGlowingEdgePainter extends CustomPainter {
+  /// The [animation] property.
   final Animation<double> animation;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The [edgeLength] property.
   final double edgeLength;
+  /// The colors used in the border animation.
   final List<Color> gradientColors;
 
+  /// Creates a [ZOGlowingEdgePainter] instance.
   ZOGlowingEdgePainter({
     required this.animation,
     required this.borderWidth,

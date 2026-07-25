@@ -3,15 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_fire_border_painter.dart';
 
+/// A widget that renders [ZoFireBorder].
 class ZoFireBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The duration of the border animation.
   final Duration duration;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The relative length of the snake border segment.
   final double snakeLength; // New parameter: 0.0 to 1.0
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The gradient used to color the border.
   final Gradient gradient;
+  /// The colors of trailing particles.
   final List<Color>? particleColors;
 
+  /// Creates a [ZoFireBorder] instance.
   const ZoFireBorder({
     super.key,
     required this.child,

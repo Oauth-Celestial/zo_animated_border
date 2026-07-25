@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_segment_border_painter.dart';
 
+/// A widget that renders [ZoSegmentBorder].
 class ZoSegmentBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The colors used in the border animation.
   final List<Color>? colors;
+  /// The color stops for the gradient.
   final List<double>? stops;
+  /// The gradient used to color the border.
   final Gradient? gradient;
+  /// The length of each border segment.
   final double segmentLength;
+  /// The opacity of the outer glow effect.
   final double glowOpacity;
+  /// The blur radius of the glow effect.
   final double glowRadius;
 
+  /// Creates a [ZoSegmentBorder] instance.
   const ZoSegmentBorder({
     super.key,
     required this.child,

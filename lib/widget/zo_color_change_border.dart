@@ -3,18 +3,28 @@ import 'package:zo_animated_border/painter/zo_color_changing_border_painter.dart
 
 /// ![colorborder](https://github.com/user-attachments/assets/d2016016-0da1-487e-859e-63cad3b85b56)
 class ZoColorChangingBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The border radius of the widget.
   final double borderRadius;
   // value can be set between 0.0 - 1.0
+  /// The length of each border segment.
   final double segmentLength;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The colors used in the border animation.
   final List<Color> colors;
   //  value in list can be set from 0.1 to 1.0  e.g[0.1,0.6,1.0]
+  /// The [colorStops] property.
   final List<double>? colorStops;
+  /// The [staticBorderColor] property.
   final Color staticBorderColor;
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoColorChangingBorder] instance.
   const ZoColorChangingBorder(
       {super.key,
       required this.child,

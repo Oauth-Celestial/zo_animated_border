@@ -3,23 +3,38 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/zo_dotted_border.dart';
 
+/// The [ZoBorderDirection] enumeration.
 enum ZoBorderDirection {
+  /// The [clockwise] property.
   clockwise,
+  /// The [anticlockwise] property.
   anticlockwise,
 }
 
+/// A custom painter that renders [ZoDottedBorderPainter].
 class ZoDottedBorderPainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The [dashLength] property.
   final double dashLength;
+  /// The length of the gap.
   final double gapLength;
+  /// Optional custom stroke width for the border.
   final double strokeWidth;
+  /// The primary color of the border animation.
   final Color color;
+  /// The [animationSpeed] property.
   final double animationSpeed;
+  /// The gradient used to color the border.
   final Gradient? gradient;
+  /// The [borderStyle] property.
   final BorderStyleType borderStyle;
+  /// The direction of the animation.
   final ZoBorderDirection direction;
 
+  /// Creates a [ZoDottedBorderPainter] instance.
   ZoDottedBorderPainter({
     required this.progress,
     required this.borderRadius,

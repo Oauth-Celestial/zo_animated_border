@@ -3,13 +3,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoPathTextPainter].
 class ZoPathTextPainter extends CustomPainter {
+  /// The text string displayed along the border.
   final String text;
+  /// The text style for the border text.
   final TextStyle textStyle;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// Empty space to surround the child.
   final double padding;
+  /// The current progress of the animation from 0.0 to 1.0.
   final AnimationController progress;
 
+  /// Creates a [ZoPathTextPainter] instance.
   ZoPathTextPainter({
     required this.text,
     required this.textStyle,

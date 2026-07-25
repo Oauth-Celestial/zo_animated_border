@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
+/// A widget that renders [ZoRippleEffect].
 class ZoRippleEffect extends StatefulWidget {
+  /// The [numberOfCircles] property.
   final int numberOfCircles;
+  /// The [rippleColor] property.
   final Color rippleColor;
+  /// The [minCircleSize] property.
   final double minCircleSize;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The border radius of the widget.
   final BorderRadius? borderRadius;
 
+  /// Creates a [ZoRippleEffect] instance.
   const ZoRippleEffect({
     super.key,
     this.numberOfCircles = 3,

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_psycho_border_painter.dart';
 
+/// A widget that renders [ZoPsychoBorder].
 class ZoPsychoBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget? child;
+  /// The number of concentric rings.
   final int ringCount;
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The maximum spread distance between rings.
   final double maxSpread;
+  /// The duration of the border animation.
   final Duration duration;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
 
+  /// Creates a [ZoPsychoBorder] instance.
   const ZoPsychoBorder({
     super.key,
     this.child,

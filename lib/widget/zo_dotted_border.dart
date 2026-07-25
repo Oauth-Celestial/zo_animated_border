@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_dotted_painter.dart';
 
+/// The [BorderStyleType] enumeration.
 enum BorderStyleType { gradient, monochrome }
 
 /// ![dotted](https://github.com/user-attachments/assets/c1027326-76e4-4f4b-b31d-21303fcb8055)
 class ZoDottedBorder extends StatefulWidget {
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The [dashLength] property.
   final double dashLength;
+  /// The length of the gap.
   final double gapLength;
+  /// Optional custom stroke width for the border.
   final double strokeWidth;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The [animate] property.
   final bool animate;
+  /// The primary color of the border animation.
   final Color color;
+  /// The gradient used to color the border.
   final Gradient gradient;
+  /// The [borderStyle] property.
   final BorderStyleType borderStyle;
+  /// Empty space to surround the child.
   final EdgeInsetsGeometry? padding;
 
+  /// The [animationSpeed] property.
   final double animationSpeed;
 
+  /// The child widget wrapped by the border.
   final Widget child;
 
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoDottedBorder] instance.
   const ZoDottedBorder({
     super.key,
     this.borderRadius = 0,

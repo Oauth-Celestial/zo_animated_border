@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_scribble_border_painter.dart';
 
+/// A widget that renders [ZoScribbleBorder].
 class ZoScribbleBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// Empty space to surround the child.
   final EdgeInsetsGeometry? padding;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The [borderColor] property.
   final Color borderColor;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The opacity of the outer glow effect.
   final double glowOpacity;
 
+  /// Creates a [ZoScribbleBorder] instance.
   const ZoScribbleBorder(
       {super.key,
       required this.child,

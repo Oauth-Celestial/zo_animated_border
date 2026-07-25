@@ -1,13 +1,20 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoPsychoBorderPainter].
 class ZoPsychoBorderPainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final double progress;
+  /// The number of concentric rings.
   final int ringCount;
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The maximum spread distance between rings.
   final double maxSpread;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
 
+  /// Creates a [ZoPsychoBorderPainter] instance.
   ZoPsychoBorderPainter({
     required this.progress,
     required this.ringCount,

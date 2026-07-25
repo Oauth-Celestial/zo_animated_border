@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoGradientBorderPainter].
 class ZoGradientBorderPainter extends CustomPainter {
+  /// The rotation angle animation.
   Animation<double> angle;
+  /// The border radius of the widget.
   double? borderRadius;
+  /// The thickness of the border.
   double borderThickness;
+  /// The colors used in the border animation.
   List<Color> gradientColor;
+  /// The opacity of the outer glow effect.
   double glowOpacity;
+  /// Creates a [ZoGradientBorderPainter] instance.
   ZoGradientBorderPainter(
       {required this.angle,
       this.borderRadius,
@@ -21,6 +28,7 @@ class ZoGradientBorderPainter extends CustomPainter {
     }).toList();
   }
 
+  /// The [pulsePaint] property.
   final Paint pulsePaint = Paint()..style = PaintingStyle.stroke;
 
   LinearGradient get _gradient => LinearGradient(

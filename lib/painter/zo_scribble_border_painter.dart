@@ -2,13 +2,20 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoScribblePainter].
 class ZoScribblePainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+  /// The primary color of the border animation.
   final Color color;
+  /// The [blur] property.
   final double blur;
+  /// Optional custom stroke width for the border.
   final double strokeWidth;
+  /// The border radius of the widget.
   final double borderRadius;
 
+  /// Creates a [ZoScribblePainter] instance.
   ZoScribblePainter({
     required this.progress,
     this.color = Colors.amber,

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-/// https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666
+/// A custom painter that renders [ZoBreathingBorderPainter].
 class ZoBreathingBorderPainter extends CustomPainter {
+  /// The primary color of the border animation.
   final Animation<Color?> color;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The [spreadRadius] property.
   final double spreadRadius;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
 
+  /// Creates a [ZoBreathingBorderPainter] instance.
   ZoBreathingBorderPainter({
     required this.color,
     required this.borderWidth,

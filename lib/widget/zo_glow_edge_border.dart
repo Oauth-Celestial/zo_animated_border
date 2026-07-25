@@ -3,14 +3,22 @@ import 'package:zo_animated_border/painter/zo_glow_edge_border_painter.dart';
 
 /// ![glowEdge](https://github.com/user-attachments/assets/11950588-e76c-48ca-bbd7-5ca5ec988380)
 class ZoGlowingEdgeBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The [edgeLength] property.
   final double edgeLength;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The colors used in the border animation.
   final List<Color> gradientColors;
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoGlowingEdgeBorder] instance.
   const ZoGlowingEdgeBorder(
       {super.key,
       required this.child,

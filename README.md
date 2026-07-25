@@ -24,7 +24,7 @@ import 'package:zo_animated_border/zo_animated_border.dart';
 
 # Usage
 
-For Gradient border
+## For Gradient border
 
 ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)
 
@@ -53,7 +53,7 @@ ZoAnimatedGradientBorder(
 );
 ```
 
-For Fire Border
+## For Fire Border
 
 <!-- <img width="400" height="341" alt="fire_border (online-video-cutter com)" src="https://github.com/user-attachments/assets/0c9cf98f-769d-4cd1-84c8-964623858a9c" /> -->
 
@@ -95,9 +95,9 @@ ZoFireBorder(
   ),
 ),
 ```
-For Psycho Border
-<img width="400" height="430" alt="Screen Recording 2026-07-25 at 11 19 24 PM" src="https://github.com/user-attachments/assets/21c47da8-cf7a-4890-8e2a-7785439dbef8" />
+## For Psycho Border
 
+<img width="400" height="430" alt="Screen Recording 2026-07-25 at 11 19 24 PM" src="https://github.com/user-attachments/assets/21c47da8-cf7a-4890-8e2a-7785439dbef8" />
 
 ```dart
 ZoPsychoBorder(
@@ -132,7 +132,7 @@ ZoPsychoBorder(
 
 ```
 
-For MultiColor Border
+## For MultiColor Border
 
 ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
 
@@ -168,7 +168,7 @@ ZoMultiColorBorder(
 
 ```
 
-For Text Border
+## For Text Border
 
 ![circular_text](https://github.com/user-attachments/assets/58ce333c-cbb0-41b8-9709-a7ca61460876)
 
@@ -198,7 +198,7 @@ ZoTextBorder(
 
 ```
 
-For Segmented Border
+## For Segmented Border
 
 <img width="400" height="225" alt="segment_border (online-video-cutter com) (1)" src="https://github.com/user-attachments/assets/e573b5ae-b68b-4fcf-bde6-14475780160d" />
 
@@ -230,7 +230,7 @@ ZoSegmentBorder(
 )
 ```
 
-For Scribble Border
+## For Scribble Border
 
 ![scribble_border](https://github.com/user-attachments/assets/36d0df7c-60f6-426f-87cc-4797d38b6742)
 
@@ -256,7 +256,7 @@ ZoScribbleBorder(
 ),
 ```
 
-For Ripple Border
+## For Ripple Border
 
 ![ripple](https://github.com/user-attachments/assets/cfbc07b8-ffdc-440e-8383-99177ae4f305)
 
@@ -279,7 +279,7 @@ ZoRippleEffect(
 
 ```
 
-For Color Changing Border
+## For Color Changing Border
 
 ![new_border](https://github.com/user-attachments/assets/4edf8b39-87b8-4ed8-a253-27cc35f44429)
 
@@ -312,7 +312,7 @@ ZoColorChangingBorder(
 
 ```
 
-For Signal Border
+## For Signal Border
 
 ![Simulator Screen Recording - iPhone 15 Pro - 2025-08-19 at 11 56 35 (online-video-cutter com)](https://github.com/user-attachments/assets/cdbd5676-34b2-4826-8e2b-e8d317e9c526)
 
@@ -340,7 +340,7 @@ ZoSignalBorder(
 
 ```
 
-For Dual border
+## For Dual border
 
 ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 
@@ -371,7 +371,7 @@ ZoDualBorder(
 
 ```
 
-For Dotted border
+## For Dotted border
 
 ![dotted](https://github.com/user-attachments/assets/c1027326-76e4-4f4b-b31d-21303fcb8055)
 
@@ -397,7 +397,7 @@ ZoDottedBorder(
 );
 ```
 
-For Breathing border
+## For Breathing border
 
 ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
 
@@ -432,7 +432,7 @@ ZoBreathingBorder(
 );
 ```
 
-For Snake Border
+## For Snake Border
 
 ![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
 
@@ -461,7 +461,7 @@ ZoSnakeBorder(
 
 ```
 
-For GlowEdge Border
+## For GlowEdge Border
 
 ![glowEdge](https://github.com/user-attachments/assets/11950588-e76c-48ca-bbd7-5ca5ec988380)
 
@@ -493,7 +493,7 @@ ZoGlowingEdgeBorder(
 
 ```
 
-For Pulsating border
+## For Pulsating border
 
 ![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
 
@@ -518,7 +518,7 @@ ZoPulsatingBorder(
 );
 ```
 
-For MonoChrome border
+## For MonoChrome border
 
 ![mono_chrome (online-video-cutter com)](https://github.com/user-attachments/assets/d798997d-a68c-447e-90e1-5e8fc8dd56bf)
 
@@ -554,6 +554,7 @@ Feel free to post a feature requests or report a bug [issues](https://github.com
 - [zo_screenshot](https://pub.dev/packages/zo_screenshot): The zo_screenshot plugin helps restrict screenshots and screen recording in Flutter apps, enhancing security and privacy by preventing unauthorized screen captures.
 - [zo_collection_animation](https://pub.dev/packages/zo_collection_animation): A lightweight Flutter package to create smooth collect animations for coins carts
 - [connectivity_watcher](https://pub.dev/packages/connectivity_watcher): A Flutter package to monitor internet connectivity with subsecond response times, even on mobile networks.
+- [zo_app_blocker](https://pub.dev/packages/zo_app_blocker): A Flutter plugin to block specific applications on Android.
 - [ultimate_extension](https://pub.dev/packages/ultimate_extension): Enhances Dart collections and objects with utilities for advanced data manipulation and simpler coding.
 - [theme_manager_plus](https://pub.dev/packages/theme_manager_plus): Allows customization of your app's theme with your own theme class, eliminating the need for traditional
 - [date_util_plus](https://pub.dev/packages/date_util_plus): A powerful Dart API designed to augment and simplify date and time handling in your Dart projects.

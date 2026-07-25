@@ -15,15 +15,19 @@ class ZoAnimatedGradientBorder extends StatefulWidget {
   /// border Thickness
   final double borderThickness;
 
+  /// The child widget wrapped by the border.
   final Widget child;
 
   /// should animate the border
   final bool shouldAnimate;
 
+  /// The list of colors used for the gradient border.
   List<Color> gradientColor;
 
+  /// The animation curve for border rotation.
   final Curve animationCurve;
 
+  /// Creates a [ZoAnimatedGradientBorder] widget.
   ZoAnimatedGradientBorder(
       {super.key,
       this.borderRadius = 0,

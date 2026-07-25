@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/widget/size_provider_widget.dart';
 
+/// The [ZoPulsatingBorderType] enumeration.
 enum ZoPulsatingBorderType { pulse, radarPulse }
 
 /// ![pulse (online-video-cutter com)](https://github.com/user-attachments/assets/98c2d962-b38d-4d0c-8865-b3641db69e97)
 class ZoPulsatingBorder extends StatefulWidget {
+  /// Creates a [ZoPulsatingBorder] instance.
   const ZoPulsatingBorder(
       {super.key,
       required this.child,
@@ -15,17 +17,25 @@ class ZoPulsatingBorder extends StatefulWidget {
       this.type = ZoPulsatingBorderType.pulse,
       this.animationCurve = Curves.easeOut});
 
+  /// The [layerCount] property.
   final double layerCount;
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The border radius of the widget.
   final BorderRadius? borderRadius;
+  /// The [pulseColor] property.
   final Color pulseColor;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The animation curve.
   final Curve animationCurve;
+  /// The [type] property.
   final ZoPulsatingBorderType? type;
   @override
   ZoPulsatingBorderState createState() => ZoPulsatingBorderState();
 }
 
+/// A widget that renders [ZoPulsatingBorderState].
 class ZoPulsatingBorderState extends State<ZoPulsatingBorder>
     with SingleTickerProviderStateMixin {
   AnimationController? _animationController;

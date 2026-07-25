@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:zo_animated_border/widget/zo_mono_crome_border.dart';
 
+/// A custom painter that renders [ZoTrackPainter].
 class ZoTrackPainter extends CustomPainter {
   /// Animation of the AnimationController
   final Animation animation;
@@ -16,8 +17,10 @@ class ZoTrackPainter extends CustomPainter {
   /// Color of the border
   final Color trackBorderColor;
 
+  /// The [borderStyle] property.
   final ZoMonoCromeBorderStyle borderStyle;
 
+  /// Creates a [ZoTrackPainter] instance.
   ZoTrackPainter(
       {required this.animation,
       required this.cornerRadius,

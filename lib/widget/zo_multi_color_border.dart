@@ -3,18 +3,28 @@ import 'package:zo_animated_border/painter/zo_multi_color_border.dart';
 
 /// ![multicolor](https://github.com/user-attachments/assets/cb66375f-f9a9-48cc-93fe-45d56854bbd6)
 class ZoMultiColorBorder extends StatefulWidget {
+  /// The border radius of the widget.
   final double borderRadius;
 
+  /// The length of the gap.
   final double gapLength;
+  /// Optional custom stroke width for the border.
   final double strokeWidth;
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// Empty space to surround the child.
   final EdgeInsetsGeometry? padding;
 
+  /// The duration of the border animation.
   final Duration animationDuration;
 
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The [animate] property.
   final bool animate;
+  /// The animation curve.
   final Curve animationCurve;
+  /// Creates a [ZoMultiColorBorder] instance.
   const ZoMultiColorBorder(
       {super.key,
       required this.child,

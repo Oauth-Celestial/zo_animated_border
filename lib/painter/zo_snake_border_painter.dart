@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'dart:ui' as ui;
 
+/// A custom painter that renders [ZoSnakeBorderPainter].
 class ZoSnakeBorderPainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The [colorFrom] property.
   final Color colorFrom;
+  /// The [colorTo] property.
   final Color colorTo;
+  /// The [staticBorderColor] property.
   final Color staticBorderColor;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The opacity of the outer glow effect.
   final double glowOpacity;
 
+  /// Creates a [ZoSnakeBorderPainter] instance.
   ZoSnakeBorderPainter(
       {required this.progress,
       required this.borderWidth,

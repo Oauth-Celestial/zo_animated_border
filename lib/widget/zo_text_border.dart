@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_rotating_text_border_painter.dart';
 
+/// A widget that renders [ZoTextBorder].
 class ZoTextBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The text string displayed along the border.
   final String text;
+  /// The text style for the border text.
   final TextStyle textStyle;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// Empty space to surround the child.
   final double padding;
+  /// The duration of the border animation.
   final Duration duration;
 
+  /// Creates a [ZoTextBorder] instance.
   const ZoTextBorder({
     super.key,
     required this.child,

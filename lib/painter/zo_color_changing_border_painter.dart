@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ColorChangingPainter].
 class ColorChangingPainter extends CustomPainter {
+  /// The [animation] property.
   final Animation<double> animation;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The corner radius of the clip cut.
   final double radius;
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The [colorStops] property.
   final List<double>? colorStops;
+  /// The length of each border segment.
   final double segmentLength;
+  /// The [staticBorderColor] property.
   final Color staticBorderColor;
 
+  /// Creates a [ColorChangingPainter] instance.
   ColorChangingPainter(
       {required this.animation,
       required this.borderWidth,

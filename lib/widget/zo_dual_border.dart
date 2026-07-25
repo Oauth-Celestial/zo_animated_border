@@ -3,18 +3,28 @@ import 'package:zo_animated_border/painter/zo_dual_border_painter.dart';
 
 /// ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 class ZoDualBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The [firstBorderColor] property.
   final Color firstBorderColor;
+  /// The [secondBorderColor] property.
   final Color secondBorderColor;
+  /// The [trackBorderColor] property.
   final Color trackBorderColor;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
+  /// Empty space to surround the child.
   final EdgeInsetsGeometry padding;
+  /// The animation curve.
   final Curve animationCurve;
+  /// Creates a [ZoDualBorder] instance.
   const ZoDualBorder({
     required this.child,
     this.animationDuration = const Duration(seconds: 1),
@@ -33,6 +43,7 @@ class ZoDualBorder extends StatefulWidget {
   ZoDualBorderState createState() => ZoDualBorderState();
 }
 
+/// A widget that renders [ZoDualBorderState].
 class ZoDualBorderState extends State<ZoDualBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;

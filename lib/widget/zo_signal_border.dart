@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_signal_painter.dart';
 
+/// A widget that renders [ZoSignalBorder].
 class ZoSignalBorder extends StatefulWidget {
+  /// The [ringColors] property.
   final List<Color> ringColors;
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The [minRadius] property.
   final double? minRadius;
+  /// The [maxRadius] property.
   final double maxRadius;
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoSignalBorder] instance.
   const ZoSignalBorder(
       {super.key,
       required this.ringColors,

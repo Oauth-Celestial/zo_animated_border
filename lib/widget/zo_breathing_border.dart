@@ -3,13 +3,20 @@ import 'package:zo_animated_border/painter/zo_breathing_border_painter.dart';
 
 /// ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
 class ZoBreathingBorder extends StatefulWidget {
+  /// The thickness of the border.
   final double borderWidth;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The colors used in the border animation.
   final List<Color> colors;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoBreathingBorder] instance.
   const ZoBreathingBorder({
     super.key,
     required this.borderWidth,
@@ -24,6 +31,7 @@ class ZoBreathingBorder extends StatefulWidget {
   ZoBreathingBorderState createState() => ZoBreathingBorderState();
 }
 
+/// A widget that renders [ZoBreathingBorderState].
 class ZoBreathingBorderState extends State<ZoBreathingBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -66,9 +74,12 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
   }
 }
 
+/// The [ColorTweenSequence] class.
 class ColorTweenSequence extends Animatable<Color?> {
+  /// The colors used in the border animation.
   final List<Color> colors;
 
+  /// Creates a [ColorTweenSequence] instance.
   ColorTweenSequence(this.colors);
 
   @override

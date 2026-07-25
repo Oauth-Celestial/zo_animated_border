@@ -1,7 +1,10 @@
+## 1.0.8
+- Added Particles for fire border and fixed gradient issue.
+- Added new border: `ZoPsychoBorder`.
 ## 1.0.7
 
 - Fixed backward compatibility issues and updated the package for the latest Flutter version.
-- Added new widgets: `ZoFireBorder` and `ZoSegmentBorder`.
+- Added new borders: `ZoFireBorder` and `ZoSegmentBorder`.
 - Fixed path rendering issues in `ZoTextBorder`.
 
 

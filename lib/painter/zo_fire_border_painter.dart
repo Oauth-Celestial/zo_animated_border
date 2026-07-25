@@ -2,16 +2,26 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoFireBorderPainter].
 class ZoFireBorderPainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final double progress;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The relative length of the snake border segment.
   final double snakeLength;
+  /// The gradient used to color the border.
   final Gradient gradient;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The list of active particles in the animation.
   final List<Particle> particles;
+  /// The colors of trailing particles.
   final List<Color>? particleColors;
+  /// Creates a [Function] instance.
   final Function(Offset) onPositionUpdate;
 
+  /// Creates a [ZoFireBorderPainter] instance.
   ZoFireBorderPainter({
     required this.progress,
     required this.borderWidth,
@@ -83,13 +93,20 @@ class ZoFireBorderPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
+/// The [Particle] class.
 class Particle {
+  /// The [position] property.
   Offset position;
+  /// The [velocity] property.
   Offset velocity;
+  /// The [life] property.
   double life;
+  /// The primary color of the border animation.
   Color color;
+  /// The size of the border or particle.
   double size;
 
+  /// Creates a [Particle] instance.
   Particle({
     required this.position,
     required this.velocity,
@@ -98,6 +115,7 @@ class Particle {
     required this.size,
   });
 
+  /// The [atPosition] property.
   factory Particle.atPosition(Offset pos, Random random,
       {List<Color>? customColors}) {
     final colors =
@@ -114,6 +132,7 @@ class Particle {
     );
   }
 
+  /// The [update] property.
   void update() {
     position += velocity;
     life -= 0.03; // Fade duration

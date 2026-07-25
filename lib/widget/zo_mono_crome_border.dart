@@ -3,9 +3,12 @@ import 'dart:math' as math;
 
 import 'package:zo_animated_border/painter/zo_track_painter.dart';
 
+/// The [ZoMonoCromeBorderStyle] enumeration.
 enum ZoMonoCromeBorderStyle { stroke, repeated, mirror }
 
+/// The [ZoMonoCromeBorderStyle] property.
 extension GetBorderStyle on ZoMonoCromeBorderStyle {
+  /// The current animation value.
   TileMode get value {
     switch (this) {
       case ZoMonoCromeBorderStyle.stroke:
@@ -20,23 +23,33 @@ extension GetBorderStyle on ZoMonoCromeBorderStyle {
 
 /// ![mono_chrome (online-video-cutter com)](https://github.com/user-attachments/assets/d798997d-a68c-447e-90e1-5e8fc8dd56bf)
 class ZoMonoCromeBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
 
+  /// The animation controller.
   final ValueChanged<AnimationController>? controller;
 
+  /// The duration of the border animation.
   final Duration animationDuration;
 
+  /// The [cornerRadius] property.
   final double cornerRadius;
 
+  /// The thickness of the border.
   final double borderWidth;
 
+  /// The [trackBorderColor] property.
   final Color trackBorderColor;
 
+  /// Empty space to surround the child.
   final EdgeInsets padding;
 
+  /// The [borderStyle] property.
   final ZoMonoCromeBorderStyle borderStyle;
+  /// The animation curve.
   final Curve animationCurve;
 
+  /// Creates a [ZoMonoCromeBorder] instance.
   const ZoMonoCromeBorder(
       {required this.child,
       this.controller,
@@ -53,6 +66,7 @@ class ZoMonoCromeBorder extends StatefulWidget {
   ZoMonoCromeBorderState createState() => ZoMonoCromeBorderState();
 }
 
+/// A widget that renders [ZoMonoCromeBorderState].
 class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
@@ -108,6 +122,7 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
     );
   }
 
+  /// The [getRandomNumber] property.
   int getRandomNumber() {
     var random = math.Random();
     return (random.nextInt(20) + 6);

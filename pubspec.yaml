@@ -1,7 +1,7 @@
 name: zo_animated_border
 description: "Add animated, glowing, and gradient borders to any Flutter widget
   with zo_animated_border – a powerful and flexible package for modern UIs."
-version: 1.0.7
+version: 1.0.8
 repository: https://github.com/Oauth-Celestial/zo_animated_border
 
 environment:

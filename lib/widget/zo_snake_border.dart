@@ -3,19 +3,29 @@ import 'package:zo_animated_border/painter/zo_snake_border_painter.dart';
 
 /// ![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
 class ZoSnakeBorder extends StatefulWidget {
+  /// The child widget wrapped by the border.
   final Widget child;
+  /// The duration of the border animation.
   final Duration animationDuration;
+  /// The thickness of the border.
   final double borderWidth;
+  /// The [snakeHeadColor] property.
   final Color snakeHeadColor;
+  /// The [snakeTailColor] property.
   final Color snakeTailColor;
+  /// The [snakeTrackColor] property.
   final Color snakeTrackColor;
+  /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The animation curve.
   final Curve animationCurve;
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
+  /// Empty space to surround the child.
   final EdgeInsetsGeometry padding;
 
+  /// Creates a [ZoSnakeBorder] instance.
   const ZoSnakeBorder({
     required this.child,
     this.animationDuration = const Duration(seconds: 10),
@@ -34,6 +44,7 @@ class ZoSnakeBorder extends StatefulWidget {
   ZoSnakeBorderState createState() => ZoSnakeBorderState();
 }
 
+/// A widget that renders [ZoSnakeBorderState].
 class ZoSnakeBorderState extends State<ZoSnakeBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;

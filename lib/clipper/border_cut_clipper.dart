@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// A custom clipper for [BorderCutClipper].
 class BorderCutClipper extends CustomClipper<Path> {
+  /// The thickness of the clip cut.
   double thickness;
+  /// The corner radius of the clip cut.
   double radius;
+  /// Creates a [BorderCutClipper] instance.
   BorderCutClipper({
     required this.thickness,
     required this.radius,

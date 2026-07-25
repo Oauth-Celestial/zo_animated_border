@@ -2,16 +2,26 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders [ZoSegmentBorderPainter].
 class ZoSegmentBorderPainter extends CustomPainter {
+  /// The current progress of the animation from 0.0 to 1.0.
   final AnimationController progress;
+  /// The border radius of the widget.
   final double borderRadius;
+  /// The colors used in the border animation.
   final List<Color>? colors;
+  /// The color stops for the gradient.
   final List<double>? stops;
+  /// The gradient used to color the border.
   final Gradient? gradient;
+  /// The length of each border segment.
   final double segmentLength;
+  /// The opacity of the outer glow effect.
   final double glowOpacity;
+  /// The blur radius of the glow effect.
   final double glowRadius;
 
+  /// Creates a [ZoSegmentBorderPainter] instance.
   ZoSegmentBorderPainter({
     required this.progress,
     required this.borderRadius,

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
+/// A widget that renders [SizeProviderWidget].
 class SizeProviderWidget extends StatefulWidget {
+  /// Creates a [Function] instance.
   final Widget Function(BuildContext context, Size size) builder;
 
+  /// Creates a [SizeProviderWidget] instance.
   const SizeProviderWidget({super.key, required this.builder});
 
   @override
   SizeProviderWidgetState createState() => SizeProviderWidgetState();
 }
 
+/// A widget that renders [SizeProviderWidgetState].
 class SizeProviderWidgetState extends State<SizeProviderWidget> {
   final GlobalKey _key = GlobalKey();
   Size _size = Size.zero;
