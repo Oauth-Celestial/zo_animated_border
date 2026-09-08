@@ -51,7 +51,7 @@ class ZoSegmentBorderPainter extends CustomPainter {
     canvas.drawRRect(rrect, basePaint);
 
     final resolvedColors = _applyGlow(_resolveColors());
-    final resolvedStops = _resolveStops();
+    final resolvedStops = _resolveStops(resolvedColors.length);
 
     final shader = SweepGradient(
       startAngle: 0,
@@ -88,24 +88,30 @@ class ZoSegmentBorderPainter extends CustomPainter {
   }
 
   List<Color> _resolveColors() {
-    return colors ??
-        [
-          Colors.transparent,
-          const Color.fromRGBO(168, 239, 255, 1),
-          const Color.fromRGBO(168, 239, 255, 1),
-          Colors.transparent,
-        ];
+    if (colors == null || colors!.isEmpty) {
+      return [
+        Colors.transparent,
+        const Color.fromRGBO(168, 239, 255, 1),
+        const Color.fromRGBO(168, 239, 255, 1),
+        Colors.transparent,
+      ];
+    }
+    return [
+      Colors.transparent,
+      ...colors!,
+      Colors.transparent,
+    ];
   }
 
-  List<double> _resolveStops() {
+  List<double> _resolveStops(int colorCount) {
     if (stops != null) return stops!;
 
-    var start = 0.0;
-    final midStart = segmentLength * 0.4;
-    final midEnd = segmentLength * 0.6;
-    final end = segmentLength;
+    if (colorCount <= 1) return [0.0];
 
-    return [start, midStart, midEnd, end];
+    return List.generate(
+      colorCount,
+      (index) => segmentLength * (index / (colorCount - 1)),
+    );
   }
 
   @override

@@ -1,4 +1,6 @@
 import 'package:example/example/ex_zo_fire_border.dart';
+import 'package:example/example/ex_zo_segment_border.dart';
+import 'package:example/example/ex_zo_sequential_glow_border.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const ExZoFireBorder(),
+      home: const ExZoSequentialGlowBorder(),
     );
   }
 }

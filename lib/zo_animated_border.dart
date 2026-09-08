@@ -16,6 +16,7 @@ export 'widget/zo_text_border.dart';
 export 'widget/zo_segment_border.dart';
 export 'widget/zo_fire_border.dart';
 export 'widget/zo_psycho_border.dart';
+export 'widget/zo_sequential_glow_border.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:math' as math;

@@ -210,10 +210,8 @@ ZoSegmentBorder(
   glowOpacity: 1.0,
   glowRadius: 10,
   colors: const [
-    Colors.transparent,
     Colors.cyanAccent,
     Colors.cyanAccent,
-    Colors.transparent,
   ],
   child: Container(
     width: 250,
