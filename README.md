@@ -132,6 +132,7 @@ ZoPsychoBorder(
 ```
 
 ## For Sequential Glow Border
+<img width="400" height="430" alt="Screen Recording 2026-09-08 at 12 28 33 PM" src="https://github.com/user-attachments/assets/71d39475-18c8-4a68-b8b9-bd9007654f87" />
 
 ```dart
 ZoSequentialGlowBorder(
