@@ -1,3 +1,6 @@
+## 1.0.9
+- Fixed Stops issue in `ZoSegmentBorder`
+- Added new border: `ZoSequentialGlowBorder`.
 ## 1.0.8
 - Added Particles for fire border and fixed gradient issue.
 - Added new border: `ZoPsychoBorder`.
