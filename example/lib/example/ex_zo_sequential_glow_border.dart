@@ -10,7 +10,7 @@ class ExZoSequentialGlowBorder extends StatelessWidget {
       backgroundColor: const Color(0xFF0A0C12),
       body: Center(
         child: ZoSequentialGlowBorder(
-          borderRadius: BorderRadius.circular(80),
+          borderRadius: BorderRadius.circular(10),
           borderWidth: 4.0,
           glowRadius: 10.0,
           duration: const Duration(seconds: 4),
@@ -21,7 +21,7 @@ class ExZoSequentialGlowBorder extends StatelessWidget {
           ],
           child: Container(
             width: 250,
-            height: 120,
+            height: 250,
             alignment: Alignment.center,
             child: const Text(
               "Sequential Glow Border",
