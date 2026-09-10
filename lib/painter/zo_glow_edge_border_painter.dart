@@ -13,6 +13,9 @@ class ZOGlowingEdgePainter extends CustomPainter {
   /// The colors used in the border animation.
   final List<Color> gradientColors;
 
+  final List<Color> _fullColors;
+  final List<double> _stops;
+
   /// Creates a [ZOGlowingEdgePainter] instance.
   ZOGlowingEdgePainter({
     required this.animation,
@@ -20,10 +23,23 @@ class ZOGlowingEdgePainter extends CustomPainter {
     required this.borderRadius,
     required this.edgeLength,
     required this.gradientColors,
-  }) : super(repaint: animation);
+  })  : _fullColors = [
+          Colors.transparent,
+          ...gradientColors,
+          Colors.transparent,
+        ],
+        _stops = _buildStops(gradientColors.length + 2),
+        super(repaint: animation);
+
+  static List<double> _buildStops(int count) {
+    if (count <= 1) return const [0.0];
+    return List.generate(count, (i) => i / (count - 1));
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     final rrect = RRect.fromRectAndRadius(
       rect.deflate(borderWidth / 2),
@@ -31,10 +47,12 @@ class ZOGlowingEdgePainter extends CustomPainter {
     );
 
     final path = Path()..addRRect(rrect);
-    final metrics = path.computeMetrics();
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
 
     for (final metric in metrics) {
       final totalLength = metric.length;
+      if (totalLength == 0) continue;
       final progress = animation.value * totalLength;
 
       final start = progress;
@@ -55,12 +73,8 @@ class ZOGlowingEdgePainter extends CustomPainter {
 
       final paint = Paint()
         ..shader = LinearGradient(
-          colors: [
-            Colors.transparent,
-            ...gradientColors,
-            Colors.transparent,
-          ],
-          stops: _buildStops(gradientColors.length + 2),
+          colors: _fullColors,
+          stops: _stops,
         ).createShader(rect)
         ..style = PaintingStyle.stroke
         ..strokeWidth = borderWidth
@@ -70,11 +84,13 @@ class ZOGlowingEdgePainter extends CustomPainter {
     }
   }
 
-  List<double> _buildStops(int count) {
-    // Evenly space the stops between 0 and 1
-    return List.generate(count, (i) => i / (count - 1));
-  }
-
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ZOGlowingEdgePainter oldDelegate) {
+    return oldDelegate.animation != animation ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.edgeLength != edgeLength ||
+        oldDelegate.gradientColors != gradientColors;
+  }
 }
+

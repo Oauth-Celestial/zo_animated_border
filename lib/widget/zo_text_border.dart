@@ -43,6 +43,14 @@ class _ZoTextBorderState extends State<ZoTextBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoTextBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.duration != oldWidget.duration) {
+      _controller.duration = widget.duration;
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -50,23 +58,26 @@ class _ZoTextBorderState extends State<ZoTextBorder>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      clipBehavior: Clip.none,
-      children: [
-        widget.child,
-        Positioned.fill(
-          child: CustomPaint(
-            painter: ZoPathTextPainter(
-              text: widget.text,
-              textStyle: widget.textStyle,
-              borderRadius: widget.borderRadius,
-              padding: widget.padding,
-              progress: _controller,
+    return RepaintBoundary(
+      child: Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
+        children: [
+          widget.child,
+          Positioned.fill(
+            child: CustomPaint(
+              painter: ZoPathTextPainter(
+                text: widget.text,
+                textStyle: widget.textStyle,
+                borderRadius: widget.borderRadius,
+                padding: widget.padding,
+                progress: _controller,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
+

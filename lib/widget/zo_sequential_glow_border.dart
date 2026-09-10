@@ -68,18 +68,21 @@ class _ZoSequentialGlowBorderState extends State<ZoSequentialGlowBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoSequentialGlowBorderPainter(
-        progress: _controller,
-        gradientPalettes: widget.gradientPalettes,
-        glowRadius: widget.glowRadius,
-        borderWidth: widget.borderWidth,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoSequentialGlowBorderPainter(
+          progress: _controller,
+          gradientPalettes: widget.gradientPalettes,
+          glowRadius: widget.glowRadius,
+          borderWidth: widget.borderWidth,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(
+          padding: widget.padding,
+          child: widget.child,
+        ),
       ),
     );
   }
 }
+

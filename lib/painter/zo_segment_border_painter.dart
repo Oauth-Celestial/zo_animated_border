@@ -21,6 +21,9 @@ class ZoSegmentBorderPainter extends CustomPainter {
   /// The blur radius of the glow effect.
   final double glowRadius;
 
+  final List<Color> _resolvedColors;
+  final List<double> _resolvedStops;
+
   /// Creates a [ZoSegmentBorderPainter] instance.
   ZoSegmentBorderPainter({
     required this.progress,
@@ -31,10 +34,46 @@ class ZoSegmentBorderPainter extends CustomPainter {
     required this.segmentLength,
     required this.glowOpacity,
     required this.glowRadius,
-  }) : super(repaint: progress);
+  })  : _resolvedColors = _applyGlowStatic(_resolveColorsStatic(colors), glowOpacity),
+        _resolvedStops = _resolveStopsStatic(stops, _resolveColorsStatic(colors).length, segmentLength),
+        super(repaint: progress);
+
+  static List<Color> _applyGlowStatic(List<Color> base, double opacity) {
+    return base
+        .map((c) => c.withValues(alpha: (c.a * opacity).clamp(0.0, 1.0)))
+        .toList();
+  }
+
+  static List<Color> _resolveColorsStatic(List<Color>? colors) {
+    if (colors == null || colors.isEmpty) {
+      return const [
+        Colors.transparent,
+        Color.fromRGBO(168, 239, 255, 1),
+        Color.fromRGBO(168, 239, 255, 1),
+        Colors.transparent,
+      ];
+    }
+    return [
+      Colors.transparent,
+      ...colors,
+      Colors.transparent,
+    ];
+  }
+
+  static List<double> _resolveStopsStatic(List<double>? stops, int colorCount, double segLength) {
+    if (stops != null) return stops;
+    if (colorCount <= 1) return const [0.0];
+
+    return List.generate(
+      colorCount,
+      (index) => segLength * (index / (colorCount - 1)),
+    );
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     const strokeWidth = 6.0;
     final rect = Offset.zero & size;
 
@@ -50,28 +89,27 @@ class ZoSegmentBorderPainter extends CustomPainter {
 
     canvas.drawRRect(rrect, basePaint);
 
-    final resolvedColors = _applyGlow(_resolveColors());
-    final resolvedStops = _resolveStops(resolvedColors.length);
-
     final shader = SweepGradient(
       startAngle: 0,
       endAngle: 2 * pi,
       transform: GradientRotation(progress.value * 2 * pi),
-      colors: resolvedColors,
-      stops: resolvedStops,
+      colors: _resolvedColors,
+      stops: _resolvedStops,
     ).createShader(rect);
 
-    final glowPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth * 1.8
-      ..maskFilter = MaskFilter.blur(
-        BlurStyle.normal,
-        glowRadius,
-      )
-      ..blendMode = BlendMode.plus
-      ..shader = shader;
+    if (glowRadius > 0) {
+      final glowPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth * 1.8
+        ..maskFilter = MaskFilter.blur(
+          BlurStyle.normal,
+          glowRadius,
+        )
+        ..blendMode = BlendMode.plus
+        ..shader = shader;
 
-    canvas.drawRRect(rrect, glowPaint);
+      canvas.drawRRect(rrect, glowPaint);
+    }
 
     final mainPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -79,39 +117,6 @@ class ZoSegmentBorderPainter extends CustomPainter {
       ..shader = shader;
 
     canvas.drawRRect(rrect, mainPaint);
-  }
-
-  List<Color> _applyGlow(List<Color> base) {
-    return base
-        .map((c) => c.withValues(alpha: (c.a * glowOpacity).clamp(0.0, 1.0)))
-        .toList();
-  }
-
-  List<Color> _resolveColors() {
-    if (colors == null || colors!.isEmpty) {
-      return [
-        Colors.transparent,
-        const Color.fromRGBO(168, 239, 255, 1),
-        const Color.fromRGBO(168, 239, 255, 1),
-        Colors.transparent,
-      ];
-    }
-    return [
-      Colors.transparent,
-      ...colors!,
-      Colors.transparent,
-    ];
-  }
-
-  List<double> _resolveStops(int colorCount) {
-    if (stops != null) return stops!;
-
-    if (colorCount <= 1) return [0.0];
-
-    return List.generate(
-      colorCount,
-      (index) => segmentLength * (index / (colorCount - 1)),
-    );
   }
 
   @override
@@ -126,3 +131,4 @@ class ZoSegmentBorderPainter extends CustomPainter {
         oldDelegate.glowRadius != glowRadius;
   }
 }
+

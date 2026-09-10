@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 
-/// A widget that renders [ZoRippleEffect].
-class ZoRippleEffect extends StatefulWidget {
+/// A widget that renders [ZoRippleBorder].
+class ZoRippleBorder extends StatefulWidget {
   /// The [numberOfCircles] property.
   final int numberOfCircles;
+
   /// The [rippleColor] property.
   final Color rippleColor;
+
   /// The [minCircleSize] property.
   final double minCircleSize;
+
   /// The duration of the border animation.
   final Duration animationDuration;
+
   /// The child widget wrapped by the border.
   final Widget child;
+
   /// The border radius of the widget.
   final BorderRadius? borderRadius;
 
-  /// Creates a [ZoRippleEffect] instance.
-  const ZoRippleEffect({
+  /// Creates a [ZoRippleBorder] instance.
+  const ZoRippleBorder({
     super.key,
     this.numberOfCircles = 3,
     this.rippleColor = Colors.amber,
@@ -27,10 +32,10 @@ class ZoRippleEffect extends StatefulWidget {
   });
 
   @override
-  State<ZoRippleEffect> createState() => _ZoRippleEffectState();
+  State<ZoRippleBorder> createState() => _ZoRippleBorderState();
 }
 
-class _ZoRippleEffectState extends State<ZoRippleEffect>
+class _ZoRippleBorderState extends State<ZoRippleBorder>
     with TickerProviderStateMixin {
   late List<AnimationController> controllers;
   late List<Animation<double>> scaleAnimations;
@@ -83,43 +88,45 @@ class _ZoRippleEffectState extends State<ZoRippleEffect>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Ripples
-        ...List.generate(widget.numberOfCircles, (i) {
-          return AnimatedBuilder(
-            animation: controllers[i],
-            builder: (context, _) {
-              final scale = scaleAnimations[i].value;
-              final opacity = opacityAnimations[i].value;
-              final size = widget.minCircleSize * scale;
+    return RepaintBoundary(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Ripples
+          ...List.generate(widget.numberOfCircles, (i) {
+            return AnimatedBuilder(
+              animation: controllers[i],
+              builder: (context, _) {
+                final scale = scaleAnimations[i].value;
+                final opacity = opacityAnimations[i].value;
+                if (opacity <= 0) return const SizedBox.shrink();
+                final size = widget.minCircleSize * scale;
 
-              return Opacity(
-                opacity: opacity,
-                child: Container(
+                return Container(
                   width: size,
                   height: size,
                   decoration: BoxDecoration(
-                    color: widget.rippleColor.withValues(alpha: 0.5),
+                    color: widget.rippleColor
+                        .withValues(alpha: (0.5 * opacity).clamp(0.0, 1.0)),
                     borderRadius:
                         widget.borderRadius ?? BorderRadius.circular(size / 2),
                     boxShadow: [
                       BoxShadow(
-                        color: widget.rippleColor.withValues(alpha: 0.2),
+                        color: widget.rippleColor
+                            .withValues(alpha: (0.2 * opacity).clamp(0.0, 1.0)),
                         blurRadius: 20 * opacity,
                         spreadRadius: 8 * opacity,
                       ),
                     ],
                   ),
-                ),
-              );
-            },
-          );
-        }),
-        // Center child
-        widget.child,
-      ],
+                );
+              },
+            );
+          }),
+          // Center child
+          widget.child,
+        ],
+      ),
     );
   }
 }

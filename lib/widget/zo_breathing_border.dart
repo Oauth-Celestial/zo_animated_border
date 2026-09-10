@@ -53,6 +53,14 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoBreathingBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -60,19 +68,22 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoBreathingBorderPainter(
-        color: _colorAnimation,
-        borderWidth: widget.borderWidth,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(widget.borderWidth * 2),
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoBreathingBorderPainter(
+          color: _colorAnimation,
+          borderWidth: widget.borderWidth,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(widget.borderWidth * 2),
+          child: widget.child,
+        ),
       ),
     );
   }
 }
+
 
 /// The [ColorTweenSequence] class.
 class ColorTweenSequence extends Animatable<Color?> {

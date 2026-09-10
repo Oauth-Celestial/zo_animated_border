@@ -21,12 +21,9 @@ class ZoBreathingBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTWH(
-      0,
-      0,
-      size.width,
-      size.height,
-    );
+    if (size.isEmpty || color.value == null) return;
+
+    final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
 
     final paint = Paint()
@@ -39,7 +36,11 @@ class ZoBreathingBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant ZoBreathingBorderPainter oldDelegate) {
+    return oldDelegate.color != color ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.spreadRadius != spreadRadius ||
+        oldDelegate.borderRadius != borderRadius;
   }
 }
+

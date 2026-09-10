@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:zo_animated_border/zo_animated_border.dart';
 
-class ExZoMultiColorBorder extends StatelessWidget {
-  const ExZoMultiColorBorder({super.key});
+class ExZoGlowingEdgeBorder extends StatelessWidget {
+  const ExZoGlowingEdgeBorder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,75 +11,73 @@ class ExZoMultiColorBorder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Multi Color Border",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold))),
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                "Glow Edge Border",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Row(
             children: [
-              SizedBox(
-                width: 20,
-              ),
-              ZoMultiColorBorder(
-                colors: [
+              const SizedBox(width: 20),
+              ZoGlowingEdgeBorder(
+                gradientColors: const [
                   Colors.orange,
                   Colors.white,
                   Colors.green,
                 ],
-                strokeWidth: 3,
-                borderRadius: 0,
-                animationDuration: Duration(seconds: 5),
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Container(
                     width: 150,
                     height: 150,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.blue,
                     ),
-                    child: Text(
-                      "MultiColor Border",
+                    child: const Text(
+                      "Glow Edge Border",
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
-              ZoMultiColorBorder(
-                animate: true,
-                colors: [
+              const SizedBox(width: 10),
+              ZoGlowingEdgeBorder(
+                gradientColors: const [
                   Colors.orange,
                   Colors.white,
                   Colors.green,
                   Colors.indigo,
-                  Colors.pink
+                  Colors.pink,
                 ],
-                strokeWidth: 3,
-                borderRadius: 75,
+                borderRadius: 100,
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Container(
                     width: 150,
                     height: 150,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    child: Text(
-                      "MultiColor Border",
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Text(
+                      "Glow Edge Border",
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ],

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-
 import 'package:zo_animated_border/painter/zo_track_painter.dart';
 
 /// The [ZoMonoCromeBorderStyle] enumeration.
@@ -74,10 +72,14 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
 
   @override
   void didUpdateWidget(ZoMonoCromeBorder oldWidget) {
-    if (oldWidget != oldWidget) {
-      _controller?.forward(from: 0.0);
-    }
     super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller?.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve && _controller != null) {
+      _curveAnimation =
+          CurvedAnimation(parent: _controller!, curve: widget.animationCurve);
+    }
   }
 
   @override
@@ -87,13 +89,11 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
     _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.reverse) {}
-      });
+    );
 
-    _controller?.repeat();
     _curveAnimation =
         CurvedAnimation(parent: _controller!, curve: widget.animationCurve);
+    _controller?.repeat();
 
     if (_controller != null) {
       widget.controller?.call(_controller!);
@@ -108,23 +108,20 @@ class ZoMonoCromeBorderState extends State<ZoMonoCromeBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoTrackPainter(
-          animation: _curveAnimation!,
-          cornerRadius: widget.cornerRadius,
-          trackWidth: widget.borderWidth,
-          trackBorderColor: widget.trackBorderColor,
-          borderStyle: widget.borderStyle),
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoTrackPainter(
+            animation: _curveAnimation!,
+            cornerRadius: widget.cornerRadius,
+            trackWidth: widget.borderWidth,
+            trackBorderColor: widget.trackBorderColor,
+            borderStyle: widget.borderStyle),
+        child: Padding(
+          padding: widget.padding,
+          child: widget.child,
+        ),
       ),
     );
   }
-
-  /// The [getRandomNumber] property.
-  int getRandomNumber() {
-    var random = math.Random();
-    return (random.nextInt(20) + 6);
-  }
 }
+

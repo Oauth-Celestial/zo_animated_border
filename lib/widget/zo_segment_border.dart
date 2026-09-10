@@ -58,23 +58,21 @@ class _ZoSegmentBorderState extends State<ZoSegmentBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (_, __) {
-        return CustomPaint(
-          painter: ZoSegmentBorderPainter(
-            progress: controller,
-            borderRadius: widget.borderRadius,
-            colors: widget.colors,
-            stops: widget.stops,
-            gradient: widget.gradient,
-            segmentLength: widget.segmentLength,
-            glowOpacity: widget.glowOpacity,
-            glowRadius: widget.glowRadius,
-          ),
-          child: widget.child,
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoSegmentBorderPainter(
+          progress: controller,
+          borderRadius: widget.borderRadius,
+          colors: widget.colors,
+          stops: widget.stops,
+          gradient: widget.gradient,
+          segmentLength: widget.segmentLength,
+          glowOpacity: widget.glowOpacity,
+          glowRadius: widget.glowRadius,
+        ),
+        child: widget.child,
+      ),
     );
   }
 }
+

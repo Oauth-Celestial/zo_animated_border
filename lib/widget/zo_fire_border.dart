@@ -41,7 +41,6 @@ class _ZoFireBorderState extends State<ZoFireBorder>
   late AnimationController controller;
   final List<Particle> particles = [];
   final Random random = Random();
-  Offset _currentHeadPos = Offset.zero;
 
   @override
   void initState() {
@@ -49,25 +48,15 @@ class _ZoFireBorderState extends State<ZoFireBorder>
     controller = AnimationController(
       vsync: this,
       duration: widget.duration,
-    )
-      ..addListener(_updateParticles)
-      ..repeat();
+    )..repeat();
   }
 
-  void _updateParticles() {
-    for (final p in particles) {
-      p.update();
+  @override
+  void didUpdateWidget(covariant ZoFireBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.duration != oldWidget.duration) {
+      controller.duration = widget.duration;
     }
-    particles.removeWhere((p) => p.life <= 0);
-
-    for (int i = 0; i < 4; i++) {
-      particles.add(Particle.atPosition(
-        _currentHeadPos, 
-        random, 
-        customColors: widget.particleColors,
-      ));
-    }
-    setState(() {});
   }
 
   @override
@@ -78,18 +67,21 @@ class _ZoFireBorderState extends State<ZoFireBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoFireBorderPainter(
-        progress: controller.value,
-        borderWidth: widget.borderWidth,
-        snakeLength: widget.snakeLength,
-        gradient: widget.gradient,
-        borderRadius: widget.borderRadius,
-        particles: particles,
-        particleColors: widget.particleColors,
-        onPositionUpdate: (pos) => _currentHeadPos = pos,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoFireBorderPainter(
+          progress: controller,
+          borderWidth: widget.borderWidth,
+          snakeLength: widget.snakeLength,
+          gradient: widget.gradient,
+          borderRadius: widget.borderRadius,
+          particles: particles,
+          particleColors: widget.particleColors,
+          random: random,
+        ),
+        child: widget.child,
       ),
-      child: widget.child,
     );
   }
 }
+

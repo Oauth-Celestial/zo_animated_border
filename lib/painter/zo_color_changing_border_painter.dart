@@ -11,30 +11,34 @@ class ColorChangingPainter extends CustomPainter {
   /// The colors used in the border animation.
   final List<Color> colors;
   /// The [colorStops] property.
-  final List<double>? colorStops;
+  final List<double> colorStops;
   /// The length of each border segment.
   final double segmentLength;
   /// The [staticBorderColor] property.
   final Color staticBorderColor;
 
   /// Creates a [ColorChangingPainter] instance.
-  ColorChangingPainter(
-      {required this.animation,
-      required this.borderWidth,
-      required this.radius,
-      required this.colors,
-      required this.colorStops,
-      required this.segmentLength,
-      required this.staticBorderColor})
-      : super(repaint: animation);
+  ColorChangingPainter({
+    required this.animation,
+    required this.borderWidth,
+    required this.radius,
+    required this.colors,
+    List<double>? colorStops,
+    required this.segmentLength,
+    required this.staticBorderColor,
+  })  : colorStops = colorStops ??
+            (colors.length > 1
+                ? List.generate(colors.length, (i) => i / (colors.length - 1))
+                : const [0.0]),
+        super(repaint: animation);
 
   Color _getInterpolatedColor(double progress) {
-    final stops = colorStops ??
-        List.generate(colors.length, (i) => i / (colors.length - 1));
+    if (colors.isEmpty) return Colors.transparent;
+    if (colors.length == 1) return colors.first;
 
-    for (int i = 0; i < stops.length - 1; i++) {
-      final start = stops[i];
-      final end = stops[i + 1];
+    for (int i = 0; i < colorStops.length - 1; i++) {
+      final start = colorStops[i];
+      final end = colorStops[i + 1];
       if (progress >= start && progress <= end) {
         final t = (progress - start) / (end - start);
         return Color.lerp(colors[i], colors[i + 1], t)!;
@@ -45,12 +49,17 @@ class ColorChangingPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     final rRect = RRect.fromRectAndRadius(rect, Radius.circular(radius));
     final path = Path()..addRRect(rRect);
 
-    final pm = path.computeMetrics().first;
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final pm = metrics.first;
     final totalLength = pm.length;
+    if (totalLength == 0) return;
 
     final head = (animation.value * totalLength) % totalLength;
     final tail = (head + totalLength * segmentLength) % totalLength;
@@ -81,5 +90,14 @@ class ColorChangingPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ColorChangingPainter oldDelegate) {
+    return oldDelegate.animation != animation ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.radius != radius ||
+        oldDelegate.colors != colors ||
+        oldDelegate.colorStops != colorStops ||
+        oldDelegate.segmentLength != segmentLength ||
+        oldDelegate.staticBorderColor != staticBorderColor;
+  }
 }
+

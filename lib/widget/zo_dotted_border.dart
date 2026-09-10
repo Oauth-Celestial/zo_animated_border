@@ -78,22 +78,43 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoDottedBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _curvedAnimation =
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve);
+    }
+    if (widget.animate != oldWidget.animate) {
+      if (widget.animate) {
+        _controller.repeat();
+      } else {
+        _controller.stop();
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoDottedBorderPainter(
-        progress: _curvedAnimation!,
-        borderRadius: widget.borderRadius,
-        dashLength: widget.dashLength,
-        animationSpeed: widget.animationSpeed,
-        gapLength: widget.gapLength,
-        strokeWidth: widget.strokeWidth,
-        borderStyle: widget.borderStyle,
-        color: widget.color,
-        gradient: widget.gradient,
-      ),
-      child: Padding(
-        padding: widget.padding ?? const EdgeInsets.all(8.0),
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoDottedBorderPainter(
+          progress: _curvedAnimation!,
+          borderRadius: widget.borderRadius,
+          dashLength: widget.dashLength,
+          animationSpeed: widget.animationSpeed,
+          gapLength: widget.gapLength,
+          strokeWidth: widget.strokeWidth,
+          borderStyle: widget.borderStyle,
+          color: widget.color,
+          gradient: widget.gradient,
+        ),
+        child: Padding(
+          padding: widget.padding ?? const EdgeInsets.all(8.0),
+          child: widget.child,
+        ),
       ),
     );
   }
@@ -104,3 +125,4 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
     super.dispose();
   }
 }
+

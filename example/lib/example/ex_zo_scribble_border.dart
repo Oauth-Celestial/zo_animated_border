@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:zo_animated_border/zo_animated_border.dart';
 
-class ExZoHandDrawBorder extends StatelessWidget {
-  const ExZoHandDrawBorder({super.key});
+class ExZoScribbleBorder extends StatelessWidget {
+  const ExZoScribbleBorder({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -47,6 +47,14 @@ class _ZoScribbleBorderState extends State<ZoScribbleBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoScribbleBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -54,22 +62,21 @@ class _ZoScribbleBorderState extends State<ZoScribbleBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoScribblePainter(
-              color: widget.borderColor,
-              borderRadius: widget.borderRadius,
-              strokeWidth: widget.borderWidth,
-              blur: widget.glowOpacity,
-              progress: _controller),
-          child: Container(
-            padding: widget.padding, // Space for the border
-            child: widget.child,
-          ),
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoScribblePainter(
+          color: widget.borderColor,
+          borderRadius: widget.borderRadius,
+          strokeWidth: widget.borderWidth,
+          blur: widget.glowOpacity,
+          progress: _controller,
+        ),
+        child: Container(
+          padding: widget.padding, // Space for the border
+          child: widget.child,
+        ),
+      ),
     );
   }
 }
+

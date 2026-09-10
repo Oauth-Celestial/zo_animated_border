@@ -38,6 +38,9 @@ class ZoSequentialGlowBorderPainter extends CustomPainter {
   /// The border radius of the widget.
   final BorderRadius borderRadius;
 
+  final List<Color> _combinedColors;
+  final List<double> _combinedStops;
+
   /// Creates a [ZoSequentialGlowBorderPainter] instance.
   ZoSequentialGlowBorderPainter({
     required this.progress,
@@ -45,29 +48,32 @@ class ZoSequentialGlowBorderPainter extends CustomPainter {
     required this.glowRadius,
     required this.borderWidth,
     required this.borderRadius,
-  }) : super(repaint: progress);
+  })  : _combinedColors = _stitchColors(gradientPalettes),
+        _combinedStops = _stitchStops(gradientPalettes),
+        super(repaint: progress);
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (gradientPalettes.isEmpty || size.isEmpty) return;
-
-    final rect = Offset.zero & size;
-    final rrect = borderRadius.toRRect(rect);
-
-    // Dynamically calculate colors and stops to stitch all palettes side-by-side
-    final List<Color> combinedColors = [];
-    final List<double> combinedStops = [];
-    final int n = gradientPalettes.length;
-
+  static List<Color> _stitchColors(List<List<Color>> palettes) {
+    final List<Color> combined = [];
+    final int n = palettes.length;
     for (int i = 0; i < n; i++) {
-      List<Color> gColors = gradientPalettes[i];
+      List<Color> gColors = palettes[i];
+      if (gColors.isEmpty) continue;
+      if (gColors.length == 1) gColors = [gColors[0], gColors[0]];
+      combined.addAll(gColors);
+    }
+    return combined;
+  }
+
+  static List<double> _stitchStops(List<List<Color>> palettes) {
+    final List<double> combined = [];
+    final int n = palettes.length;
+    for (int i = 0; i < n; i++) {
+      List<Color> gColors = palettes[i];
       if (gColors.isEmpty) continue;
       if (gColors.length == 1) gColors = [gColors[0], gColors[0]];
       final int m = gColors.length;
 
       for (int j = 0; j < m; j++) {
-        combinedColors.add(gColors[j]);
-
         double stop = (i / n) + (j / (m - 1)) * (1 / n);
 
         if (j == 0 && i > 0) {
@@ -76,19 +82,26 @@ class ZoSequentialGlowBorderPainter extends CustomPainter {
           stop = ((i + 1) / n) - 0.001;
         }
 
-        combinedStops.add(stop);
+        combined.add(stop);
       }
     }
+    return combined;
+  }
 
-    if (combinedColors.isEmpty) return;
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (_combinedColors.isEmpty || size.isEmpty) return;
+
+    final rect = Offset.zero & size;
+    final rrect = borderRadius.toRRect(rect);
 
     final gradient = LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
-      colors: combinedColors,
-      stops: combinedStops,
+      colors: _combinedColors,
+      stops: _combinedStops,
       tileMode: TileMode.repeated,
-      transform: SlideWipeGradientTransform(progress.value, n),
+      transform: SlideWipeGradientTransform(progress.value, gradientPalettes.length),
     );
 
     final shader = gradient.createShader(rect);
@@ -122,3 +135,4 @@ class ZoSequentialGlowBorderPainter extends CustomPainter {
         oldDelegate.borderRadius != borderRadius;
   }
 }
+

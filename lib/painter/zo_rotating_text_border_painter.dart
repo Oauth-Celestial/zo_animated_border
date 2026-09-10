@@ -16,6 +16,10 @@ class ZoPathTextPainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
   final AnimationController progress;
 
+  final List<TextPainter> _charPainters;
+  final List<double> _charWidths;
+  final double _totalTextWidth;
+
   /// Creates a [ZoPathTextPainter] instance.
   ZoPathTextPainter({
     required this.text,
@@ -23,37 +27,56 @@ class ZoPathTextPainter extends CustomPainter {
     required this.borderRadius,
     required this.padding,
     required this.progress,
-  }) : super(repaint: progress);
+  })  : _charPainters = _buildCharPainters(text, textStyle),
+        _charWidths = _measureCharWidths(text, textStyle),
+        _totalTextWidth = _calcTotalWidth(text, textStyle),
+        super(repaint: progress);
+
+  static List<TextPainter> _buildCharPainters(String text, TextStyle style) {
+    return List.generate(text.length, (i) {
+      final tp = TextPainter(
+        text: TextSpan(text: text[i], style: style),
+        textDirection: TextDirection.ltr,
+      );
+      tp.layout();
+      return tp;
+    });
+  }
+
+  static List<double> _measureCharWidths(String text, TextStyle style) {
+    final tp = TextPainter(textDirection: TextDirection.ltr);
+    final letterSpacing = style.letterSpacing ?? 0;
+    return List.generate(text.length, (i) {
+      tp.text = TextSpan(text: text[i], style: style);
+      tp.layout();
+      return tp.width + letterSpacing;
+    });
+  }
+
+  static double _calcTotalWidth(String text, TextStyle style) {
+    final widths = _measureCharWidths(text, style);
+    return widths.fold(0.0, (sum, w) => sum + w);
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty || text.isEmpty) return;
+
     // 1. Define the Path (RRect based on child size + padding)
     final Rect rect = Offset(-padding, -padding) &
         Size(size.width + padding * 2, size.height + padding * 2);
     final RRect rrect = borderRadius.toRRect(rect);
     final Path path = Path()..addRRect(rrect);
 
-    final PathMetric metric = path.computeMetrics().first;
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final metric = metrics.first;
     final double pathLength = metric.length;
+    if (pathLength == 0) return;
 
-    // 2. Measure individual characters
-    final textPainter = TextPainter(textDirection: TextDirection.ltr);
-    List<double> charWidths = [];
-    double totalTextWidth = 0;
-
-    for (int i = 0; i < text.length; i++) {
-      textPainter.text = TextSpan(text: text[i], style: textStyle);
-      textPainter.layout();
-      // Add extra space between characters for readability
-      double widthWithSpacing =
-          textPainter.width + (textStyle.letterSpacing ?? 0);
-      charWidths.add(widthWithSpacing);
-      totalTextWidth += widthWithSpacing;
-    }
-
-    // 3. Spacing logic
-    double gapBetweenRepeats = 40.0;
-    int repeats = (pathLength / (totalTextWidth + gapBetweenRepeats)).floor();
+    // 2. Spacing logic
+    const double gapBetweenRepeats = 40.0;
+    int repeats = (pathLength / (_totalTextWidth + gapBetweenRepeats)).floor();
     repeats = math.max(1, repeats);
     double segmentLength = pathLength / repeats;
 
@@ -65,24 +88,26 @@ class ZoPathTextPainter extends CustomPainter {
         Tangent? tangent = metric.getTangentForOffset(actualDist);
 
         if (tangent != null) {
-          textPainter.text = TextSpan(text: text[i], style: textStyle);
-          textPainter.layout();
-
+          final tp = _charPainters[i];
           canvas.save();
-
           canvas.translate(tangent.position.dx, tangent.position.dy);
-
           canvas.rotate(-tangent.angle);
-
-          canvas.translate(0, -textPainter.height / 2);
-          textPainter.paint(canvas, Offset(-textPainter.width / 2, 0));
+          canvas.translate(0, -tp.height / 2);
+          tp.paint(canvas, Offset(-tp.width / 2, 0));
           canvas.restore();
         }
-        currentDist += charWidths[i];
+        currentDist += _charWidths[i];
       }
     }
   }
 
   @override
-  bool shouldRepaint(ZoPathTextPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ZoPathTextPainter oldDelegate) {
+    return oldDelegate.text != text ||
+        oldDelegate.textStyle != textStyle ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.padding != padding ||
+        oldDelegate.progress != progress;
+  }
 }
+

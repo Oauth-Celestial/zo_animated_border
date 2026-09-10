@@ -20,6 +20,8 @@ class ZoDualBorder extends StatefulWidget {
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
   /// Empty space to surround the child.
   final EdgeInsetsGeometry padding;
   /// The animation curve.
@@ -30,6 +32,7 @@ class ZoDualBorder extends StatefulWidget {
     this.animationDuration = const Duration(seconds: 1),
     this.borderWidth = 3,
     this.glowOpacity = 0.3,
+    this.glowSpread = 6.0,
     this.firstBorderColor = Colors.deepOrange,
     this.secondBorderColor = Colors.lightGreen,
     this.trackBorderColor = const Color(0xFFCCCCCC),
@@ -65,6 +68,18 @@ class ZoDualBorderState extends State<ZoDualBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoDualBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _animation = Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve));
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -72,20 +87,24 @@ class ZoDualBorderState extends State<ZoDualBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoDualBorderPainter(
-        progress: _animation,
-        glowOpacity: widget.glowOpacity,
-        borderWidth: widget.borderWidth,
-        firstBorderColor: widget.firstBorderColor,
-        secondBorderColor: widget.secondBorderColor,
-        staticBorderColor: widget.trackBorderColor,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoDualBorderPainter(
+          progress: _animation,
+          glowOpacity: widget.glowOpacity,
+          glowSpread: widget.glowSpread,
+          borderWidth: widget.borderWidth,
+          firstBorderColor: widget.firstBorderColor,
+          secondBorderColor: widget.secondBorderColor,
+          staticBorderColor: widget.trackBorderColor,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(
+          padding: widget.padding,
+          child: widget.child,
+        ),
       ),
     );
   }
 }
+

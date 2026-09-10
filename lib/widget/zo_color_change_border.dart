@@ -76,6 +76,25 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoColorChangingBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _curveAnimation =
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve);
+    }
+    if (widget.segmentLength != oldWidget.segmentLength) {
+      if (widget.segmentLength >= 1) {
+        borderLength = 0.9999;
+      } else {
+        borderLength = widget.segmentLength;
+      }
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -83,20 +102,23 @@ class _ZoColorChangingBorderState extends State<ZoColorChangingBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ColorChangingPainter(
-        animation: _curveAnimation!,
-        staticBorderColor: widget.staticBorderColor,
-        borderWidth: widget.borderWidth,
-        radius: widget.borderRadius,
-        colors: widget.colors,
-        colorStops: widget.colorStops,
-        segmentLength: borderLength,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ColorChangingPainter(
+          animation: _curveAnimation!,
+          staticBorderColor: widget.staticBorderColor,
+          borderWidth: widget.borderWidth,
+          radius: widget.borderRadius,
+          colors: widget.colors,
+          colorStops: widget.colorStops,
+          segmentLength: borderLength,
+        ),
+        child: widget.child,
       ),
-      child: widget.child,
     );
   }
 }
+
 
 // ZOGlowingEdgeBorder(
 //             radius: 100,

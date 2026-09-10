@@ -25,22 +25,27 @@ class ZoMultiColorBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty || colors.isEmpty) return;
+
     int segments = colors.length;
 
-    Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    Rect rect = Offset.zero & size;
     RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
 
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = borderWidth
-      ..color = Colors.black;
+      ..strokeWidth = borderWidth;
 
     Path path = Path()..addRRect(rRect);
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
 
-    for (PathMetric p in path.computeMetrics()) {
+    for (PathMetric p in metrics) {
       double totalLength = p.length;
+      if (totalLength == 0) continue;
       double segmentLength = (totalLength - gapLength * segments) / segments;
+      if (segmentLength <= 0) continue;
 
       double progressOffset = totalLength * (progress?.value ?? 0);
 
@@ -75,3 +80,4 @@ class ZoMultiColorBorderPainter extends CustomPainter {
         oldDelegate.progress != progress;
   }
 }
+

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// A custom painter that renders [ZoPsychoBorderPainter].
 class ZoPsychoBorderPainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
-  final double progress;
+  final Animation<double> progress;
   /// The number of concentric rings.
   final int ringCount;
   /// The colors used in the border animation.
@@ -14,6 +14,8 @@ class ZoPsychoBorderPainter extends CustomPainter {
   /// The border radius of the widget.
   final BorderRadius borderRadius;
 
+  final List<Color> _gradientColors;
+
   /// Creates a [ZoPsychoBorderPainter] instance.
   ZoPsychoBorderPainter({
     required this.progress,
@@ -21,21 +23,23 @@ class ZoPsychoBorderPainter extends CustomPainter {
     required this.colors,
     required this.maxSpread,
     required this.borderRadius,
-  });
+  })  : _gradientColors = colors.isNotEmpty ? [...colors, colors.first] : const [],
+        super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty || colors.isEmpty) return;
+
     final rect =
         (Offset.zero & size).deflate(maxSpread + 1.0); // Prevent clipping
     if (rect.isEmpty) return;
     final rrect = borderRadius.toRRect(rect);
 
-    final rotation = progress * 2 * math.pi;
-
-    final gradientColors = [...colors, colors.first];
+    final progressVal = progress.value;
+    final rotation = progressVal * 2 * math.pi;
 
     final gradient = SweepGradient(
-      colors: gradientColors,
+      colors: _gradientColors,
       transform: GradientRotation(rotation),
     );
 
@@ -45,8 +49,8 @@ class ZoPsychoBorderPainter extends CustomPainter {
       ..strokeWidth = 1.5;
 
     // spread between the rings
-    double currentOffset = math.sin(progress * 2 * math.pi) * maxSpread;
-    double axisRotation = progress * math.pi;
+    double currentOffset = math.sin(progressVal * 2 * math.pi) * maxSpread;
+    double axisRotation = progressVal * math.pi;
 
     for (int i = 0; i < ringCount; i++) {
       // Divide 360 degrees (2 * pi) equally among the requested number of rings
@@ -70,3 +74,4 @@ class ZoPsychoBorderPainter extends CustomPainter {
         oldDelegate.borderRadius != borderRadius;
   }
 }
+

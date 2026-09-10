@@ -36,17 +36,29 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
 class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  Animation<double>? _curveAnimation;
+  late Animation<double> _curveAnimation;
 
   @override
   void initState() {
+    super.initState();
     _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
     )..repeat();
     _curveAnimation =
         CurvedAnimation(parent: _controller, curve: widget.animationCurve);
-    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ZoGlowingEdgeBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _curveAnimation =
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve);
+    }
   }
 
   @override
@@ -57,15 +69,18 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZOGlowingEdgePainter(
-        animation: _curveAnimation!,
-        borderWidth: widget.borderWidth,
-        borderRadius: widget.borderRadius,
-        edgeLength: widget.edgeLength,
-        gradientColors: widget.gradientColors,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZOGlowingEdgePainter(
+          animation: _curveAnimation,
+          borderWidth: widget.borderWidth,
+          borderRadius: widget.borderRadius,
+          edgeLength: widget.edgeLength,
+          gradientColors: widget.gradientColors,
+        ),
+        child: widget.child,
       ),
-      child: widget.child,
     );
   }
 }
+

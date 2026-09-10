@@ -50,12 +50,14 @@ class ZoDottedBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final Paint paint = Paint()
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
 
+    final Rect rect = Offset.zero & size;
     if (borderStyle == BorderStyleType.gradient) {
-      final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
       paint.shader = gradient?.createShader(rect);
     } else {
       paint.color = color;
@@ -64,12 +66,16 @@ class ZoDottedBorderPainter extends CustomPainter {
     // Rounded rectangle path
     final Path path = Path()
       ..addRRect(RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height),
+        rect,
         Radius.circular(borderRadius),
       ));
 
-    for (final pathMetric in path.computeMetrics()) {
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+
+    for (final pathMetric in metrics) {
       final totalLength = pathMetric.length;
+      if (totalLength == 0) continue;
 
       // Direction multiplier: +1 for clockwise, -1 for anticlockwise
       final double directionMultiplier =
@@ -96,5 +102,17 @@ class ZoDottedBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ZoDottedBorderPainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.dashLength != dashLength ||
+        oldDelegate.gapLength != gapLength ||
+        oldDelegate.strokeWidth != strokeWidth ||
+        oldDelegate.animationSpeed != animationSpeed ||
+        oldDelegate.color != color ||
+        oldDelegate.gradient != gradient ||
+        oldDelegate.borderStyle != borderStyle ||
+        oldDelegate.direction != direction;
+  }
 }
+

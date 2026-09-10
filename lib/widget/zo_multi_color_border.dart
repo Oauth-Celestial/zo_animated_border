@@ -45,10 +45,10 @@ class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Animation<double>? _curveAnimation;
+
   @override
   void initState() {
-    // TODO: implement initState
-
+    super.initState();
     _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
@@ -58,29 +58,48 @@ class _ZoMultiColorBorderState extends State<ZoMultiColorBorder>
     if (widget.animate) {
       _controller.repeat();
     }
+  }
 
-    super.initState();
+  @override
+  void didUpdateWidget(covariant ZoMultiColorBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _curveAnimation =
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve);
+    }
+    if (widget.animate != oldWidget.animate) {
+      if (widget.animate) {
+        _controller.repeat();
+      } else {
+        _controller.stop();
+      }
+    }
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: widget.padding ?? const EdgeInsets.all(8.0),
-      child: CustomPaint(
-          painter: ZoMultiColorBorderPainter(
-              progress: _curveAnimation,
-              colors: widget.colors,
-              borderRadius: widget.borderRadius,
-              borderWidth: widget.strokeWidth,
-              gapLength: widget.gapLength),
-          child: widget.child),
+    return RepaintBoundary(
+      child: Padding(
+        padding: widget.padding ?? const EdgeInsets.all(8.0),
+        child: CustomPaint(
+            painter: ZoMultiColorBorderPainter(
+                progress: _curveAnimation,
+                colors: widget.colors,
+                borderRadius: widget.borderRadius,
+                borderWidth: widget.strokeWidth,
+                gapLength: widget.gapLength),
+            child: widget.child),
+      ),
     );
   }
 }
+

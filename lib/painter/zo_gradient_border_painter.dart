@@ -3,73 +3,86 @@ import 'package:flutter/material.dart';
 /// A custom painter that renders [ZoGradientBorderPainter].
 class ZoGradientBorderPainter extends CustomPainter {
   /// The rotation angle animation.
-  Animation<double> angle;
+  final Animation<double> angle;
+
   /// The border radius of the widget.
-  double? borderRadius;
+  final double? borderRadius;
+
   /// The thickness of the border.
-  double borderThickness;
+  final double borderThickness;
+
   /// The colors used in the border animation.
-  List<Color> gradientColor;
+  final List<Color> gradientColor;
+
   /// The opacity of the outer glow effect.
-  double glowOpacity;
+  final double glowOpacity;
+
+  /// The spread distance of the glow effect.
+  final double glowSpread;
+
   /// Creates a [ZoGradientBorderPainter] instance.
-  ZoGradientBorderPainter(
-      {required this.angle,
-      this.borderRadius,
-      this.borderThickness = 5,
-      this.glowOpacity = 0.3,
-      required this.gradientColor})
-      : super(repaint: angle);
-
-  List<double> _generateColorStops(List<dynamic> colors) {
-    return colors.asMap().entries.map((entry) {
-      double percentageStop = entry.key / colors.length;
-      return percentageStop;
-    }).toList();
-  }
-
-  /// The [pulsePaint] property.
-  final Paint pulsePaint = Paint()..style = PaintingStyle.stroke;
-
-  LinearGradient get _gradient => LinearGradient(
-      colors: gradientColor,
-      stops: _generateColorStops(
-        gradientColor,
-      ),
-      transform: GradientRotation(angle.value));
+  ZoGradientBorderPainter({
+    required this.angle,
+    this.borderRadius,
+    this.borderThickness = 5,
+    this.glowOpacity = 0.3,
+    this.glowSpread = 5.0,
+    required this.gradientColor,
+  }) : super(repaint: angle);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final borderPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderThickness;
-    final center = Offset(size.width / 2, size.height / 2);
-    final rect = Rect.fromCenter(
-      center: center,
-      width: size.width,
-      height: size.height,
+    if (gradientColor.isEmpty || size.isEmpty) return;
+
+    final rect = Offset.zero & size;
+    final radiiRect = RRect.fromRectAndRadius(
+      rect,
+      Radius.circular(borderRadius ?? 0),
     );
 
-    borderPaint.shader = _gradient.createShader(rect);
+    final colors = gradientColor.length == 1
+        ? [gradientColor.first, gradientColor.first]
+        : gradientColor;
 
-    RRect radiiRect =
-        RRect.fromRectAndRadius(rect, Radius.circular(borderRadius ?? 0));
+    final gradient = LinearGradient(
+      colors: colors,
+      transform: GradientRotation(angle.value),
+    );
 
-    for (int i = 1; i <= glowOpacity * 10; i++) {
+    final shader = gradient.createShader(rect);
+
+    // Efficient glow drawing controlled by glowSpread and glowOpacity
+    if (glowOpacity > 0 && glowSpread > 0) {
       final glowPaint = Paint()
         ..style = PaintingStyle.stroke
-        ..maskFilter = MaskFilter.blur(BlurStyle.solid, (5 * i).toDouble())
-        ..strokeWidth = borderThickness;
-
-      glowPaint.shader = _gradient.createShader(rect);
+        ..strokeWidth = borderThickness
+        ..shader = shader
+        ..colorFilter = ColorFilter.mode(
+          Color.fromRGBO(255, 255, 255, glowOpacity.clamp(0.0, 1.0)),
+          BlendMode.modulate,
+        )
+        ..maskFilter = MaskFilter.blur(BlurStyle.solid, glowSpread);
 
       canvas.drawRRect(radiiRect, glowPaint);
     }
+
+    final borderPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderThickness
+      ..shader = shader;
+
     canvas.drawRRect(radiiRect, borderPaint);
   }
 
   @override
-  bool shouldRepaint(ZoGradientBorderPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant ZoGradientBorderPainter oldDelegate) {
+    return oldDelegate.angle != angle ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.borderThickness != borderThickness ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowSpread != glowSpread ||
+        oldDelegate.gradientColor != gradientColor;
   }
 }
+
+

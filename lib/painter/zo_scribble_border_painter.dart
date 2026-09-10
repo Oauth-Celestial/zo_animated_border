@@ -26,6 +26,8 @@ class ZoScribblePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     // Create the base smooth path (Rounded Rectangle)
     final RRect rrect = RRect.fromRectAndRadius(
@@ -37,8 +39,12 @@ class ZoScribblePainter extends CustomPainter {
     final Path jitteredPath = Path();
 
     // Use PathMetrics to walk along the rounded rect and add noise
-    final PathMetric metric = basePath.computeMetrics().first;
+    final metrics = basePath.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final PathMetric metric = metrics.first;
     final double totalLength = metric.length;
+    if (totalLength == 0) return;
+
     const double step = 2.0; // Small steps for smooth noise
     double currentProgress = progress.value;
 
@@ -98,6 +104,9 @@ class ZoScribblePainter extends CustomPainter {
   bool shouldRepaint(covariant ZoScribblePainter oldDelegate) {
     return oldDelegate.progress != progress ||
         oldDelegate.color != color ||
+        oldDelegate.blur != blur ||
+        oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.borderRadius != borderRadius;
   }
 }
+

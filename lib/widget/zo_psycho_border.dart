@@ -65,20 +65,18 @@ class _ZoPsychoBorderState extends State<ZoPsychoBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoPsychoBorderPainter(
-            progress: _controller.value,
-            ringCount: widget.ringCount,
-            colors: widget.colors,
-            maxSpread: widget.maxSpread,
-            borderRadius: widget.borderRadius,
-          ),
-          child: widget.child,
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoPsychoBorderPainter(
+          progress: _controller,
+          ringCount: widget.ringCount,
+          colors: widget.colors,
+          maxSpread: widget.maxSpread,
+          borderRadius: widget.borderRadius,
+        ),
+        child: widget.child,
+      ),
     );
   }
 }
+

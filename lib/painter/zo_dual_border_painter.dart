@@ -17,6 +17,8 @@ class ZoDualBorderPainter extends CustomPainter {
   final BorderRadius borderRadius;
   /// The opacity of the outer glow effect.
   final double glowOpacity;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   /// Creates a [ZoDualBorderPainter] instance.
   ZoDualBorderPainter({
@@ -27,10 +29,13 @@ class ZoDualBorderPainter extends CustomPainter {
     required this.staticBorderColor,
     required this.borderRadius,
     this.glowOpacity = 0.1,
+    this.glowSpread = 6.0,
   }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
 
@@ -41,8 +46,11 @@ class ZoDualBorderPainter extends CustomPainter {
     canvas.drawRRect(rrect, staticPaint);
 
     final path = Path()..addRRect(rrect);
-    final metric = path.computeMetrics().first;
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final metric = metrics.first;
     final length = metric.length;
+    if (length == 0) return;
 
     void drawAnimatedBorder({required double offset, required Color color}) {
       final start = offset * length;
@@ -62,28 +70,34 @@ class ZoDualBorderPainter extends CustomPainter {
           metric.getTangentForOffset((start + length / 8) % length)?.position ??
               Offset.zero;
 
+      final paintShader = ui.Gradient.linear(
+        path1,
+        path2,
+        [color, color, color],
+        const [0.0, 0.3, 1.0],
+      );
+
+      // Single-pass glow
+      if (glowOpacity > 0 && glowSpread > 0) {
+        final glowPaint = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = borderWidth
+          ..colorFilter = ColorFilter.mode(
+            Color.fromRGBO(255, 255, 255, glowOpacity.clamp(0.0, 1.0)),
+            BlendMode.modulate,
+          )
+          ..shader = paintShader
+          ..maskFilter = MaskFilter.blur(BlurStyle.solid, glowSpread);
+
+        canvas.drawPath(segment, glowPaint);
+      }
+
       final paint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = borderWidth
-        ..shader = ui.Gradient.linear(
-          path1,
-          path2,
-          [color, color, color],
-          [0.0, 0.3, 1.0],
-        );
+        ..shader = paintShader;
 
       canvas.drawPath(segment, paint);
-
-      for (int i = 1; i <= glowOpacity * 10; i++) {
-        canvas.drawPath(
-          segment,
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = borderWidth
-            ..color = color
-            ..maskFilter = MaskFilter.blur(BlurStyle.normal, 5.0 * i),
-        );
-      }
     }
 
     drawAnimatedBorder(offset: progress.value % 1.0, color: firstBorderColor);
@@ -94,5 +108,15 @@ class ZoDualBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant ZoDualBorderPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ZoDualBorderPainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.firstBorderColor != firstBorderColor ||
+        oldDelegate.secondBorderColor != secondBorderColor ||
+        oldDelegate.staticBorderColor != staticBorderColor ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowSpread != glowSpread;
+  }
 }
+

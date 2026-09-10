@@ -10,7 +10,7 @@ export 'widget/zo_multi_color_border.dart';
 export 'widget/zo_color_change_border.dart';
 export 'widget/zo_glow_edge_border.dart';
 export 'widget/zo_signal_border.dart';
-export 'widget/zo_ripple_effect.dart';
+export 'widget/zo_ripple_border.dart';
 export 'widget/zo_scribble_border.dart';
 export 'widget/zo_text_border.dart';
 export 'widget/zo_segment_border.dart';

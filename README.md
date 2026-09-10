@@ -287,7 +287,7 @@ ZoScribbleBorder(
 ![ripple](https://github.com/user-attachments/assets/cfbc07b8-ffdc-440e-8383-99177ae4f305)
 
 ```dart
-ZoRippleEffect(
+ZoRippleBorder(
   rippleColor: Colors.cyanAccent,
   minCircleSize: 120,
   numberOfCircles: 4,
@@ -344,7 +344,7 @@ ZoColorChangingBorder(
 
 ```dart
 ZoSignalBorder(
-  maxRadius: 120,
+  spaceBetween: 20,
   ringColors: [
     Colors.yellow,
     Colors.orange,

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:zo_animated_border/widget/zo_ripple_effect.dart';
 
-class ExZoRipple extends StatefulWidget {
-  const ExZoRipple({super.key});
+import 'package:zo_animated_border/zo_animated_border.dart';
+
+class ExZoRippleBorder extends StatefulWidget {
+  const ExZoRippleBorder({super.key});
 
   @override
-  State<ExZoRipple> createState() => _ExZoRippleState();
+  State<ExZoRippleBorder> createState() => _ExZoRippleBorderState();
 }
 
-class _ExZoRippleState extends State<ExZoRipple> {
+class _ExZoRippleBorderState extends State<ExZoRippleBorder> {
   @override
   Widget build(BuildContext context) {
-    return ZoRippleEffect(
+    return ZoRippleBorder(
       rippleColor: Colors.cyanAccent,
       minCircleSize: 120,
       numberOfCircles: 4,
