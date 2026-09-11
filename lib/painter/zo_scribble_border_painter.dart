@@ -8,8 +8,10 @@ class ZoScribblePainter extends CustomPainter {
   final Animation<double> progress;
   /// The primary color of the border animation.
   final Color color;
-  /// The [blur] property.
-  final double blur;
+  /// The opacity of the outer glow effect.
+  final double glowOpacity;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
   /// Optional custom stroke width for the border.
   final double strokeWidth;
   /// The border radius of the widget.
@@ -19,7 +21,8 @@ class ZoScribblePainter extends CustomPainter {
   ZoScribblePainter({
     required this.progress,
     this.color = Colors.amber,
-    this.blur = 5,
+    this.glowOpacity = 0.6,
+    this.glowSpread = 5.0,
     this.strokeWidth = 8,
     this.borderRadius = 20.0,
   }) : super(repaint: progress);
@@ -67,19 +70,25 @@ class ZoScribblePainter extends CustomPainter {
     }
     jitteredPath.close();
 
-    final Paint glowPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, blur);
+    if (glowOpacity > 0 && glowSpread > 0) {
+      final Paint glowPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, glowSpread);
 
-    canvas.drawPath(
-        jitteredPath, glowPaint..color = color.withValues(alpha: 0.3));
+      canvas.drawPath(
+          jitteredPath,
+          glowPaint
+            ..color = color.withValues(
+                alpha: (0.3 * glowOpacity).clamp(0.0, 1.0)));
 
-    canvas.drawPath(
-        jitteredPath,
-        glowPaint
-          ..color = color.withValues(alpha: 0.6)
-          ..strokeWidth = strokeWidth / 2);
+      canvas.drawPath(
+          jitteredPath,
+          glowPaint
+            ..color = color.withValues(
+                alpha: (0.6 * glowOpacity).clamp(0.0, 1.0))
+            ..strokeWidth = strokeWidth / 2);
+    }
 
     canvas.drawPath(
       jitteredPath,
@@ -104,7 +113,8 @@ class ZoScribblePainter extends CustomPainter {
   bool shouldRepaint(covariant ZoScribblePainter oldDelegate) {
     return oldDelegate.progress != progress ||
         oldDelegate.color != color ||
-        oldDelegate.blur != blur ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowSpread != glowSpread ||
         oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.borderRadius != borderRadius;
   }

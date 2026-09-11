@@ -18,8 +18,8 @@ class ZoSegmentBorderPainter extends CustomPainter {
   final double segmentLength;
   /// The opacity of the outer glow effect.
   final double glowOpacity;
-  /// The blur radius of the glow effect.
-  final double glowRadius;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   final List<Color> _resolvedColors;
   final List<double> _resolvedStops;
@@ -33,7 +33,7 @@ class ZoSegmentBorderPainter extends CustomPainter {
     this.gradient,
     required this.segmentLength,
     required this.glowOpacity,
-    required this.glowRadius,
+    required this.glowSpread,
   })  : _resolvedColors = _applyGlowStatic(_resolveColorsStatic(colors), glowOpacity),
         _resolvedStops = _resolveStopsStatic(stops, _resolveColorsStatic(colors).length, segmentLength),
         super(repaint: progress);
@@ -97,13 +97,13 @@ class ZoSegmentBorderPainter extends CustomPainter {
       stops: _resolvedStops,
     ).createShader(rect);
 
-    if (glowRadius > 0) {
+    if (glowOpacity > 0 && glowSpread > 0) {
       final glowPaint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = strokeWidth * 1.8
         ..maskFilter = MaskFilter.blur(
           BlurStyle.normal,
-          glowRadius,
+          glowSpread,
         )
         ..blendMode = BlendMode.plus
         ..shader = shader;
@@ -128,7 +128,7 @@ class ZoSegmentBorderPainter extends CustomPainter {
         oldDelegate.gradient != gradient ||
         oldDelegate.segmentLength != segmentLength ||
         oldDelegate.glowOpacity != glowOpacity ||
-        oldDelegate.glowRadius != glowRadius;
+        oldDelegate.glowSpread != glowSpread;
   }
 }
 

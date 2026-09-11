@@ -17,8 +17,8 @@ class ZoSegmentBorder extends StatefulWidget {
   final double segmentLength;
   /// The opacity of the outer glow effect.
   final double glowOpacity;
-  /// The blur radius of the glow effect.
-  final double glowRadius;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   /// Creates a [ZoSegmentBorder] instance.
   const ZoSegmentBorder({
@@ -30,7 +30,7 @@ class ZoSegmentBorder extends StatefulWidget {
     this.gradient,
     this.segmentLength = 0.15,
     this.glowOpacity = 1.0,
-    this.glowRadius = 8.0,
+    this.glowSpread = 8.0,
   });
 
   @override
@@ -44,6 +44,9 @@ class _ZoSegmentBorderState extends State<ZoSegmentBorder>
   @override
   void initState() {
     super.initState();
+    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+      throw Exception("Glow opacity should be between 0.0 and 1.0");
+    }
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2500),
@@ -68,7 +71,7 @@ class _ZoSegmentBorderState extends State<ZoSegmentBorder>
           gradient: widget.gradient,
           segmentLength: widget.segmentLength,
           glowOpacity: widget.glowOpacity,
-          glowRadius: widget.glowRadius,
+          glowSpread: widget.glowSpread,
         ),
         child: widget.child,
       ),

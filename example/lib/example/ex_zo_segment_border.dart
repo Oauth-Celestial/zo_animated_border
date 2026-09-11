@@ -13,7 +13,7 @@ class ExZoSegmentBorder extends StatelessWidget {
           borderRadius: 20,
           segmentLength: 0.2,
           glowOpacity: 1.0,
-          glowRadius: 10,
+          glowSpread: 5,
           colors: const [
             Colors.cyanAccent,
             Colors.green,

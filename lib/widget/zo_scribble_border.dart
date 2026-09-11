@@ -15,8 +15,10 @@ class ZoScribbleBorder extends StatefulWidget {
   final Color borderColor;
   /// The thickness of the border.
   final double borderWidth;
-  /// The opacity of the outer glow effect.
+  /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   /// Creates a [ZoScribbleBorder] instance.
   const ZoScribbleBorder(
@@ -26,7 +28,8 @@ class ZoScribbleBorder extends StatefulWidget {
       this.padding,
       this.borderColor = Colors.green,
       this.borderWidth = 8,
-      this.glowOpacity = 8,
+      this.glowOpacity = 0.6,
+      this.glowSpread = 5.0,
       this.animationDuration = const Duration(seconds: 4)});
 
   @override
@@ -40,6 +43,9 @@ class _ZoScribbleBorderState extends State<ZoScribbleBorder>
   @override
   void initState() {
     super.initState();
+    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+      throw Exception("Glow opacity should be between 0.0 and 1.0");
+    }
     _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
@@ -68,7 +74,8 @@ class _ZoScribbleBorderState extends State<ZoScribbleBorder>
           color: widget.borderColor,
           borderRadius: widget.borderRadius,
           strokeWidth: widget.borderWidth,
-          blur: widget.glowOpacity,
+          glowOpacity: widget.glowOpacity,
+          glowSpread: widget.glowSpread,
           progress: _controller,
         ),
         child: Container(
