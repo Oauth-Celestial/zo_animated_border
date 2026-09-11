@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_glow_edge_border_painter.dart';
+import 'package:zo_animated_border/util/zo_border_radius_resolver.dart';
 
 /// ![glowEdge](https://github.com/user-attachments/assets/11950588-e76c-48ca-bbd7-5ca5ec988380)
 class ZoGlowingEdgeBorder extends StatefulWidget {
@@ -17,17 +18,24 @@ class ZoGlowingEdgeBorder extends StatefulWidget {
   final List<Color> gradientColors;
   /// The animation curve.
   final Curve animationCurve;
+  /// How much the border should glow (0.0 to 1.0).
+  final double glowOpacity;
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   /// Creates a [ZoGlowingEdgeBorder] instance.
-  const ZoGlowingEdgeBorder(
-      {super.key,
-      required this.child,
-      required this.gradientColors,
-      this.borderWidth = 4.0,
-      this.animationDuration = const Duration(seconds: 3),
-      this.borderRadius = 5.0,
-      this.edgeLength = 120.0,
-      this.animationCurve = Curves.linear});
+  const ZoGlowingEdgeBorder({
+    super.key,
+    required this.child,
+    required this.gradientColors,
+    this.borderWidth = 4.0,
+    this.animationDuration = const Duration(seconds: 3),
+    this.borderRadius = 5.0,
+    this.edgeLength = 120.0,
+    this.glowOpacity = 0.8,
+    this.glowSpread = 6.0,
+    this.animationCurve = Curves.linear,
+  });
 
   @override
   State<ZoGlowingEdgeBorder> createState() => _ZoGlowingEdgeBorderState();
@@ -69,13 +77,19 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
 
   @override
   Widget build(BuildContext context) {
+    final resolvedRadius = widget.borderRadius == 5.0
+        ? (ZoBorderRadiusResolver.autoDetect(widget.child)?.topLeft.x ?? widget.borderRadius)
+        : widget.borderRadius;
+
     return RepaintBoundary(
       child: CustomPaint(
-        painter: ZOGlowingEdgePainter(
+        foregroundPainter: ZOGlowingEdgePainter(
           animation: _curveAnimation,
           borderWidth: widget.borderWidth,
-          borderRadius: widget.borderRadius,
+          borderRadius: resolvedRadius,
           edgeLength: widget.edgeLength,
+          glowOpacity: widget.glowOpacity,
+          glowSpread: widget.glowSpread,
           gradientColors: widget.gradientColors,
         ),
         child: widget.child,
@@ -83,4 +97,3 @@ class _ZoGlowingEdgeBorderState extends State<ZoGlowingEdgeBorder>
     );
   }
 }
-

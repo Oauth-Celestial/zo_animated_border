@@ -1,3 +1,9 @@
+## 1.1.0
+- Added fluent `.zoAnimate()` widget extension API with chaining support.
+- Added smart `ZoBorderRadiusResolver` that auto-calculates `BorderRadius` and shape from parent/child widget tree (`Container`, `BoxDecoration`, `ClipRRect`, `Card`, `Material`, buttons, etc.).
+- Added `ZoPathHelper` to centralize and optimize path metric computation and looped sub-path extraction without seams or jumps across custom painters.
+- Added direct widget extension methods (e.g. `widget.zoSnakeBorder()`, `widget.zoDualBorder()`, etc.).
+
 ## 1.0.9
 - Fixed Stops issue in `ZoSegmentBorder`
 - Added new border: `ZoSequentialGlowBorder`.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_dual_border_painter.dart';
+import 'package:zo_animated_border/util/zo_border_radius_resolver.dart';
 
 /// ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 class ZoDualBorder extends StatefulWidget {
@@ -15,8 +16,8 @@ class ZoDualBorder extends StatefulWidget {
   final Color secondBorderColor;
   /// The [trackBorderColor] property.
   final Color trackBorderColor;
-  /// The border radius of the widget.
-  final BorderRadius borderRadius;
+  /// The border radius of the widget. If not specified, automatically detected from [child].
+  final BorderRadius? borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
@@ -36,7 +37,7 @@ class ZoDualBorder extends StatefulWidget {
     this.firstBorderColor = Colors.deepOrange,
     this.secondBorderColor = Colors.lightGreen,
     this.trackBorderColor = const Color(0xFFCCCCCC),
-    this.borderRadius = const BorderRadius.all(Radius.circular(0)),
+    this.borderRadius,
     this.padding = EdgeInsets.zero,
     this.animationCurve = Curves.linear,
     super.key,
@@ -87,6 +88,10 @@ class ZoDualBorderState extends State<ZoDualBorder>
 
   @override
   Widget build(BuildContext context) {
+    final resolvedRadius = ZoBorderRadiusResolver.resolve(
+      widget.child,
+      explicit: widget.borderRadius,
+    );
     return RepaintBoundary(
       child: CustomPaint(
         painter: ZoDualBorderPainter(
@@ -97,7 +102,7 @@ class ZoDualBorderState extends State<ZoDualBorder>
           firstBorderColor: widget.firstBorderColor,
           secondBorderColor: widget.secondBorderColor,
           staticBorderColor: widget.trackBorderColor,
-          borderRadius: widget.borderRadius,
+          borderRadius: resolvedRadius,
         ),
         child: Padding(
           padding: widget.padding,

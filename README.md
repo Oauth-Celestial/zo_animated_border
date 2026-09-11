@@ -24,6 +24,32 @@ import 'package:zo_animated_border/zo_animated_border.dart';
 
 # Usage
 
+## Fluent Widget Extension (`.zoAnimate()`)
+
+You can now apply animated borders directly to any Flutter `Widget` with automatic `BorderRadius` and shape detection from the child!
+
+```dart
+// Auto-detects borderRadius from Container's BoxDecoration!
+Container(
+  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+  decoration: BoxDecoration(
+    color: Colors.black87,
+    borderRadius: BorderRadius.circular(16),
+  ),
+  child: const Text("Hello World!"),
+).zoAnimate()
+ .snake(
+   snakeHeadColor: Colors.cyanAccent,
+   snakeTailColor: Colors.purpleAccent,
+   glowOpacity: 0.6,
+ );
+
+// Or chain multiple borders seamlessly:
+myWidget.zoAnimate()
+  .snake(snakeHeadColor: Colors.amber)
+  .pulsating(pulseColor: Colors.amberAccent);
+```
+
 ## For Gradient border
 
 ![gradient_border (online-video-cutter com)](https://github.com/user-attachments/assets/785905a3-8836-4529-8d0b-50f5afbda666)

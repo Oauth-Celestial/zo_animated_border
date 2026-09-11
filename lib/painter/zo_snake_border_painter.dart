@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'dart:ui' as ui;
+import 'package:zo_animated_border/util/zo_path_helper.dart';
 
 /// A custom painter that renders [ZoSnakeBorderPainter].
 class ZoSnakeBorderPainter extends CustomPainter {
@@ -47,7 +47,7 @@ class ZoSnakeBorderPainter extends CustomPainter {
       ..color = staticBorderColor;
     canvas.drawRRect(rrect, staticPaint);
 
-    final path = Path()..addRRect(rrect);
+    final path = ZoPathHelper.createRRectPath(size, borderRadius);
     final metrics = path.computeMetrics().toList();
     if (metrics.isEmpty) return;
     final pathMetrics = metrics.first;
@@ -59,19 +59,12 @@ class ZoSnakeBorderPainter extends CustomPainter {
     final start = animationProgress * pathLength;
     final end = (start + pathLength / 4) % pathLength;
 
-    Path extractPath;
-    if (end > start) {
-      extractPath = pathMetrics.extractPath(start, end);
-    } else {
-      extractPath = pathMetrics.extractPath(start, pathLength);
-      extractPath.addPath(pathMetrics.extractPath(0, end), Offset.zero);
-    }
+    final extractPath =
+        ZoPathHelper.extractLoopedSubPath(pathMetrics, start, end);
 
     // Calculate gradient start and end points
-    final gradientStart =
-        pathMetrics.getTangentForOffset(start)?.position ?? Offset.zero;
-    final gradientEnd =
-        pathMetrics.getTangentForOffset(end)?.position ?? Offset.zero;
+    final gradientStart = ZoPathHelper.getTangentPosition(pathMetrics, start);
+    final gradientEnd = ZoPathHelper.getTangentPosition(pathMetrics, end);
 
     final snakeShader = ui.Gradient.linear(
       gradientStart,

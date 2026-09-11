@@ -17,6 +17,10 @@ export 'widget/zo_segment_border.dart';
 export 'widget/zo_fire_border.dart';
 export 'widget/zo_psycho_border.dart';
 export 'widget/zo_sequential_glow_border.dart';
+export 'widget/zo_animated_border_widget.dart';
+export 'widget/zo_animate_extension.dart';
+export 'util/zo_path_helper.dart';
+export 'util/zo_border_radius_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:math' as math;

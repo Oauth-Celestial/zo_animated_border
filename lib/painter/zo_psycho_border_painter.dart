@@ -13,6 +13,8 @@ class ZoPsychoBorderPainter extends CustomPainter {
   final double maxSpread;
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+  /// The thickness of the border stroke.
+  final double strokeWidth;
 
   final List<Color> _gradientColors;
 
@@ -23,30 +25,39 @@ class ZoPsychoBorderPainter extends CustomPainter {
     required this.colors,
     required this.maxSpread,
     required this.borderRadius,
-  })  : _gradientColors = colors.isNotEmpty ? [...colors, colors.first] : const [],
+    this.strokeWidth = 2.5,
+  })  : _gradientColors =
+            colors.isNotEmpty ? [...colors, colors.first] : const [],
         super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
     if (size.isEmpty || colors.isEmpty) return;
 
-    final rect =
-        (Offset.zero & size).deflate(maxSpread + 1.0); // Prevent clipping
-    if (rect.isEmpty) return;
-    final rrect = borderRadius.toRRect(rect);
+    final baseRect = Offset.zero & size;
+    final rrect = borderRadius.toRRect(baseRect);
 
     final progressVal = progress.value;
     final rotation = progressVal * 2 * math.pi;
 
     final gradient = SweepGradient(
+      center: Alignment.center,
       colors: _gradientColors,
       transform: GradientRotation(rotation),
     );
 
-    final paint = Paint()
-      ..shader = gradient.createShader(Offset.zero & size)
+    final shader = gradient.createShader(baseRect);
+
+    final glowPaint = Paint()
+      ..shader = shader
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5;
+      ..strokeWidth = strokeWidth * 1.5
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 4.0);
+
+    final paint = Paint()
+      ..shader = shader
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth;
 
     // spread between the rings
     double currentOffset = math.sin(progressVal * 2 * math.pi) * maxSpread;
@@ -61,7 +72,9 @@ class ZoPsychoBorderPainter extends CustomPainter {
         math.sin(axisRotation + phaseShift) * currentOffset,
       );
 
-      canvas.drawRRect(rrect.shift(offset), paint);
+      final shiftedRRect = rrect.shift(offset);
+      canvas.drawRRect(shiftedRRect, glowPaint);
+      canvas.drawRRect(shiftedRRect, paint);
     }
   }
 
@@ -71,7 +84,7 @@ class ZoPsychoBorderPainter extends CustomPainter {
         oldDelegate.ringCount != ringCount ||
         oldDelegate.maxSpread != maxSpread ||
         oldDelegate.colors != colors ||
+        oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.borderRadius != borderRadius;
   }
 }
-

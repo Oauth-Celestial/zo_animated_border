@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:zo_animated_border/util/zo_path_helper.dart';
 
 /// A custom painter that renders [ZoFireBorderPainter].
 class ZoFireBorderPainter extends CustomPainter {
@@ -37,9 +38,7 @@ class ZoFireBorderPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (size.isEmpty) return;
 
-    final rect = Offset.zero & size;
-    final rrect = borderRadius.toRRect(rect);
-    final path = Path()..addRRect(rrect);
+    final path = ZoPathHelper.createRRectPath(size, borderRadius);
     final metrics = path.computeMetrics().toList();
     if (metrics.isEmpty) return;
     final metric = metrics.first;
@@ -50,9 +49,7 @@ class ZoFireBorderPainter extends CustomPainter {
     final double headOffset = progress.value * length;
     final double tailOffset = headOffset - (length * snakeLength);
 
-    final tangent = metric.getTangentForOffset(headOffset % length);
-    if (tangent == null) return;
-    final headPos = tangent.position;
+    final headPos = ZoPathHelper.getTangentPosition(metric, headOffset);
 
     // Advance particles simulation on paint
     for (final p in particles) {
@@ -68,14 +65,7 @@ class ZoFireBorderPainter extends CustomPainter {
       ));
     }
 
-    Path segment = Path();
-    if (tailOffset < 0) {
-      segment.addPath(
-          metric.extractPath(tailOffset + length, length), Offset.zero);
-      segment.addPath(metric.extractPath(0, headOffset), Offset.zero);
-    } else {
-      segment.addPath(metric.extractPath(tailOffset, headOffset), Offset.zero);
-    }
+    final segment = ZoPathHelper.extractLoopedSubPath(metric, tailOffset, headOffset);
 
     final shader = gradient.createShader(
         Rect.fromCircle(center: headPos, radius: length * snakeLength));

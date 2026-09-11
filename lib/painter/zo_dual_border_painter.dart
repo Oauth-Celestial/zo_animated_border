@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import 'package:zo_animated_border/util/zo_path_helper.dart';
 
 /// A custom painter that renders [ZoDualBorderPainter].
 class ZoDualBorderPainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+
   /// The thickness of the border.
   final double borderWidth;
+
   /// The [firstBorderColor] property.
   final Color firstBorderColor;
+
   /// The [secondBorderColor] property.
   final Color secondBorderColor;
+
   /// The [staticBorderColor] property.
   final Color staticBorderColor;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+
   /// The opacity of the outer glow effect.
   final double glowOpacity;
+
   /// The spread distance of the glow effect.
   final double glowSpread;
 
@@ -45,7 +53,7 @@ class ZoDualBorderPainter extends CustomPainter {
       ..color = staticBorderColor;
     canvas.drawRRect(rrect, staticPaint);
 
-    final path = Path()..addRRect(rrect);
+    final path = ZoPathHelper.createRRectPath(size, borderRadius);
     final metrics = path.computeMetrics().toList();
     if (metrics.isEmpty) return;
     final metric = metrics.first;
@@ -56,19 +64,10 @@ class ZoDualBorderPainter extends CustomPainter {
       final start = offset * length;
       final end = (start + length / 4) % length;
 
-      Path segment;
-      if (end > start) {
-        segment = metric.extractPath(start, end);
-      } else {
-        segment = Path()
-          ..addPath(metric.extractPath(start, length), Offset.zero)
-          ..addPath(metric.extractPath(0, end), Offset.zero);
-      }
-
-      final path1 = metric.getTangentForOffset(start)?.position ?? Offset.zero;
-      final path2 =
-          metric.getTangentForOffset((start + length / 8) % length)?.position ??
-              Offset.zero;
+      final segment = ZoPathHelper.extractLoopedSubPath(metric, start, end);
+      final path1 = ZoPathHelper.getTangentPosition(metric, start);
+      final path2 = ZoPathHelper.getTangentPosition(
+          metric, (start + length / 8) % length);
 
       final paintShader = ui.Gradient.linear(
         path1,
@@ -119,4 +118,3 @@ class ZoDualBorderPainter extends CustomPainter {
         oldDelegate.glowSpread != glowSpread;
   }
 }
-

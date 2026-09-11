@@ -1,5 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:zo_animated_border/util/zo_path_helper.dart';
 
 /// A custom painter that renders [ZoMultiColorBorderPainter].
 class ZoMultiColorBorderPainter extends CustomPainter {
@@ -29,19 +29,17 @@ class ZoMultiColorBorderPainter extends CustomPainter {
 
     int segments = colors.length;
 
-    Rect rect = Offset.zero & size;
-    RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
-
-    Paint paint = Paint()
+    final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = borderWidth;
 
-    Path path = Path()..addRRect(rRect);
+    final path =
+        ZoPathHelper.createRRectPath(size, BorderRadius.circular(borderRadius));
     final metrics = path.computeMetrics().toList();
     if (metrics.isEmpty) return;
 
-    for (PathMetric p in metrics) {
+    for (final p in metrics) {
       double totalLength = p.length;
       if (totalLength == 0) continue;
       double segmentLength = (totalLength - gapLength * segments) / segments;
@@ -54,18 +52,7 @@ class ZoMultiColorBorderPainter extends CustomPainter {
         double start = (segmentLength + gapLength) * i + progressOffset;
         double end = start + segmentLength;
 
-        start = start % totalLength;
-        end = end % totalLength;
-
-        Path drawPath;
-        if (end > start) {
-          drawPath = p.extractPath(start, end);
-        } else {
-          drawPath = Path()
-            ..addPath(p.extractPath(start, totalLength), Offset.zero)
-            ..addPath(p.extractPath(0, end), Offset.zero);
-        }
-
+        final drawPath = ZoPathHelper.extractLoopedSubPath(p, start, end);
         canvas.drawPath(drawPath, paint);
       }
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_snake_border_painter.dart';
+import 'package:zo_animated_border/util/zo_border_radius_resolver.dart';
 
 /// ![snake_border](https://github.com/user-attachments/assets/7e234c6a-dedc-44c7-a03f-0aa052e8a028)
 class ZoSnakeBorder extends StatefulWidget {
@@ -15,8 +16,8 @@ class ZoSnakeBorder extends StatefulWidget {
   final Color snakeTailColor;
   /// The [snakeTrackColor] property.
   final Color snakeTrackColor;
-  /// The border radius of the widget.
-  final BorderRadius borderRadius;
+  /// The border radius of the widget. If not specified, automatically detected from [child].
+  final BorderRadius? borderRadius;
   /// The animation curve.
   final Curve animationCurve;
 
@@ -37,7 +38,7 @@ class ZoSnakeBorder extends StatefulWidget {
     this.snakeHeadColor = Colors.deepOrange,
     this.snakeTailColor = Colors.lightGreen,
     this.snakeTrackColor = const Color(0xFFCCCCCC),
-    this.borderRadius = const BorderRadius.all(Radius.circular(0)),
+    this.borderRadius,
     this.padding = EdgeInsets.zero,
     this.animationCurve = Curves.linear,
     super.key,
@@ -88,6 +89,10 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
 
   @override
   Widget build(BuildContext context) {
+    final resolvedRadius = ZoBorderRadiusResolver.resolve(
+      widget.child,
+      explicit: widget.borderRadius,
+    );
     return RepaintBoundary(
       child: CustomPaint(
         painter: ZoSnakeBorderPainter(
@@ -98,7 +103,7 @@ class ZoSnakeBorderState extends State<ZoSnakeBorder>
           colorFrom: widget.snakeHeadColor,
           colorTo: widget.snakeTailColor,
           staticBorderColor: widget.snakeTrackColor,
-          borderRadius: widget.borderRadius,
+          borderRadius: resolvedRadius,
         ),
         child: Padding(
           padding: widget.padding,

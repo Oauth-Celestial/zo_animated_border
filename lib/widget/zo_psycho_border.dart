@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zo_animated_border/painter/zo_psycho_border_painter.dart';
+import 'package:zo_animated_border/util/zo_border_radius_resolver.dart';
 
 /// A widget that renders [ZoPsychoBorder].
 class ZoPsychoBorder extends StatefulWidget {
@@ -14,7 +15,7 @@ class ZoPsychoBorder extends StatefulWidget {
   /// The duration of the border animation.
   final Duration duration;
   /// The border radius of the widget.
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   /// Creates a [ZoPsychoBorder] instance.
   const ZoPsychoBorder({
@@ -28,7 +29,7 @@ class ZoPsychoBorder extends StatefulWidget {
       Color(0xFF00E5FF),
     ],
     this.duration = const Duration(seconds: 3),
-    this.borderRadius = const BorderRadius.all(Radius.circular(0)),
+    this.borderRadius,
   });
 
   @override
@@ -65,18 +66,22 @@ class _ZoPsychoBorderState extends State<ZoPsychoBorder>
 
   @override
   Widget build(BuildContext context) {
+    final resolvedRadius = ZoBorderRadiusResolver.resolve(
+      widget.child,
+      explicit: widget.borderRadius,
+    );
+
     return RepaintBoundary(
       child: CustomPaint(
-        painter: ZoPsychoBorderPainter(
+        foregroundPainter: ZoPsychoBorderPainter(
           progress: _controller,
           ringCount: widget.ringCount,
           colors: widget.colors,
           maxSpread: widget.maxSpread,
-          borderRadius: widget.borderRadius,
+          borderRadius: resolvedRadius,
         ),
         child: widget.child,
       ),
     );
   }
 }
-
