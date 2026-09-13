@@ -1,3 +1,8 @@
+## 1.1.0
+- Fixed memory leaks across animated border widgets and painters when border where used in list views.
+- Added `glowSpread` property to `ZoSegmentBorder` and `ZoScribbleBorder` for customizable glow spread control.
+- Renamed `ZoRippleEffect` to `ZoRippleBorder` for naming consistency across border widgets.
+
 ## 1.0.9
 - Fixed Stops issue in `ZoSegmentBorder`
 - Added new border: `ZoSequentialGlowBorder`.
