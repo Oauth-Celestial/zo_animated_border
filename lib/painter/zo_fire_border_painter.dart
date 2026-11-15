@@ -1,25 +1,32 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A custom painter that renders [ZoFireBorderPainter].
 class ZoFireBorderPainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
-  final double progress;
+  final Animation<double> progress;
+
   /// The thickness of the border.
   final double borderWidth;
+
   /// The relative length of the snake border segment.
   final double snakeLength;
+
   /// The gradient used to color the border.
   final Gradient gradient;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+
   /// The list of active particles in the animation.
   final List<Particle> particles;
+
   /// The colors of trailing particles.
   final List<Color>? particleColors;
-  /// Creates a [Function] instance.
-  final Function(Offset) onPositionUpdate;
+
+  /// Random instance for particle generation
+  final Random random;
 
   /// Creates a [ZoFireBorderPainter] instance.
   ZoFireBorderPainter({
@@ -30,50 +37,69 @@ class ZoFireBorderPainter extends CustomPainter {
     required this.borderRadius,
     required this.particles,
     this.particleColors,
-    required this.onPositionUpdate,
-  });
+    required this.random,
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
     final path = Path()..addRRect(rrect);
-    final metric = path.computeMetrics().first;
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final metric = metrics.first;
     final length = metric.length;
+    if (length == 0) return;
 
     // Calculate snake head and tail
-    final double headOffset = progress * length;
+    final double headOffset = progress.value * length;
     final double tailOffset = headOffset - (length * snakeLength);
 
-    final tangent = metric.getTangentForOffset(headOffset % length)!;
+    final tangent = metric.getTangentForOffset(headOffset % length);
+    if (tangent == null) return;
     final headPos = tangent.position;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      onPositionUpdate(headPos);
-    });
+    // Advance particles simulation on paint
+    for (final p in particles) {
+      p.update();
+    }
+    particles.removeWhere((p) => p.life <= 0);
+
+    for (int i = 0; i < 3; i++) {
+      particles.add(
+        Particle.atPosition(headPos, random, customColors: particleColors),
+      );
+    }
 
     Path segment = Path();
     if (tailOffset < 0) {
       segment.addPath(
-          metric.extractPath(tailOffset + length, length), Offset.zero);
+        metric.extractPath(tailOffset + length, length),
+        Offset.zero,
+      );
       segment.addPath(metric.extractPath(0, headOffset), Offset.zero);
     } else {
       segment.addPath(metric.extractPath(tailOffset, headOffset), Offset.zero);
     }
 
+    final shader = gradient.createShader(
+      Rect.fromCircle(center: headPos, radius: length * snakeLength),
+    );
+
+    final glow = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth * 1.5
+      ..strokeCap = StrokeCap.round
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 6)
+      ..shader = shader;
+
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
       ..strokeCap = StrokeCap.round
-      ..shader = gradient.createShader(
-          Rect.fromCircle(center: headPos, radius: length * snakeLength));
-
-    final glow = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth * 2
-      ..strokeCap = StrokeCap.round
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8)
-      ..shader = paint.shader;
+      ..shader = shader;
 
     canvas.drawPath(segment, glow);
     canvas.drawPath(segment, paint);
@@ -83,26 +109,37 @@ class ZoFireBorderPainter extends CustomPainter {
       if (p.life <= 0) continue;
       final particlePaint = Paint()
         ..color = p.color.withValues(alpha: p.life.clamp(0.0, 1.0))
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2);
+        ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 2);
 
       canvas.drawCircle(p.position, p.size * p.life, particlePaint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ZoFireBorderPainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.snakeLength != snakeLength ||
+        oldDelegate.gradient != gradient ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.particleColors != particleColors;
+  }
 }
 
 /// The [Particle] class.
 class Particle {
   /// The [position] property.
   Offset position;
+
   /// The [velocity] property.
   Offset velocity;
+
   /// The [life] property.
   double life;
+
   /// The primary color of the border animation.
   Color color;
+
   /// The size of the border or particle.
   double size;
 
@@ -116,10 +153,14 @@ class Particle {
   });
 
   /// The [atPosition] property.
-  factory Particle.atPosition(Offset pos, Random random,
-      {List<Color>? customColors}) {
-    final colors =
-        customColors ?? [Colors.red, Colors.orangeAccent, Colors.yellow];
+  factory Particle.atPosition(
+    Offset pos,
+    Random random, {
+    List<Color>? customColors,
+  }) {
+    final colors = (customColors != null && customColors.isNotEmpty)
+        ? customColors
+        : [Colors.red, Colors.orangeAccent, Colors.yellow];
     final double angle = random.nextDouble() * 2 * pi;
     final double speed = random.nextDouble() * 2.0; // Blast speed
 
@@ -135,6 +176,6 @@ class Particle {
   /// The [update] property.
   void update() {
     position += velocity;
-    life -= 0.03; // Fade duration
+    life -= 0.04; // Fade duration
   }
 }

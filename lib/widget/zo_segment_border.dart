@@ -1,24 +1,31 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_segment_border_painter.dart';
 
 /// A widget that renders [ZoSegmentBorder].
 class ZoSegmentBorder extends StatefulWidget {
   /// The child widget wrapped by the border.
   final Widget child;
+
   /// The border radius of the widget.
   final double borderRadius;
+
   /// The colors used in the border animation.
   final List<Color>? colors;
+
   /// The color stops for the gradient.
   final List<double>? stops;
+
   /// The gradient used to color the border.
   final Gradient? gradient;
+
   /// The length of each border segment.
   final double segmentLength;
+
   /// The opacity of the outer glow effect.
   final double glowOpacity;
-  /// The blur radius of the glow effect.
-  final double glowRadius;
+
+  /// The spread distance of the glow effect.
+  final double glowSpread;
 
   /// Creates a [ZoSegmentBorder] instance.
   const ZoSegmentBorder({
@@ -30,7 +37,7 @@ class ZoSegmentBorder extends StatefulWidget {
     this.gradient,
     this.segmentLength = 0.15,
     this.glowOpacity = 1.0,
-    this.glowRadius = 8.0,
+    this.glowSpread = 8.0,
   });
 
   @override
@@ -44,6 +51,9 @@ class _ZoSegmentBorderState extends State<ZoSegmentBorder>
   @override
   void initState() {
     super.initState();
+    if (widget.glowOpacity > 1.0 || widget.glowOpacity < 0.0) {
+      throw Exception("Glow opacity should be between 0.0 and 1.0");
+    }
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2500),
@@ -58,23 +68,20 @@ class _ZoSegmentBorderState extends State<ZoSegmentBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (_, __) {
-        return CustomPaint(
-          painter: ZoSegmentBorderPainter(
-            progress: controller,
-            borderRadius: widget.borderRadius,
-            colors: widget.colors,
-            stops: widget.stops,
-            gradient: widget.gradient,
-            segmentLength: widget.segmentLength,
-            glowOpacity: widget.glowOpacity,
-            glowRadius: widget.glowRadius,
-          ),
-          child: widget.child,
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoSegmentBorderPainter(
+          progress: controller,
+          borderRadius: widget.borderRadius,
+          colors: widget.colors,
+          stops: widget.stops,
+          gradient: widget.gradient,
+          segmentLength: widget.segmentLength,
+          glowOpacity: widget.glowOpacity,
+          glowSpread: widget.glowSpread,
+        ),
+        child: widget.child,
+      ),
     );
   }
 }

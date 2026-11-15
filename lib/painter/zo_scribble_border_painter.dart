@@ -1,17 +1,25 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 
 /// A custom painter that renders [ZoScribblePainter].
 class ZoScribblePainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+
   /// The primary color of the border animation.
   final Color color;
-  /// The [blur] property.
-  final double blur;
+
+  /// The opacity of the outer glow effect.
+  final double glowOpacity;
+
+  /// The spread distance of the glow effect.
+  final double glowSpread;
+
   /// Optional custom stroke width for the border.
   final double strokeWidth;
+
   /// The border radius of the widget.
   final double borderRadius;
 
@@ -19,13 +27,16 @@ class ZoScribblePainter extends CustomPainter {
   ZoScribblePainter({
     required this.progress,
     this.color = Colors.amber,
-    this.blur = 5,
+    this.glowOpacity = 0.6,
+    this.glowSpread = 5.0,
     this.strokeWidth = 8,
     this.borderRadius = 20.0,
   }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
     final rect = Offset.zero & size;
     // Create the base smooth path (Rounded Rectangle)
     final RRect rrect = RRect.fromRectAndRadius(
@@ -37,8 +48,12 @@ class ZoScribblePainter extends CustomPainter {
     final Path jitteredPath = Path();
 
     // Use PathMetrics to walk along the rounded rect and add noise
-    final PathMetric metric = basePath.computeMetrics().first;
+    final metrics = basePath.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final PathMetric metric = metrics.first;
     final double totalLength = metric.length;
+    if (totalLength == 0) return;
+
     const double step = 2.0; // Small steps for smooth noise
     double currentProgress = progress.value;
 
@@ -61,19 +76,27 @@ class ZoScribblePainter extends CustomPainter {
     }
     jitteredPath.close();
 
-    final Paint glowPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, blur);
+    if (glowOpacity > 0 && glowSpread > 0) {
+      final Paint glowPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, glowSpread);
 
-    canvas.drawPath(
-        jitteredPath, glowPaint..color = color.withValues(alpha: 0.3));
-
-    canvas.drawPath(
+      canvas.drawPath(
         jitteredPath,
         glowPaint
-          ..color = color.withValues(alpha: 0.6)
-          ..strokeWidth = strokeWidth / 2);
+          ..color = color.withValues(
+            alpha: (0.3 * glowOpacity).clamp(0.0, 1.0),
+          ),
+      );
+
+      canvas.drawPath(
+        jitteredPath,
+        glowPaint
+          ..color = color.withValues(alpha: (0.6 * glowOpacity).clamp(0.0, 1.0))
+          ..strokeWidth = strokeWidth / 2,
+      );
+    }
 
     canvas.drawPath(
       jitteredPath,
@@ -98,6 +121,9 @@ class ZoScribblePainter extends CustomPainter {
   bool shouldRepaint(covariant ZoScribblePainter oldDelegate) {
     return oldDelegate.progress != progress ||
         oldDelegate.color != color ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowSpread != glowSpread ||
+        oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.borderRadius != borderRadius;
   }
 }

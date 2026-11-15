@@ -1,13 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A custom painter that renders [ZoBreathingBorderPainter].
 class ZoBreathingBorderPainter extends CustomPainter {
   /// The primary color of the border animation.
   final Animation<Color?> color;
+
   /// The thickness of the border.
   final double borderWidth;
+
   /// The [spreadRadius] property.
   final double spreadRadius;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
 
@@ -21,12 +24,9 @@ class ZoBreathingBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTWH(
-      0,
-      0,
-      size.width,
-      size.height,
-    );
+    if (size.isEmpty || color.value == null) return;
+
+    final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
 
     final paint = Paint()
@@ -39,7 +39,10 @@ class ZoBreathingBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant ZoBreathingBorderPainter oldDelegate) {
+    return oldDelegate.color != color ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.spreadRadius != spreadRadius ||
+        oldDelegate.borderRadius != borderRadius;
   }
 }
