@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_dotted_painter.dart';
 
 /// The [BorderStyleType] enumeration.
@@ -8,22 +8,31 @@ enum BorderStyleType { gradient, monochrome }
 class ZoDottedBorder extends StatefulWidget {
   /// The border radius of the widget.
   final double borderRadius;
+
   /// The [dashLength] property.
   final double dashLength;
+
   /// The length of the gap.
   final double gapLength;
+
   /// Optional custom stroke width for the border.
   final double strokeWidth;
+
   /// The duration of the border animation.
   final Duration animationDuration;
+
   /// The [animate] property.
   final bool animate;
+
   /// The primary color of the border animation.
   final Color color;
+
   /// The gradient used to color the border.
   final Gradient gradient;
+
   /// The [borderStyle] property.
   final BorderStyleType borderStyle;
+
   /// Empty space to surround the child.
   final EdgeInsetsGeometry? padding;
 
@@ -78,22 +87,43 @@ class _ZoDottedBorderState extends State<ZoDottedBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoDottedBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _curvedAnimation =
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve);
+    }
+    if (widget.animate != oldWidget.animate) {
+      if (widget.animate) {
+        _controller.repeat();
+      } else {
+        _controller.stop();
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoDottedBorderPainter(
-        progress: _curvedAnimation!,
-        borderRadius: widget.borderRadius,
-        dashLength: widget.dashLength,
-        animationSpeed: widget.animationSpeed,
-        gapLength: widget.gapLength,
-        strokeWidth: widget.strokeWidth,
-        borderStyle: widget.borderStyle,
-        color: widget.color,
-        gradient: widget.gradient,
-      ),
-      child: Padding(
-        padding: widget.padding ?? const EdgeInsets.all(8.0),
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoDottedBorderPainter(
+          progress: _curvedAnimation!,
+          borderRadius: widget.borderRadius,
+          dashLength: widget.dashLength,
+          animationSpeed: widget.animationSpeed,
+          gapLength: widget.gapLength,
+          strokeWidth: widget.strokeWidth,
+          borderStyle: widget.borderStyle,
+          color: widget.color,
+          gradient: widget.gradient,
+        ),
+        child: Padding(
+          padding: widget.padding ?? const EdgeInsets.all(8.0),
+          child: widget.child,
+        ),
       ),
     );
   }

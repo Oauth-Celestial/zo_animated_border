@@ -1,20 +1,26 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_sequential_glow_border_painter.dart';
 
 /// A widget that renders [ZoSequentialGlowBorder].
 class ZoSequentialGlowBorder extends StatefulWidget {
   /// The child widget wrapped by the border.
   final Widget child;
+
   /// The gradient palettes used for sequential wiping.
   final List<List<Color>> gradientPalettes;
+
   /// The blur radius of the glow effect.
   final double glowRadius;
+
   /// The border width.
   final double borderWidth;
+
   /// The duration of the border animation.
   final Duration duration;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+
   /// Empty space to surround the child.
   final EdgeInsetsGeometry padding;
 
@@ -45,10 +51,8 @@ class _ZoSequentialGlowBorderState extends State<ZoSequentialGlowBorder>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.duration)
+      ..repeat();
   }
 
   @override
@@ -68,17 +72,16 @@ class _ZoSequentialGlowBorderState extends State<ZoSequentialGlowBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoSequentialGlowBorderPainter(
-        progress: _controller,
-        gradientPalettes: widget.gradientPalettes,
-        glowRadius: widget.glowRadius,
-        borderWidth: widget.borderWidth,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoSequentialGlowBorderPainter(
+          progress: _controller,
+          gradientPalettes: widget.gradientPalettes,
+          glowRadius: widget.glowRadius,
+          borderWidth: widget.borderWidth,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(padding: widget.padding, child: widget.child),
       ),
     );
   }

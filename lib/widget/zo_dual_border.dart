@@ -1,35 +1,48 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_dual_border_painter.dart';
 
 /// ![dual](https://github.com/user-attachments/assets/5d4123ec-bc72-47cd-825d-7de16f282e7e)
 class ZoDualBorder extends StatefulWidget {
   /// The child widget wrapped by the border.
   final Widget child;
+
   /// The duration of the border animation.
   final Duration animationDuration;
+
   /// The thickness of the border.
   final double borderWidth;
+
   /// The [firstBorderColor] property.
   final Color firstBorderColor;
+
   /// The [secondBorderColor] property.
   final Color secondBorderColor;
+
   /// The [trackBorderColor] property.
   final Color trackBorderColor;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
 
   /// How much the border should glow min 0.1 max 1.0
   final double glowOpacity;
+
+  /// The spread distance of the glow effect.
+  final double glowSpread;
+
   /// Empty space to surround the child.
   final EdgeInsetsGeometry padding;
+
   /// The animation curve.
   final Curve animationCurve;
+
   /// Creates a [ZoDualBorder] instance.
   const ZoDualBorder({
     required this.child,
     this.animationDuration = const Duration(seconds: 1),
     this.borderWidth = 3,
     this.glowOpacity = 0.3,
+    this.glowSpread = 6.0,
     this.firstBorderColor = Colors.deepOrange,
     this.secondBorderColor = Colors.lightGreen,
     this.trackBorderColor = const Color(0xFFCCCCCC),
@@ -65,6 +78,18 @@ class ZoDualBorderState extends State<ZoDualBorder>
   }
 
   @override
+  void didUpdateWidget(covariant ZoDualBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
+    if (widget.animationCurve != oldWidget.animationCurve) {
+      _animation = Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve));
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -72,19 +97,22 @@ class ZoDualBorderState extends State<ZoDualBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoDualBorderPainter(
-        progress: _animation,
-        glowOpacity: widget.glowOpacity,
-        borderWidth: widget.borderWidth,
-        firstBorderColor: widget.firstBorderColor,
-        secondBorderColor: widget.secondBorderColor,
-        staticBorderColor: widget.trackBorderColor,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoDualBorderPainter(
+          progress: _animation,
+          glowOpacity: widget.glowOpacity,
+          glowSpread: widget.glowSpread,
+          borderWidth: widget.borderWidth,
+          firstBorderColor: widget.firstBorderColor,
+          secondBorderColor: widget.secondBorderColor,
+          staticBorderColor: widget.trackBorderColor,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(
+          padding: widget.padding,
+          child: widget.child,
+        ),
       ),
     );
   }

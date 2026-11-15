@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'dart:ui' as ui;
 
@@ -6,36 +6,45 @@ import 'dart:ui' as ui;
 class ZoSnakeBorderPainter extends CustomPainter {
   /// The current progress of the animation from 0.0 to 1.0.
   final Animation<double> progress;
+
   /// The thickness of the border.
   final double borderWidth;
+
   /// The [colorFrom] property.
   final Color colorFrom;
+
   /// The [colorTo] property.
   final Color colorTo;
+
   /// The [staticBorderColor] property.
   final Color staticBorderColor;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+
   /// The opacity of the outer glow effect.
   final double glowOpacity;
 
+  /// The spread of the glow effect.
+  final double glowSpread;
+
   /// Creates a [ZoSnakeBorderPainter] instance.
-  ZoSnakeBorderPainter(
-      {required this.progress,
-      required this.borderWidth,
-      required this.colorFrom,
-      required this.colorTo,
-      required this.staticBorderColor,
-      required this.borderRadius,
-      this.glowOpacity = 0.8})
-      : super(repaint: progress);
+  ZoSnakeBorderPainter({
+    required this.progress,
+    required this.borderWidth,
+    required this.colorFrom,
+    required this.colorTo,
+    required this.staticBorderColor,
+    required this.borderRadius,
+    this.glowOpacity = 0.8,
+    this.glowSpread = 6.0,
+  }) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromCenter(
-        center: Offset(size.width / 2, size.height / 2),
-        width: size.width,
-        height: size.height); // Rect.fromLTWH(0, 0, size.width, size.height);
+    if (size.isEmpty) return;
+
+    final rect = Offset.zero & size;
     final rrect = borderRadius.toRRect(rect);
 
     // Draw static border
@@ -46,9 +55,11 @@ class ZoSnakeBorderPainter extends CustomPainter {
     canvas.drawRRect(rrect, staticPaint);
 
     final path = Path()..addRRect(rrect);
-
-    final pathMetrics = path.computeMetrics().first;
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final pathMetrics = metrics.first;
     final pathLength = pathMetrics.length;
+    if (pathLength == 0) return;
 
     // Adjust the animation to prevent the jump
     final animationProgress = progress.value % 1.0;
@@ -69,44 +80,50 @@ class ZoSnakeBorderPainter extends CustomPainter {
     final gradientEnd =
         pathMetrics.getTangentForOffset(end)?.position ?? Offset.zero;
 
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth;
-
-    paint.shader = ui.Gradient.linear(
+    final snakeShader = ui.Gradient.linear(
       gradientStart,
       gradientEnd,
-      [
-        colorTo.withValues(alpha: 0.0),
-        colorTo,
-        colorFrom,
-      ],
-      [0.0, 0.3, 1.0],
+      [colorTo.withValues(alpha: 0.0), colorTo, colorFrom],
+      const [0.0, 0.3, 1.0],
     );
 
-    for (int i = 1; i <= glowOpacity * 10; i++) {
+    // Single-pass glow
+    if (glowOpacity > 0 && glowSpread > 0) {
       final glowPaint = Paint()
         ..style = PaintingStyle.stroke
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, (10 * i).toDouble())
-        ..strokeWidth = borderWidth;
-
-      glowPaint.shader = ui.Gradient.linear(
-        gradientStart,
-        gradientEnd,
-        [
-          colorTo,
-          colorFrom,
-        ],
-        [0.3, 1.0],
-      );
+        ..strokeWidth = borderWidth
+        ..shader = ui.Gradient.linear(
+          gradientStart,
+          gradientEnd,
+          [colorTo, colorFrom],
+          const [0.3, 1.0],
+        )
+        ..colorFilter = ColorFilter.mode(
+          Color.fromRGBO(255, 255, 255, glowOpacity.clamp(0.0, 1.0)),
+          BlendMode.modulate,
+        )
+        ..maskFilter = MaskFilter.blur(BlurStyle.solid, glowSpread);
 
       canvas.drawPath(extractPath, glowPaint);
     }
+
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth
+      ..shader = snakeShader;
+
     canvas.drawPath(extractPath, paint);
   }
 
   @override
   bool shouldRepaint(covariant ZoSnakeBorderPainter oldDelegate) {
-    return oldDelegate.progress != progress;
+    return oldDelegate.progress != progress ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.colorFrom != colorFrom ||
+        oldDelegate.colorTo != colorTo ||
+        oldDelegate.staticBorderColor != staticBorderColor ||
+        oldDelegate.borderRadius != borderRadius ||
+        oldDelegate.glowOpacity != glowOpacity ||
+        oldDelegate.glowSpread != glowSpread;
   }
 }

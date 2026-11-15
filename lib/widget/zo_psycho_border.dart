@@ -1,18 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_psycho_border_painter.dart';
 
 /// A widget that renders [ZoPsychoBorder].
 class ZoPsychoBorder extends StatefulWidget {
   /// The child widget wrapped by the border.
   final Widget? child;
+
   /// The number of concentric rings.
   final int ringCount;
+
   /// The colors used in the border animation.
   final List<Color> colors;
+
   /// The maximum spread distance between rings.
   final double maxSpread;
+
   /// The duration of the border animation.
   final Duration duration;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
 
@@ -42,10 +47,8 @@ class _ZoPsychoBorderState extends State<ZoPsychoBorder>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.duration)
+      ..repeat();
   }
 
   @override
@@ -65,20 +68,17 @@ class _ZoPsychoBorderState extends State<ZoPsychoBorder>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ZoPsychoBorderPainter(
-            progress: _controller.value,
-            ringCount: widget.ringCount,
-            colors: widget.colors,
-            maxSpread: widget.maxSpread,
-            borderRadius: widget.borderRadius,
-          ),
-          child: widget.child,
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoPsychoBorderPainter(
+          progress: _controller,
+          ringCount: widget.ringCount,
+          colors: widget.colors,
+          maxSpread: widget.maxSpread,
+          borderRadius: widget.borderRadius,
+        ),
+        child: widget.child,
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A widget that renders [SizeProviderWidget].
 class SizeProviderWidget extends StatefulWidget {
@@ -34,9 +34,6 @@ class SizeProviderWidgetState extends State<SizeProviderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: _key,
-      child: widget.builder(context, _size),
-    );
+    return Container(key: _key, child: widget.builder(context, _size));
   }
 }

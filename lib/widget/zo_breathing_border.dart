@@ -1,18 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:zo_animated_border/painter/zo_breathing_border_painter.dart';
 
 /// ![breathing](https://github.com/user-attachments/assets/2aeb8693-8689-4a17-81b8-16d8aea74dae)
 class ZoBreathingBorder extends StatefulWidget {
   /// The thickness of the border.
   final double borderWidth;
+
   /// The border radius of the widget.
   final BorderRadius borderRadius;
+
   /// The colors used in the border animation.
   final List<Color> colors;
+
   /// The duration of the border animation.
   final Duration animationDuration;
+
   /// The child widget wrapped by the border.
   final Widget child;
+
   /// The animation curve.
   final Curve animationCurve;
 
@@ -49,7 +54,16 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
 
     // Set up the tween for the color animation
     _colorAnimation = ColorTweenSequence(widget.colors).animate(
-        CurvedAnimation(parent: _controller, curve: widget.animationCurve));
+      CurvedAnimation(parent: _controller, curve: widget.animationCurve),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant ZoBreathingBorder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationDuration != oldWidget.animationDuration) {
+      _controller.duration = widget.animationDuration;
+    }
   }
 
   @override
@@ -60,15 +74,17 @@ class ZoBreathingBorderState extends State<ZoBreathingBorder>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ZoBreathingBorderPainter(
-        color: _colorAnimation,
-        borderWidth: widget.borderWidth,
-        borderRadius: widget.borderRadius,
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(widget.borderWidth * 2),
-        child: widget.child,
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: ZoBreathingBorderPainter(
+          color: _colorAnimation,
+          borderWidth: widget.borderWidth,
+          borderRadius: widget.borderRadius,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(widget.borderWidth * 2),
+          child: widget.child,
+        ),
       ),
     );
   }
